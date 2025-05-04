@@ -1,17 +1,20 @@
 package com.example.myapplication.navigator
 
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
+import androidx.navigation.compose.*
+import androidx.navigation.navArgument
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavType
-import androidx.navigation.compose.*
-import androidx.navigation.navArgument
 import com.example.myapplication.model.Product
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
 
 object Routes {
     const val Home = "home"
@@ -44,17 +47,15 @@ fun HomeScreen(onNavigateToDetails: (String) -> Unit) {
     var searchQuery by remember { mutableStateOf("") }
 
     val products = listOf(
-        Product("1", "Louboutin So Kate", "750$", "Escarpins iconiques à talon aiguille, élégance ultime."),
-        Product("2", "Jimmy Choo Romy", "695$", "Classiques et scintillants, parfaits pour les soirées."),
-        Product("3", "Manolo Blahnik Hangisi", "965$", "Avec boucle brillante, symbole du luxe moderne."),
-        Product("4", "Christian Dior J’Adior", "890$", "Design raffiné avec ruban signature ‘J’Adior’."),
-        Product("5", "Valentino Rockstud", "850$", "Talons avec clous dorés, mélange d’élégance et de rock."),
-        Product("6", "Saint Laurent Opyum", "995$", "Reconnaissables par le talon en forme de logo YSL."),
-        Product("7", "Gianvito Rossi Plexi", "795$", "Design transparent pour un style aérien et moderne."),
-        Product("8", "Prada Slingback", "820$", "Élégance vintage avec un confort exceptionnel.")
-
+        Product("1", "Louboutin So Kate", "750$", "Escarpins iconiques à talon aiguille, élégance ultime.",R.drawable.image3),
+        Product("2", "Jimmy Choo Romy", "695$", "Classiques et scintillants, parfaits pour les soirées.",R.drawable.image4),
+        Product("3", "Manolo Blahnik Hangisi", "965$", "Avec boucle brillante, symbole du luxe moderne.",R.drawable.image5),
+        Product("4", "Christian Dior J’Adior", "890$", "Design raffiné avec ruban signature ‘J’Adior’.",R.drawable.image1),
+        Product("5", "Valentino Rockstud", "850$", "Talons avec clous dorés, mélange d’élégance et de rock.",R.drawable.image7),
+        Product("6", "Saint Laurent Opyum", "995$", "Reconnaissables par le talon en forme de logo YSL.",R.drawable.image8),
+        Product("7", "Gianvito Rossi Plexi", "795$", "Design transparent pour un style aérien et moderne.",R.drawable.image9),
+        Product("12", "Prada Slingback", "820$", "Élégance vintage avec un confort exceptionnel.",R.drawable.image1)
     )
-
     val filteredProducts = products.filter {
         it.name.contains(searchQuery, ignoreCase = true)
     }.take(8)
@@ -65,7 +66,7 @@ fun HomeScreen(onNavigateToDetails: (String) -> Unit) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "🛍️ Application de vente de chaussures", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "🛍 Application de vente de chaussures", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
@@ -77,15 +78,35 @@ fun HomeScreen(onNavigateToDetails: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            items(filteredProducts) { product ->
-                Button(
-                    onClick = { onNavigateToDetails(product.id) },
+        filteredProducts.forEach { product ->
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                elevation = CardDefaults.cardElevation(4.dp)
+            ) {
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp)
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = product.name)
+                    Image(
+                        painter = painterResource(id = product.imageResId),
+                        contentDescription = product.name,
+                        modifier = Modifier.size(80.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(text = product.name, style = MaterialTheme.typography.titleMedium)
+                        Text(text = product.price, style = MaterialTheme.typography.bodyMedium)
+                    }
+
+                    Button(onClick = { onNavigateToDetails(product.id) }) {
+                        Text("Détails")
+                    }
                 }
             }
         }
@@ -95,18 +116,17 @@ fun HomeScreen(onNavigateToDetails: (String) -> Unit) {
 @Composable
 fun DetailsScreen(productId: String) {
     val products = listOf(
-        Product("1", "Louboutin So Kate", "750$", "Escarpins iconiques à talon aiguille, élégance ultime."),
-        Product("2", "Jimmy Choo Romy", "695$", "Classiques et scintillants, parfaits pour les soirées."),
-        Product("3", "Manolo Blahnik Hangisi", "965$", "Avec boucle brillante, symbole du luxe moderne."),
-        Product("4", "Christian Dior J’Adior", "890$", "Design raffiné avec ruban signature ‘J’Adior’."),
-        Product("5", "Valentino Rockstud", "850$", "Talons avec clous dorés, mélange d’élégance et de rock."),
-        Product("6", "Saint Laurent Opyum", "995$", "Reconnaissables par le talon en forme de logo YSL."),
-        Product("7", "Gianvito Rossi Plexi", "795$", "Design transparent pour un style aérien et moderne."),
-        Product("8", "Prada Slingback", "820$", "Élégance vintage avec un confort exceptionnel.")
-
+        Product("1", "Louboutin So Kate", "750$", "Escarpins iconiques à talon aiguille, élégance ultime.",R.drawable.image3),
+        Product("2", "Jimmy Choo Romy", "695$", "Classiques et scintillants, parfaits pour les soirées.",R.drawable.image4),
+        Product("3", "Manolo Blahnik Hangisi", "965$", "Avec boucle brillante, symbole du luxe moderne.",R.drawable.image5),
+        Product("4", "Christian Dior J’Adior", "890$", "Design raffiné avec ruban signature ‘J’Adior’.",R.drawable.image1),
+        Product("5", "Valentino Rockstud", "850$", "Talons avec clous dorés, mélange d’élégance et de rock.",R.drawable.image7),
+        Product("6", "Saint Laurent Opyum", "995$", "Reconnaissables par le talon en forme de logo YSL.",R.drawable.image8),
+        Product("7", "Gianvito Rossi Plexi", "795$", "Design transparent pour un style aérien et moderne.",R.drawable.image9),
+        Product("12", "Prada Slingback", "820$", "Élégance vintage avec un confort exceptionnel.",R.drawable.image1)
     )
 
-    val product = products.find { it.id == productId }
+        val product = products.find { it.id == productId }
 
     Column(
         modifier = Modifier
@@ -118,13 +138,16 @@ fun DetailsScreen(productId: String) {
         Spacer(modifier = Modifier.height(16.dp))
 
         product?.let {
-            Text(text = "Nom : ${it.name}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Description : ${it.description}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Le prix : ${it.price}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Identifiant : ${it.id}")
+            Image(
+                painter = painterResource(id = it.imageResId),
+                contentDescription = it.name,
+                modifier = Modifier.size(200.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Nom : ${it.name}", fontSize = 20.sp)
+            Text(text = "Prix : ${it.price}", fontSize = 18.sp)
+            Text(text = "Description : ${it.description}", fontSize = 16.sp)
+            Text(text = "ID : ${it.id}", fontSize = 14.sp)
         } ?: Text(" Produit non trouvé.")
     }
 }
