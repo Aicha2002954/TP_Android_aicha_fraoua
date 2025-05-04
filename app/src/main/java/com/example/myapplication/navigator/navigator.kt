@@ -102,7 +102,7 @@ fun DetailsScreen(productId: String) {
         Product("5", "Valentino Rockstud", "850$", "Talons avec clous dorés, mélange d’élégance et de rock."),
         Product("6", "Saint Laurent Opyum", "995$", "Reconnaissables par le talon en forme de logo YSL."),
         Product("7", "Gianvito Rossi Plexi", "795$", "Design transparent pour un style aérien et moderne."),
-        Product("12", "Prada Slingback", "820$", "Élégance vintage avec un confort exceptionnel.")
+        Product("8", "Prada Slingback", "820$", "Élégance vintage avec un confort exceptionnel.")
 
     )
 
