@@ -1,7 +1,7 @@
 package com.example.myapplication.ui.theme.product.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -73,7 +73,7 @@ fun ProductItemComponent(
             )
 
             Button(
-                onClick = onClick,  // استعمل onClick مباشرة
+                onClick = onClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(36.dp),

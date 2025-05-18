@@ -19,7 +19,7 @@ fun DetailsScreen(productId: String, viewModel: ProductViewModel, onBack: () -> 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF8F4FF)) // باش يكون نفس خلفية الصفحة متاع HomeScreen
+            .background(Color(0xFFF8F4FF))
     ) {
         AppHeader()
         Spacer(modifier = Modifier.height(16.dp))
