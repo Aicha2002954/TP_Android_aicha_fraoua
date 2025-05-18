@@ -54,4 +54,10 @@ fun MyApplicationTheme(
       typography = Typography,
       content = content
     )
+
+    MaterialTheme(
+        colorScheme = LightColorScheme,
+        typography = Typography,
+        content = content
+    )
 }

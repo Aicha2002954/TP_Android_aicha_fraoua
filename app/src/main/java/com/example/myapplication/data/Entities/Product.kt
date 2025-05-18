@@ -1,4 +1,4 @@
-package com.example.myapplication.model
+package com.example.myapplication.data.Entities
 
 data class Product(
     val id: String,
@@ -6,5 +6,4 @@ data class Product(
     val price: String,
     val description: String,
     val imageResId: Int
-
 )

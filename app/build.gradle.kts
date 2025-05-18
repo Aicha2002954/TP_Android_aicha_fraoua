@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.analytics.impl)
+    implementation(libs.androidx.runtime.livedata)
     val nav_version = "2.8.9"
 
     implementation(libs.androidx.core.ktx)
@@ -62,5 +64,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.compose.material3:material3:1.1.2")
+
+        implementation ("androidx.compose.runtime:runtime:1.6.0")
+        implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+        // Pour LazyVerticalGrid
+        implementation ("androidx.compose.foundation:foundation:1.6.0")
+
+        // Pour le reste de Compose
+        implementation ("androidx.compose.ui:ui:1.6.0")
+        implementation ("androidx.compose.material3:material3:1.2.0")
 
 }
