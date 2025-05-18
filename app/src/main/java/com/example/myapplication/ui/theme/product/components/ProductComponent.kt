@@ -219,6 +219,27 @@ fun SearchBar(
         )
     }
 }
+@Composable
+fun AppFooter() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .background(Color(0xFF9C27B0)),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "© 2025 Petit Papillon",
+            color = Color.White,
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+
+
+
+
 
 
 

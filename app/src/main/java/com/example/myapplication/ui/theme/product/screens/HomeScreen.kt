@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.product.ProductIntent
 import com.example.myapplication.ui.theme.product.ProductViewModel
+import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
 import com.example.myapplication.ui.theme.product.components.EmptyProductsMessage
 import com.example.myapplication.ui.theme.product.components.ProductsGrid
@@ -48,13 +49,18 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        if (filteredProducts.isEmpty()) {
-            EmptyProductsMessage()
-        } else {
-            ProductsGrid(
-                products = filteredProducts,
-                onNavigateToDetails = onProductClick
-            )
+        // محتوى الصفحة مع إعطاءه وزن 1 ليملأ المساحة المتبقية
+        Box(modifier = Modifier.weight(1f)) {
+            if (filteredProducts.isEmpty()) {
+                EmptyProductsMessage()
+            } else {
+                ProductsGrid(
+                    products = filteredProducts,
+                    onNavigateToDetails = onProductClick
+                )
+            }
         }
+
+        AppFooter()
     }
 }
