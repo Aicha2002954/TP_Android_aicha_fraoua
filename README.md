@@ -1,4 +1,5 @@
 Aicha Froua Projet_Ecommerce
 Petit Papillon 🦋
-![WhatsApp Image 2025-05-18 at 22 55 36_48c85d2f](https://github.com/user-attachments/assets/5ced84b0-b3ef-43cd-83b3-c47894e140f7)
-![WhatsApp Image 2025-05-18 at 23 01 25_4661a93b](https://github.com/user-attachments/assets/4cd9cc5d-49f9-4c26-97f6-5a7f30ef3d51)
+)
+<img width="929" alt="home" src="https://github.com/user-attachments/assets/1c7f9925-9bbc-4353-8a76-724c6459acaa" />
+<img width="926" alt="DetaillProduct" src="https://github.com/user-attachments/assets/9f8d6bc2-bf7e-4c8d-b70b-da0a0b69e8a3" />
