@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,12 +36,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.data.Entities.Product
 
+
+import androidx.compose.material3.IconButton
 @Composable
-fun AppHeader() {
+fun AppHeader(
+    onProfileClick: () -> Unit = {}
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(100.dp)
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
@@ -48,14 +53,30 @@ fun AppHeader() {
                         Color(0xFFBD98DE)
                     )
                 )
-            ),
+            )
+            .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = "Petit Papillon 🦋",
-            style = MaterialTheme.typography.headlineLarge.copy(color = Color.White),
-            modifier = Modifier.padding(top = 16.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Spacer(modifier = Modifier.width(48.dp))
+
+            Text(
+                text = "Petit Papillon 🦋",
+                style = MaterialTheme.typography.headlineLarge.copy(color = Color.White)
+            )
+
+            IconButton(onClick = onProfileClick) {
+                Icon(
+                    imageVector = Icons.Filled.AccountCircle,
+                    contentDescription = "Profil utilisateur",
+                    tint = Color.White
+                )
+            }
+        }
     }
 }
 
@@ -225,7 +246,14 @@ fun AppFooter() {
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .background(Color(0xFF9C27B0)),
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFB45AAB),
+                        Color(0xFFBD98DE)
+                    )
+                )
+            ),
         contentAlignment = Alignment.Center
     ) {
         Text(

@@ -2,8 +2,9 @@ package com.example.myapplication.data.repository
 
 import com.example.myapplication.R
 import com.example.myapplication.data.Entities.Product
+import jakarta.inject.Inject
 
-class ProductRepository {
+class ProductRepository @Inject constructor() {
     private val products = listOf(
         Product("1", "Jean slim", "99€", "Un jean slim bleu clair", R.drawable.image7),
         Product("2", "Robe été", "120€", "Une robe légère pour l'été", R.drawable.image8),
@@ -18,6 +19,5 @@ class ProductRepository {
     )
 
     fun getProducts(): List<Product> = products
-
     fun getProductById(id: String): Product? = products.find { it.id == id }
 }

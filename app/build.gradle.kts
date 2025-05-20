@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -64,14 +66,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.compose.material3:material3:1.1.2")
-
-        implementation ("androidx.compose.runtime:runtime:1.6.0")
-        implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-        // Pour LazyVerticalGrid
-        implementation ("androidx.compose.foundation:foundation:1.6.0")
-
-        // Pour le reste de Compose
-        implementation ("androidx.compose.ui:ui:1.6.0")
-        implementation ("androidx.compose.material3:material3:1.2.0")
-
+    implementation ("androidx.compose.runtime:runtime:1.6.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+    implementation ("androidx.compose.foundation:foundation:1.6.0")
+    implementation ("androidx.compose.ui:ui:1.6.0")
+    implementation ("androidx.compose.material3:material3:1.2.0")
+    implementation("com.google.dagger:hilt-android:2.56.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    ksp("com.google.dagger:hilt-compiler:2.56.1")
 }
