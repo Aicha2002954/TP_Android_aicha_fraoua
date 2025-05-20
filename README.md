@@ -1,6 +1,7 @@
 Aicha Froua Projet_Ecommerce
 Petit Papillon 🦋
 )
+*************
 Product
 <img width="929" alt="home" src="https://github.com/user-attachments/assets/1c7f9925-9bbc-4353-8a76-724c6459acaa" />
 DetaillProduct
