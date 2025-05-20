@@ -12,9 +12,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+
+import com.example.myapplication.ui.theme.product.components.BackButton
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -45,7 +46,7 @@ fun AppHeader(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(90.dp)
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
@@ -91,7 +92,7 @@ fun DetailRow(label: String, value: String) {
         Text(
             text = "$label : ",
             style = MaterialTheme.typography.bodyLarge.copy(
-                color = Color(0xFF6A1B9A),
+                color = Color(0xFF9C27B0),
                 fontWeight = FontWeight.Bold
             ),
             modifier = Modifier.width(100.dp)
@@ -104,26 +105,50 @@ fun DetailRow(label: String, value: String) {
     }
 }
 
+
 @Composable
-fun ProductDetailsCard(product: Product?) {
+fun BackButton(onBack: () -> Unit) {
+    IconButton(
+        onClick = onBack,
+        modifier = Modifier.padding(2.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.ArrowBack,
+            contentDescription = "Retour",
+            tint = Color(0xFF9C27B0)
+        )
+    }
+}
+
+@Composable
+fun ProductDetailsCard(
+    product: Product?,
+    onBack: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        )
+        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
-            modifier = Modifier.padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(24.dp)
         ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                BackButton(onBack = onBack)
+            }
+
             Text(
                 text = "Détails du produit",
                 style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFF9C27B0)),
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier
+                    .padding(bottom = 16.dp)
+                    .align(Alignment.CenterHorizontally)
             )
 
             product?.let {
@@ -133,33 +158,19 @@ fun ProductDetailsCard(product: Product?) {
                     modifier = Modifier
                         .size(220.dp)
                         .clip(RoundedCornerShape(12.dp))
+                        .align(Alignment.CenterHorizontally)
                 )
-                Spacer(modifier = Modifier.height(16.dp))
 
+                Spacer(modifier = Modifier.height(16.dp))
                 DetailRow("Nom", it.name)
                 DetailRow("Prix", it.price)
                 DetailRow("Description", it.description)
             } ?: Text(
                 "Produit non trouvé.",
-                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red)
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
-    }
-}
-@Composable
-fun BackButton(onBack: () -> Unit) {
-    Button(
-        onClick = onBack,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 32.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF9C27B0),
-            contentColor = Color.White
-        )
-    ) {
-        Text("Retour à la boutique", fontSize = 16.sp)
     }
 }
 
@@ -245,11 +256,11 @@ fun AppFooter() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(40.dp)
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFFB45AAB),
+                        Color(0xFFB667AD),
                         Color(0xFFBD98DE)
                     )
                 )

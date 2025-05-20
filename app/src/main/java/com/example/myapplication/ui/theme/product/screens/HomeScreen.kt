@@ -49,7 +49,6 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // محتوى الصفحة مع إعطاءه وزن 1 ليملأ المساحة المتبقية
         Box(modifier = Modifier.weight(1f)) {
             if (filteredProducts.isEmpty()) {
                 EmptyProductsMessage()

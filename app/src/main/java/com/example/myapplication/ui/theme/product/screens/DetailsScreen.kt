@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
-import com.example.myapplication.ui.theme.product.components.BackButton
+
 import com.example.myapplication.ui.theme.product.components.ProductDetailsCard
 
 @Composable
@@ -31,11 +31,11 @@ fun DetailsScreen(productId: String, viewModel: ProductViewModel, onBack: () -> 
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ProductDetailsCard(product = product)
+            ProductDetailsCard(product = product, onBack = onBack)
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            BackButton(onBack = onBack)
+
         }
 
         AppFooter()
