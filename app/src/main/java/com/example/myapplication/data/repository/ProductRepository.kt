@@ -13,10 +13,9 @@ import kotlinx.coroutines.delay
 class ProductRepository @Inject constructor(
         private val api: ProductApi
     ) {
-        suspend fun getProducts(): List<Product> {
-            return api.getProducts()
-            val products = api.getProducts()
-            Log.d("products repo", "size :"+ products.size)
-            return products
-        }
+    suspend fun getProducts(): List<Product> {
+        val products = api.getProducts()
+        Log.d("ProductRepository", "Loaded products: ${products.size}")
+        return products
+    }
     }
