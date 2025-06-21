@@ -1,4 +1,5 @@
 package com.example.myapplication.ui.product.screens
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -9,11 +10,14 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
-
 import com.example.myapplication.ui.theme.product.components.ProductDetailsCard
 
 @Composable
-fun DetailsScreen(productId: String, viewModel: ProductViewModel, onBack: () -> Unit) {
+fun DetailsScreen(
+    productId: String,
+    viewModel: ProductViewModel,
+    onBack: () -> Unit
+) {
     val product = viewModel.getProductById(productId)
 
     Column(
@@ -34,8 +38,6 @@ fun DetailsScreen(productId: String, viewModel: ProductViewModel, onBack: () -> 
             ProductDetailsCard(product = product, onBack = onBack)
 
             Spacer(modifier = Modifier.height(16.dp))
-
-
         }
 
         AppFooter()

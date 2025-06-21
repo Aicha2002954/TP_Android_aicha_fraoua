@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "name": "Jean slim",
+    "price": "99€",
+    "description": "Un jean slim bleu clair",
+    "quantity": "12",
+    "imageResId": "image7"
+  },
+  {
+    "id": "2",
+    "name": "Robe été",
+    "price": "120€",
+    "description": "Une robe légère pour l'été",
+    "quantity": "7",
+    "imageResId": "image8"
+  },
+  {
+    "id": "3",
+    "name": "Veste cuir",
+    "price": "250€",
+    "description": "Veste en cuir noir élégante",
+    "quantity": "5",
+    "imageResId": "image9"
+  },
+  {
+    "id": "4",
+    "name": "T-shirt oversize",
+    "price": "45€",
+    "description": "T-shirt blanc oversize pour un look décontracté",
+    "quantity": "20",
+    "imageResId": "image10"
+  },
+  {
+    "id": "5",
+    "name": "Pantalon cargo",
+    "price": "80€",
+    "description": "Pantalon cargo avec plusieurs poches",
+    "quantity": "14",
+    "imageResId": "image1"
+  },
+  {
+    "id": "6",
+    "name": "Pull en laine",
+    "price": "110€",
+    "description": "Pull chaud en laine pour l'hiver",
+    "quantity": "9",
+    "imageResId": "image2"
+  },
+  {
+    "id": "7",
+    "name": "Chemise en jean",
+    "price": "75€",
+    "description": "Chemise décontractée en denim",
+    "quantity": "11",
+    "imageResId": "image3"
+  },
+  {
+    "id": "8",
+    "name": "Blazer homme",
+    "price": "180€",
+    "description": "Blazer élégant pour les occasions formelles",
+    "quantity": "4",
+    "imageResId": "image4"
+  },
+  {
+    "id": "9",
+    "name": "Combinaison femme",
+    "price": "140€",
+    "description": "Combinaison chic pour femme",
+    "quantity": "6",
+    "imageResId": "image5"
+  },
+  {
+    "id": "10",
+    "name": "Jupe longue",
+    "price": "95€",
+    "description": "Jupe longue fluide pour l'été",
+    "quantity": "8",
+    "imageResId": "image6"
+  }
+]

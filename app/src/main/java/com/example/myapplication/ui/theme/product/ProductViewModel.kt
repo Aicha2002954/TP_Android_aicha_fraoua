@@ -42,6 +42,7 @@ class ProductViewModel @Inject constructor(
             viewState = viewState.copy(products = filtered, isLoading = false)
         }
     }
-
-    fun getProductById(id: String): Product? = repository.getProductById(id)
+    fun getProductById(productId: String): Product? {
+        return viewState.products.find { it.id == productId }
+    }
 }

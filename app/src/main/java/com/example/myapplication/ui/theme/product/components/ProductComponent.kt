@@ -39,6 +39,87 @@ import com.example.myapplication.data.Entities.Product
 
 
 import androidx.compose.material3.IconButton
+
+
+import androidx.compose.material3.*
+
+import com.example.myapplication.R
+
+
+fun getImageResource(productImage: String): Int {
+    return when (productImage) {
+        "image1" -> R.drawable.image1
+        "image2" -> R.drawable.image2
+        "image3" -> R.drawable.image3
+        "image4" -> R.drawable.image4
+        "image5" -> R.drawable.image5
+        "image6" -> R.drawable.image6
+        "image7" -> R.drawable.image7
+        "image8" -> R.drawable.image8
+        "image9" -> R.drawable.image9
+        "image10" -> R.drawable.image10
+        else -> R.drawable.image1
+    }
+}
+
+
+@Composable
+fun ProductDetailsCard(
+    product: Product?,
+    onBack: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp),
+        elevation = CardDefaults.cardElevation(8.dp),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ) {
+        Column(
+            modifier = Modifier.padding(24.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                BackButton(onBack = onBack)
+            }
+
+            Text(
+                text = "Détails du produit",
+                style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFF9C27B0)),
+                modifier = Modifier
+                    .padding(bottom = 16.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+
+            product?.let {
+
+                Image(
+                    painter = painterResource(id = getImageResource(product.imageResId)),
+                    contentDescription = product.name,
+                    modifier = Modifier
+                        .size(220.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .align(Alignment.CenterHorizontally)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+                DetailRow("Nom", it.name)
+                DetailRow("Prix", it.price)
+                DetailRow("Quantité", it.quantity)
+                DetailRow("Description", it.description)
+            } ?: Text(
+                "Produit non trouvé.",
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        }
+    }
+}
+
+
 @Composable
 fun AppHeader(
     onProfileClick: () -> Unit = {}
@@ -117,60 +198,6 @@ fun BackButton(onBack: () -> Unit) {
             contentDescription = "Retour",
             tint = Color(0xFF9C27B0)
         )
-    }
-}
-
-@Composable
-fun ProductDetailsCard(
-    product: Product?,
-    onBack: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp),
-        elevation = CardDefaults.cardElevation(8.dp),
-        shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
-    ) {
-        Column(
-            modifier = Modifier.padding(24.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                BackButton(onBack = onBack)
-            }
-
-            Text(
-                text = "Détails du produit",
-                style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFF9C27B0)),
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-
-            product?.let {
-                Image(
-                    painter = painterResource(id = it.imageResId),
-                    contentDescription = it.name,
-                    modifier = Modifier
-                        .size(220.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .align(Alignment.CenterHorizontally)
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-                DetailRow("Nom", it.name)
-                DetailRow("Prix", it.price)
-                DetailRow("Description", it.description)
-            } ?: Text(
-                "Produit non trouvé.",
-                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red),
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-        }
     }
 }
 
@@ -273,6 +300,7 @@ fun AppFooter() {
             style = MaterialTheme.typography.bodyMedium
         )
     }
+
 }
 
 
