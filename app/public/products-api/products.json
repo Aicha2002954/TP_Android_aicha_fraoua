@@ -5,7 +5,7 @@
     "price": "99€",
     "description": "Un jean slim bleu clair",
     "quantity": "12",
-    "imageResId": "image7"
+    "imageResId": "image7.jpg"
   },
   {
     "id": "2",
@@ -13,7 +13,7 @@
     "price": "120€",
     "description": "Une robe légère pour l'été",
     "quantity": "7",
-    "imageResId": "image8"
+    "imageResId": "image8.jpg"
   },
   {
     "id": "3",
@@ -21,7 +21,7 @@
     "price": "250€",
     "description": "Veste en cuir noir élégante",
     "quantity": "5",
-    "imageResId": "image9"
+    "imageResId": "image9.jpg"
   },
   {
     "id": "4",
@@ -29,7 +29,7 @@
     "price": "45€",
     "description": "T-shirt blanc oversize pour un look décontracté",
     "quantity": "20",
-    "imageResId": "image10"
+    "imageResId": "image10.jpg"
   },
   {
     "id": "5",
@@ -37,7 +37,7 @@
     "price": "80€",
     "description": "Pantalon cargo avec plusieurs poches",
     "quantity": "14",
-    "imageResId": "image1"
+    "imageResId": "image1.jpg"
   },
   {
     "id": "6",
@@ -45,7 +45,7 @@
     "price": "110€",
     "description": "Pull chaud en laine pour l'hiver",
     "quantity": "9",
-    "imageResId": "image2"
+    "imageResId": "image2.jpg"
   },
   {
     "id": "7",
@@ -53,7 +53,7 @@
     "price": "75€",
     "description": "Chemise décontractée en denim",
     "quantity": "11",
-    "imageResId": "image3"
+    "imageResId": "image3.jpg"
   },
   {
     "id": "8",
@@ -61,7 +61,7 @@
     "price": "180€",
     "description": "Blazer élégant pour les occasions formelles",
     "quantity": "4",
-    "imageResId": "image4"
+    "imageResId": "image4.jpg"
   },
   {
     "id": "9",
@@ -69,7 +69,7 @@
     "price": "140€",
     "description": "Combinaison chic pour femme",
     "quantity": "6",
-    "imageResId": "image5"
+    "imageResId": "image5.jpg"
   },
   {
     "id": "10",
@@ -77,6 +77,6 @@
     "price": "95€",
     "description": "Jupe longue fluide pour l'été",
     "quantity": "8",
-    "imageResId": "image6"
+    "imageResId": "image6.jpg"
   }
 ]

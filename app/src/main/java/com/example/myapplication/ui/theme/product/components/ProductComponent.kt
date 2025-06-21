@@ -48,16 +48,16 @@ import com.example.myapplication.R
 
 fun getImageResource(productImage: String): Int {
     return when (productImage) {
-        "image1" -> R.drawable.image1
-        "image2" -> R.drawable.image2
-        "image3" -> R.drawable.image3
-        "image4" -> R.drawable.image4
-        "image5" -> R.drawable.image5
-        "image6" -> R.drawable.image6
-        "image7" -> R.drawable.image7
-        "image8" -> R.drawable.image8
-        "image9" -> R.drawable.image9
-        "image10" -> R.drawable.image10
+        "image1.jpg" -> R.drawable.image1
+        "image2.jpg" -> R.drawable.image2
+        "image3.jpg" -> R.drawable.image3
+        "image4.jpg" -> R.drawable.image4
+        "image5.jpg" -> R.drawable.image5
+        "image6.jpg" -> R.drawable.image6
+        "image7.jpg" -> R.drawable.image7
+        "image8.jpg" -> R.drawable.image8
+        "image9.jpg" -> R.drawable.image9
+        "image10.jpg" -> R.drawable.image10
         else -> R.drawable.image1
     }
 }
