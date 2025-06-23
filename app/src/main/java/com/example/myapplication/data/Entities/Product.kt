@@ -16,8 +16,11 @@ data class Product(
     val description: String,
     @SerializedName("quantity")
     val quantity: String,
+    @SerializedName("couleur")
+    val couleur: String,
+
     @SerializedName("imageResId")
     val imageResId: String,
-    @SerializedName("category")   // <-- ici on ajoute ce champ
+    @SerializedName("category")
     val category: String
 )

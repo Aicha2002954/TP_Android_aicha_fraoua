@@ -195,7 +195,7 @@ fun ProductDetailsCard(
                         ProductInfoRow(value = "\uD83D\uDECD\uFE0F " + it.name)
                         ProductInfoRow(value = "\uD83D\uDCB0 " + it.price)
                         ProductInfoRow(value = "\uD83D\uDCE6 " + it.quantity + " en stock")
-                        ProductInfoRow(value = "\uD83D\uDD14 Catégorie : " + it.category)
+                        ProductInfoRow(value = "\uD83D\uDD14 : " + it.couleur)
                     }
 
                     Spacer(modifier = Modifier.width(8.dp))

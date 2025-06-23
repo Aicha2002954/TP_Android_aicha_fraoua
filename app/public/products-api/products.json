@@ -7,6 +7,7 @@
     "price": "99€",
     "description": "Un jean slim bleu clair",
     "quantity": "12",
+    "couleur":"noir",
     "imageResId": "image7",
     "category":"garçon"
   },
@@ -16,6 +17,7 @@
     "price": "120€",
     "description": "Une robe légère pour l'été",
     "quantity": "7",
+    "couleur":"noir",
     "imageResId": "image8",
     "category":"fille"
   },
@@ -25,6 +27,7 @@
     "price": "250€",
     "description": "Veste en cuir noir élégante",
     "quantity": "5",
+    "couleur":"noir",
     "imageResId": "image9",
     "category":"garçon"
   },
@@ -34,6 +37,7 @@
     "price": "45€",
     "description": "T-shirt blanc oversize pour un look décontracté",
     "quantity": "20",
+    "couleur":"noir",
     "imageResId": "image10",
     "category":"garçon"
   },
@@ -43,6 +47,7 @@
     "price": "80€",
     "description": "Pantalon cargo avec plusieurs poches",
     "quantity": "14",
+    "couleur":"noir",
     "imageResId": "image1",
     "category": "garçon"
   },
@@ -52,6 +57,7 @@
     "price": "110€",
     "description": "Pull chaud en laine pour l'hiver",
     "quantity": "9",
+    "couleur":"noir",
     "imageResId": "image2",
     "category": "bébé"
   },
@@ -61,6 +67,7 @@
     "price": "75€",
     "description": "Chemise décontractée en denim",
     "quantity": "11",
+    "couleur":"noir",
     "imageResId": "image3",
     "category":"garçon"
   },
@@ -70,6 +77,7 @@
     "price": "180€",
     "description": "Blazer élégant pour les occasions formelles",
     "quantity": "4",
+    "couleur":"noir",
     "imageResId": "image4",
     "category":"garçon"
   },
@@ -79,6 +87,7 @@
     "price": "140€",
     "description": "Combinaison chic pour femme",
     "quantity": "6",
+    "couleur":"noir",
     "imageResId": "image5",
     "category":"fille"
   },
@@ -88,6 +97,7 @@
     "price": "95€",
     "description": "Jupe longue fluide pour l'été",
     "quantity": "8",
+    "couleur":"noir",
     "imageResId": "image6",
     "category":"fille"
   }
