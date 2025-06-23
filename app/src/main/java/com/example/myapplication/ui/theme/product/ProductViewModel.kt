@@ -17,6 +17,44 @@ class ProductViewModel @Inject constructor(
     var viewState by mutableStateOf(ProductViewState())
         private set
 
+    //Partie PANIER
+    private val _cart = mutableStateListOf<Product>()
+    val cart: List<Product> get() = _cart
+
+    fun addToCart(product: Product?) {
+        product?.let {
+            _cart.add(it)
+        }
+    }
+
+    fun removeFromCart(product: Product) {
+        _cart.remove(product)
+    }
+
+    fun clearCart() {
+        _cart.clear()
+    }
+
+    fun getCartTotal(): Double {
+        return _cart.sumOf { it.price.toDoubleOrNull() ?: 0.0 }
+    }
+    // Partie FAVORIS
+    private val _favorites = mutableStateListOf<Product>()
+    val favorites: List<Product> get() = _favorites
+
+    fun toggleFavorite(product: Product) {
+        if (_favorites.any { it.id == product.id }) {
+            _favorites.removeAll { it.id == product.id }
+        } else {
+            _favorites.add(product)
+        }
+    }
+
+    fun isFavorite(product: Product): Boolean {
+        return _favorites.any { it.id == product.id }
+    }
+    // Fin Partie FAVORIS
+
     fun onIntent(intent: ProductIntent) {
         when (intent) {
             is ProductIntent.LoadProducts -> loadProducts()
@@ -42,6 +80,7 @@ class ProductViewModel @Inject constructor(
             viewState = viewState.copy(products = filtered, isLoading = false)
         }
     }
+
     fun getProductById(productId: String): Product? {
         return viewState.products.find { it.id == productId }
     }

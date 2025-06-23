@@ -3,8 +3,12 @@ package com.example.myapplication.ui.theme.product.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import com.example.myapplication.data.Entities.Product
+import com.example.myapplication.ui.theme.product.ProductViewModel
 
 fun getImageResource(productImage: String): Int {
     return when (productImage) {
@@ -36,8 +41,11 @@ fun getImageResource(productImage: String): Int {
 fun ProductItemComponent(
     product: Product,
     onClick: () -> Unit,
+    viewModel: ProductViewModel,
     modifier: Modifier = Modifier
 ) {
+    val isFavorite = viewModel.isFavorite(product)
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -55,33 +63,66 @@ fun ProductItemComponent(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Image(
-                painter = painterResource(id = getImageResource(product.imageResId)),
-                contentDescription = product.name,
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(RoundedCornerShape(12.dp))
-            )
+            Box(modifier = Modifier.size(140.dp)) {
+                Image(
+                    painter = painterResource(id = getImageResource(product.imageResId)),
+                    contentDescription = product.name,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(12.dp))
+                )
+                IconButton(
+                    onClick = { viewModel.toggleFavorite(product) },
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(6.dp)
+                        .size(28.dp)
+                ) {
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                        contentDescription = if (isFavorite) "Retirer des favoris" else "Ajouter aux favoris",
+                        tint = if (isFavorite) Color.Red else Color.Gray
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = product.name,
-                style = MaterialTheme.typography.titleMedium.copy(color = Color(0xFF6A1B9A)),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = product.name,
+                    style = MaterialTheme.typography.titleMedium.copy(color = Color(0xFF6A1B9A)),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
 
-            Text(
-                text = product.price,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    color = Color(0xFF672037),
-                    fontSize = 18.sp
-                ),
-                modifier = Modifier.padding(vertical = 4.dp)
-            )
+                Text(
+                    text = product.price,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = Color(0xFF672037),
+                        fontSize = 18.sp
+                    ),
+                )
+            }
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Row {
+                repeat(5) {
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "Star",
+                        tint = Color(0xFFFFD700),
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
 
             Button(
                 onClick = onClick,
@@ -103,4 +144,3 @@ fun ProductItemComponent(
         }
     }
 }
-

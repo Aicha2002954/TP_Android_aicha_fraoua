@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation(libs.play.services.analytics.impl)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.firebase.auth.ktx)
     val nav_version = "2.8.9"
 
     implementation(libs.androidx.core.ktx)
@@ -53,7 +54,17 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("androidx.compose.material3:material3:1.2.0")
+
+
+    // Compose BOM
+    implementation(platform("androidx.compose:compose-bom:2023.05.01"))
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
@@ -65,12 +76,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.compose.material3:material3:1.1.2")
+
     implementation ("androidx.compose.runtime:runtime:1.6.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     implementation ("androidx.compose.foundation:foundation:1.6.0")
     implementation ("androidx.compose.ui:ui:1.6.0")
-    implementation ("androidx.compose.material3:material3:1.2.0")
     implementation("com.google.dagger:hilt-android:2.56.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     ksp("com.google.dagger:hilt-compiler:2.56.1")
@@ -78,5 +88,12 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
+
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-auth")
+    implementation ("androidx.compose.material:material-icons-extended:1.6.0")
+
 
 }

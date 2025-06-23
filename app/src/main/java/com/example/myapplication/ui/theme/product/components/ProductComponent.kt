@@ -3,6 +3,7 @@ package com.example.myapplication.ui.theme.product.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -36,22 +37,116 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.data.Entities.Product
-
-
 import androidx.compose.material3.IconButton
 
-
 import androidx.compose.material3.*
-
 import com.example.myapplication.R
 
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
+
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.myapplication.ui.theme.product.ProductViewModel
+
+
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.IconButton
+
+import androidx.compose.material.icons.filled.AddShoppingCart
+import androidx.compose.material3.IconButton
+
+@Composable
+fun FavoriteProductItemComponent(
+    product: Product,
+    viewModel: ProductViewModel,
+    onClick: () -> Unit = {},
+    onAddToCart: () -> Unit = {}
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFBEAFF)),
+        elevation = CardDefaults.cardElevation(6.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(
+                onClick = { viewModel.toggleFavorite(product) },
+                modifier = Modifier.size(36.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = "Supprimer des favoris",
+                    tint = Color.Red
+                )
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Image(
+                painter = painterResource(id = getImageResource(product.imageResId)),
+                contentDescription = product.name,
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable { onClick() }
+            )
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onClick() }
+            ) {
+                Text(
+                    text = product.name,
+                    style = MaterialTheme.typography.titleMedium.copy(color = Color(0xFF6A1B9A)),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = "${product.price} ",
+                    style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFF9C27B0))
+                )
+                Text(
+                    text = "${product.quantity} en stock",
+                    style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray)
+                )
+            }
+
+            IconButton(
+                onClick = onAddToCart,
+                modifier = Modifier.size(36.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.AddShoppingCart,
+                    contentDescription = "Ajouter au panier",
+                    tint = Color(0xFF9C27B0)
+                )
+            }
+        }
+    }
+}
 
 
 
 @Composable
 fun ProductDetailsCard(
     product: Product?,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onAddToCart: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -61,9 +156,7 @@ fun ProductDetailsCard(
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Column(
-            modifier = Modifier.padding(24.dp)
-        ) {
+        Column(modifier = Modifier.padding(24.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start
@@ -75,7 +168,7 @@ fun ProductDetailsCard(
                 text = "Détails du produit",
                 style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFF9C27B0)),
                 modifier = Modifier
-                    .padding(bottom = 16.dp)
+                    .padding(vertical = 16.dp)
                     .align(Alignment.CenterHorizontally)
             )
 
@@ -84,17 +177,51 @@ fun ProductDetailsCard(
                 Image(
                     painter = painterResource(id = getImageResource(product.imageResId)),
                     contentDescription = product.name,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(220.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .align(Alignment.CenterHorizontally)
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .clip(RoundedCornerShape(10.dp))
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
-                DetailRow("Nom", it.name)
-                DetailRow("Prix", it.price)
-                DetailRow("Quantité", it.quantity)
-                DetailRow("Description", it.description)
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        ProductInfoRow(value = "\uD83D\uDECD\uFE0F"+it.name)
+                        ProductInfoRow( value = "\uD83D\uDCB0"+it.price)
+                        ProductInfoRow( value = "\uD83D\uDCE6"+it.quantity+"en stock")
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Button(
+                        onClick = onAddToCart,
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9C27B0))
+                    ) {
+                        Text("Ajouter au panier", color = Color.White)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFFF3E5F5), RoundedCornerShape(12.dp))
+                        .padding(12.dp)
+                ) {
+
+                    Text(
+                        text = if (it.description.isNotBlank()) it.description else "Aucune description disponible",
+                        style = MaterialTheme.typography.bodyMedium.copy(color = Color.Black)
+                    )
+                }
+
             } ?: Text(
                 "Produit non trouvé.",
                 style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red),
@@ -104,10 +231,26 @@ fun ProductDetailsCard(
     }
 }
 
+@Composable
+fun ProductInfoRow( value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
+        )
+    }
+}
+
 
 @Composable
 fun AppHeader(
-    onProfileClick: () -> Unit = {}
+
 ) {
     Box(
         modifier = Modifier
@@ -132,17 +275,9 @@ fun AppHeader(
             Spacer(modifier = Modifier.width(48.dp))
 
             Text(
-                text = "Petit Papillon 🦋",
+                text = "\uD83E\uDD8B Petit Papillon ",
                 style = MaterialTheme.typography.headlineLarge.copy(color = Color.White)
             )
-
-            IconButton(onClick = onProfileClick) {
-                Icon(
-                    imageVector = Icons.Filled.AccountCircle,
-                    contentDescription = "Profil utilisateur",
-                    tint = Color.White
-                )
-            }
         }
     }
 }
@@ -203,6 +338,7 @@ fun EmptyProductsMessage() {
 @Composable
 fun ProductsGrid(
     products: List<Product>,
+    viewModel: ProductViewModel,
     onNavigateToDetails: (String) -> Unit
 ) {
     LazyVerticalGrid(
@@ -217,6 +353,7 @@ fun ProductsGrid(
         items(products) { product: Product ->
             ProductItemComponent(
                 product = product,
+                viewModel = viewModel,
                 onClick = { onNavigateToDetails(product.id) }
             )
         }
@@ -263,12 +400,12 @@ fun SearchBar(
         )
     }
 }
+
 @Composable
-fun AppFooter() {
-    Box(
+fun AppFooter(navController: NavController) {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(40.dp)
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
@@ -276,22 +413,58 @@ fun AppFooter() {
                         Color(0xFFBD98DE)
                     )
                 )
-            ),
-        contentAlignment = Alignment.Center
+            )
+            .padding(vertical = 8.dp)
     ) {
-        Text(
-            text = "© 2025 Petit Papillon",
-            color = Color.White,
-            style = MaterialTheme.typography.bodyMedium
-        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = { navController.navigate("home") }) {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = "Accueil",
+                    tint = Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+            IconButton(onClick = { navController.navigate("favorites") }) {
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favoris",
+                    tint = Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+            IconButton(onClick = { navController.navigate("cart") }) {
+                Icon(
+                    imageVector = Icons.Default.ShoppingCart,
+                    contentDescription = "Panier",
+                    tint = Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+            IconButton(onClick = { navController.navigate("profile") }) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Profil",
+                    tint = Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+            IconButton(onClick = { navController.navigate("login") }) {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "Connexion",
+                    tint = Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+        }
     }
-
 }
-
-
-
-
-
-
-
-

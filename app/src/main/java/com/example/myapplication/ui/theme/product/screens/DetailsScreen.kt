@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
@@ -16,7 +17,8 @@ import com.example.myapplication.ui.theme.product.components.ProductDetailsCard
 fun DetailsScreen(
     productId: String,
     viewModel: ProductViewModel,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    navController: NavController
 ) {
     val product = viewModel.getProductById(productId)
 
@@ -35,11 +37,17 @@ fun DetailsScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ProductDetailsCard(product = product, onBack = onBack)
+            ProductDetailsCard(
+                product = product,
+                onBack = onBack,
+                onAddToCart = {
+                    viewModel.addToCart(product)
+                }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        AppFooter()
+        AppFooter(navController = navController)
     }
 }

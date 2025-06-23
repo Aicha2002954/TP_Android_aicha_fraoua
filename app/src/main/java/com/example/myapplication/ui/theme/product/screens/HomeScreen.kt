@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.myapplication.ui.theme.product.ProductIntent
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
@@ -19,7 +20,8 @@ import com.example.myapplication.ui.theme.product.components.SearchBar
 @Composable
 fun HomeScreen(
     viewModel: ProductViewModel,
-    onProductClick: (String) -> Unit
+    onProductClick: (String) -> Unit,
+    navController: NavController
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
@@ -54,11 +56,13 @@ fun HomeScreen(
                 EmptyProductsMessage()
             } else {
                 ProductsGrid(
-                    products = filteredProducts,
+                    products = viewState.products,
+                    viewModel = viewModel,
                     onNavigateToDetails = onProductClick
                 )
             }
         }
-        AppFooter()
+
+        AppFooter(navController = navController)
     }
 }
