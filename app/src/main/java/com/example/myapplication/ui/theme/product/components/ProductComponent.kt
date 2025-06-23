@@ -192,9 +192,10 @@ fun ProductDetailsCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        ProductInfoRow(value = "\uD83D\uDECD\uFE0F"+it.name)
-                        ProductInfoRow( value = "\uD83D\uDCB0"+it.price)
-                        ProductInfoRow( value = "\uD83D\uDCE6"+it.quantity+"en stock")
+                        ProductInfoRow(value = "\uD83D\uDECD\uFE0F " + it.name)
+                        ProductInfoRow(value = "\uD83D\uDCB0 " + it.price)
+                        ProductInfoRow(value = "\uD83D\uDCE6 " + it.quantity + " en stock")
+                        ProductInfoRow(value = "\uD83D\uDD14 Catégorie : " + it.category)
                     }
 
                     Spacer(modifier = Modifier.width(8.dp))
@@ -236,7 +237,7 @@ fun ProductInfoRow( value: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
