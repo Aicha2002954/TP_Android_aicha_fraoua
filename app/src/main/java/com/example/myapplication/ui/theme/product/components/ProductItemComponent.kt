@@ -29,10 +29,24 @@ fun getImageResource(productImage: String): Int {
         "image4" -> R.drawable.image4
         "image5" -> R.drawable.image5
         "image6" -> R.drawable.image6
-        "image7" -> R.drawable.image7
-        "image8" -> R.drawable.image8
-        "image9" -> R.drawable.image9
-        "image10" -> R.drawable.image10
+        "chasseur1" -> R.drawable.chasseur1
+        "chasseur2" -> R.drawable.chasseur2
+        "chasseur3" -> R.drawable.chasseur3
+        "chasseur4" -> R.drawable.chasseur4
+        "fourinteur1" -> R.drawable.fourinteur1
+        "fourinteur3" -> R.drawable.fourinteur3
+        "garcon1" -> R.drawable.garcon1
+        "garcon2" -> R.drawable.garcon2
+        "garcon3" -> R.drawable.garcon3
+        "garcon4" -> R.drawable.garcon4
+        "joutes2" -> R.drawable.joutes2
+        "payjma1" -> R.drawable.payjma1
+        "payjma2" -> R.drawable.payjma2
+        "payjma3" -> R.drawable.payjma3
+        "payjma4" -> R.drawable.payjma4
+        "payjma5" -> R.drawable.payjma5
+
+
         else -> R.drawable.image1
     }
 }

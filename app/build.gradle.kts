@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.core.splashscreen)
     val nav_version = "2.8.9"
 
     implementation(libs.androidx.core.ktx)

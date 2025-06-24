@@ -3,7 +3,9 @@ package com.example.myapplication.ui.product.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.product.ProductIntent
@@ -23,6 +27,7 @@ import com.example.myapplication.ui.theme.product.components.ProductsGrid
 import com.example.myapplication.ui.theme.product.components.SearchBar
 import java.text.Normalizer
 import androidx.compose.runtime.remember as remember1
+
 enum class Category {
     All,
     Garcon,
@@ -69,12 +74,14 @@ fun HomeScreen(
             Category.Fille -> categoryNormalized == "fille"
             Category.Chaussures -> categoryNormalized == "chaussures"
             Category.Jouets -> categoryNormalized == "jouets"
-            Category.Fournitures -> categoryNormalized == "fourniteurs"
-            Category.Pyjamas -> categoryNormalized == "payjames"
+            Category.Fournitures -> categoryNormalized == "fournitures"
+            Category.Pyjamas -> categoryNormalized == "pyjamas"
         }
 
         matchesSearch && matchesCategory
     }
+
+    val scrollState = rememberScrollState()
 
     Column(
         modifier = Modifier
@@ -89,45 +96,51 @@ fun HomeScreen(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+                .horizontalScroll(scrollState)
+                .padding(vertical = 8.dp, horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Category.values().forEach { category ->
+                val isSelected = category == selectedCategory
+
+                val backgroundColor = if (isSelected) Color(0xFF7E57C2) else Color(0xFFEDE7F6)
+                val contentColor = if (isSelected) Color.White else Color(0xFF5E35B1)
+
                 val imageRes = when (category) {
                     Category.All -> R.drawable.image1
                     Category.Garcon -> R.drawable.garcon
-                    Category.Fille -> R.drawable.ffil
-                    Category.Chaussures -> R.drawable.image1
-                    Category.Jouets -> R.drawable.image2
-                    Category.Fournitures -> R.drawable.image2
-                    Category.Pyjamas -> R.drawable.image5
+                    Category.Fille -> R.drawable.logofi
+                    Category.Chaussures -> R.drawable.chasseur2
+                    Category.Jouets -> R.drawable.joutes2
+                    Category.Fournitures -> R.drawable.fourinteurlogo
+                    Category.Pyjamas -> R.drawable.payjma3
                 }
 
                 Column(
                     horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .padding(4.dp)
+                        .clip(MaterialTheme.shapes.medium)
+                        .background(backgroundColor)
                         .clickable { selectedCategory = category }
-                        .background(
-                            if (selectedCategory == category) Color(0xFFE1BEE7) else Color.Transparent,
-                            shape = MaterialTheme.shapes.medium
-                        )
-                        .padding(8.dp)
+                        .padding(vertical = 8.dp, horizontal = 12.dp)
                 ) {
                     Image(
                         painter = painterResource(id = imageRes),
                         contentDescription = category.name,
                         modifier = Modifier
-                            .size(64.dp)
+                            .size(48.dp)
                             .clip(CircleShape)
                     )
 
+                    Spacer(modifier = Modifier.height(6.dp))
+
                     Text(
                         text = when (category) {
-                            Category.All -> "Vetments pour bebes"
+                            Category.All -> "Vêtements bébés"
                             Category.Garcon -> "Garçon"
                             Category.Fille -> "Fille"
                             Category.Chaussures -> "Chaussures"
@@ -135,7 +148,9 @@ fun HomeScreen(
                             Category.Fournitures -> "Fournitures"
                             Category.Pyjamas -> "Pyjamas"
                         },
-                        style = MaterialTheme.typography.bodySmall
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        fontSize = 14.sp,
+                        color = contentColor
                     )
                 }
             }
