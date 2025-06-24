@@ -2,9 +2,8 @@ package com.example.myapplication.navigator
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
@@ -12,23 +11,35 @@ import androidx.navigation.navArgument
 import androidx.navigation.NavController
 import com.example.myapplication.ui.product.screens.HomeScreen
 import com.example.myapplication.ui.product.screens.DetailsScreen
-import com.example.myapplication.ui.theme.product.cart.CartScreen  // <-- Import CartScreen
+import com.example.myapplication.ui.theme.product.cart.CartScreen
 import com.example.myapplication.ui.theme.auth.LoginScreen
 import com.example.myapplication.ui.theme.auth.RegisterScreen
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.myapplication.ui.theme.favorites.FavoriteProductsScreen
-import com.example.myapplication.ui.theme.product.cart.CartScreen
-import com.example.myapplication.ui.theme.product.cart.OrderFormScreen  // ← à importer
-import androidx.compose.material3.MaterialTheme
+import com.example.myapplication.ui.theme.product.cart.OrderFormScreen
 import com.example.myapplication.ui.theme.product.cart.ConfirmationScreen
+import com.example.myapplication.ui.theme.product.screens.SplashScreen
+
 
 @Composable
 fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
+    NavHost(navController = navController, startDestination = "splash") {
+
+        // Splash screen (logo d'accueil)
+        composable("splash") {
+            SplashScreen(
+                onTimeout = {
+                    navController.popBackStack()
+                    navController.navigate("product")
+                }
+            )
+        }
+
+        // Home product screen
+        composable("product") {
             HomeScreen(
                 viewModel = viewModel,
                 onProductClick = { navController.navigate("details/$it") },
@@ -36,6 +47,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
+        // Détails produit
         composable(
             "details/{id}",
             arguments = listOf(navArgument("id") { type = NavType.StringType })
@@ -49,6 +61,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
+        // Favoris
         composable("favorites") {
             FavoriteProductsScreen(
                 viewModel = viewModel,
@@ -59,8 +72,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
-
-
+        // Panier
         composable("cart") {
             CartScreen(
                 viewModel = viewModel,
@@ -68,6 +80,8 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 onBack = { navController.popBackStack() }
             )
         }
+
+        // Formulaire de commande
         composable("orderForm") {
             OrderFormScreen(
                 navController = navController,
@@ -75,14 +89,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
-        composable("confirmation") {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("✅ Merci pour votre commande !", style = MaterialTheme.typography.headlineSmall)
-            }
-        }
+        // Confirmation de commande
         composable("confirmation") {
             ConfirmationScreen(
                 navController = navController,
@@ -90,7 +97,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
-
+        // Profil utilisateur
         composable("profile") {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -100,6 +107,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             }
         }
 
+        // Connexion
         composable("login") {
             LoginScreen(
                 onLoginSuccess = {
@@ -112,6 +120,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
+        // Inscription
         composable("register") {
             RegisterScreen(
                 onRegisterSuccess = {

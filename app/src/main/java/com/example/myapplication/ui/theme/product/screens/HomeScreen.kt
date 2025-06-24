@@ -23,20 +23,21 @@ import com.example.myapplication.ui.theme.product.components.ProductsGrid
 import com.example.myapplication.ui.theme.product.components.SearchBar
 import java.text.Normalizer
 import androidx.compose.runtime.remember as remember1
-
 enum class Category {
     All,
-    Baby,
-    Boys,
-    Girls
+    Garcon,
+    Fille,
+    Chaussures,
+    Jouets,
+    Fournitures,
+    Pyjamas
 }
-
 
 fun normalizeCategory(cat: String?): String {
     return Normalizer.normalize(cat ?: "", Normalizer.Form.NFD)
         .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
-        .trim()
         .lowercase()
+        .trim()
 }
 
 @Composable
@@ -51,6 +52,7 @@ fun HomeScreen(
     val viewState = viewModel.viewState
     val products = viewState.products
     val cartItemCount = viewModel.cartItemCount
+
     LaunchedEffect(Unit) {
         viewModel.onIntent(ProductIntent.LoadProducts)
     }
@@ -59,19 +61,20 @@ fun HomeScreen(
         val matchesSearch = product.name.contains(searchQuery, ignoreCase = true) ||
                 product.description.contains(searchQuery, ignoreCase = true)
 
-        val categoryNormalized = normalizeCategory(product.category ?: "")
+        val categoryNormalized = normalizeCategory(product.category)
 
         val matchesCategory = when (selectedCategory) {
             Category.All -> true
-            Category.Baby -> categoryNormalized == "bebe"
-            Category.Boys -> categoryNormalized == "garcon"
-            Category.Girls -> categoryNormalized == "fille"
+            Category.Garcon -> categoryNormalized == "garcon"
+            Category.Fille -> categoryNormalized == "fille"
+            Category.Chaussures -> categoryNormalized == "chaussures"
+            Category.Jouets -> categoryNormalized == "jouets"
+            Category.Fournitures -> categoryNormalized == "fourniteurs"
+            Category.Pyjamas -> categoryNormalized == "payjames"
         }
 
         matchesSearch && matchesCategory
     }
-
-
 
     Column(
         modifier = Modifier
@@ -95,9 +98,12 @@ fun HomeScreen(
             Category.values().forEach { category ->
                 val imageRes = when (category) {
                     Category.All -> R.drawable.image1
-                    Category.Baby -> R.drawable.`bebe`
-                    Category.Boys -> R.drawable.garcon
-                    Category.Girls -> R.drawable.ffil
+                    Category.Garcon -> R.drawable.garcon
+                    Category.Fille -> R.drawable.ffil
+                    Category.Chaussures -> R.drawable.image1
+                    Category.Jouets -> R.drawable.image2
+                    Category.Fournitures -> R.drawable.image2
+                    Category.Pyjamas -> R.drawable.image5
                 }
 
                 Column(
@@ -121,10 +127,13 @@ fun HomeScreen(
 
                     Text(
                         text = when (category) {
-                            Category.All -> "Tous"
-                            Category.Baby -> "Bébé"
-                            Category.Boys -> "Garçon"
-                            Category.Girls -> "Fille"
+                            Category.All -> "Vetments pour bebes"
+                            Category.Garcon -> "Garçon"
+                            Category.Fille -> "Fille"
+                            Category.Chaussures -> "Chaussures"
+                            Category.Jouets -> "Jouets"
+                            Category.Fournitures -> "Fournitures"
+                            Category.Pyjamas -> "Pyjamas"
                         },
                         style = MaterialTheme.typography.bodySmall
                     )
@@ -132,10 +141,7 @@ fun HomeScreen(
             }
         }
 
-
         Spacer(modifier = Modifier.height(8.dp))
-
-
 
         Box(modifier = Modifier.weight(1f)) {
             if (filteredProducts.isEmpty()) {
@@ -148,6 +154,7 @@ fun HomeScreen(
                 )
             }
         }
+
         AppFooter(navController = navController, cartItemCount = cartItemCount)
     }
 }

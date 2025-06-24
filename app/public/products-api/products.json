@@ -42,7 +42,7 @@
     "quantity": "20",
     "couleur":"noir",
     "imageResId": "image10",
-    "category":"garçon",
+    "category":"chaussures",
     "sizes": ["S", "M", "L", "XL"]
   },
   {
@@ -53,7 +53,7 @@
     "quantity": "14",
     "couleur":"noir",
     "imageResId": "image1",
-    "category": "garçon",
+    "category": "jouets",
     "sizes": ["S", "M", "L", "XL"]
   },
   {
@@ -64,7 +64,7 @@
     "quantity": "9",
     "couleur":"noir",
     "imageResId": "image2",
-    "category": "bébé",
+    "category": "fourniteurs",
     "sizes": ["S", "M", "L", "XL"]
   },
   {
@@ -86,7 +86,7 @@
     "quantity": "4",
     "couleur":"noir",
     "imageResId": "image4",
-    "category":"garçon",
+    "category":"payjames",
     "sizes": ["S", "M", "L", "XL"]
   },
   {

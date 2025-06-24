@@ -458,7 +458,7 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { navController.navigate("home") }) {
+            IconButton(onClick = { navController.navigate("product") }) {
                 Icon(
                     imageVector = Icons.Default.Home,
                     contentDescription = "Accueil",

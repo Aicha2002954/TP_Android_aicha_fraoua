@@ -158,9 +158,13 @@ fun RegisterScreen(
             singleLine = true,
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                val image = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff
+                val image =
+                    if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = image, contentDescription = if (passwordVisible) "Masquer le mot de passe" else "Afficher le mot de passe")
+                    Icon(
+                        imageVector = image,
+                        contentDescription = if (passwordVisible) "Masquer le mot de passe" else "Afficher le mot de passe"
+                    )
                 }
             },
             isError = password.isNotBlank() && !validatePassword(password),
@@ -224,25 +228,12 @@ fun RegisterScreen(
 
         Button(
             onClick = {
-
-                if (!validateNom(nom)) {
-                    errorMessage = "Veuillez saisir votre nom"
-                    return@Button
-                }
-                if (!validatePrenom(prenom)) {
-                    errorMessage = "Veuillez saisir votre prénom"
-                    return@Button
-                }
-                if (!validateAdresse(adresse)) {
-                    errorMessage = "Veuillez saisir votre adresse"
-                    return@Button
-                }
                 if (!validateEmail(email)) {
                     errorMessage = "Veuillez saisir un email valide"
                     return@Button
                 }
                 if (!validatePassword(password)) {
-                    errorMessage = "Le mot de passe est trop court"
+                    errorMessage = "Mot de passe trop court"
                     return@Button
                 }
 
@@ -252,10 +243,17 @@ fun RegisterScreen(
                     .addOnCompleteListener { task ->
                         isLoading = false
                         if (task.isSuccessful) {
+                            // ✅ عرض رسالة نجاح
+                            Toast.makeText(
+                                context,
+                                "Inscription réussie ! Veuillez vous connecter.",
+                                Toast.LENGTH_LONG
+                            ).show()
 
+                            // ✅ تحويل المستخدم لصفحة تسجيل الدخول
                             onRegisterSuccess()
                         } else {
-                            errorMessage = "Erreur d'inscription : ${task.exception?.localizedMessage ?: "Inconnue"}"
+                            errorMessage = "Erreur: ${task.exception?.localizedMessage}"
                         }
                     }
             },
@@ -272,11 +270,4 @@ fun RegisterScreen(
                 Text("S'inscrire")
             }
         }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        TextButton(onClick = onNavigateToLogin) {
-            Text("Déjà un compte ? Se connecter")
-        }
-    }
-}
+    }}
