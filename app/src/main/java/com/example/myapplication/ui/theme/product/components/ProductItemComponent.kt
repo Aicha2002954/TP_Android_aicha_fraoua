@@ -25,7 +25,7 @@ fun getImageResource(productImage: String): Int {
     return when (productImage) {
         "image1" -> R.drawable.image1
         "image2" -> R.drawable.image2
-        "image3" -> R.drawable.image3
+
         "image4" -> R.drawable.image4
         "image5" -> R.drawable.image5
         "image6" -> R.drawable.image6

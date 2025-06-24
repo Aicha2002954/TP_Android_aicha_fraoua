@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "name": "Jean slim garçon",
+    "name": "Jean garçon",
     "price": "99€",
     "description": "Jean slim bleu clair pour garçon",
     "quantity": "12",
@@ -56,7 +56,7 @@
   },
   {
     "id": "6",
-    "name": "Chaussures sport enfant",
+    "name": "Chaussures sport",
     "price": "60€",
     "description": "Baskets pour fille ou garçon",
     "quantity": "10",
@@ -78,7 +78,7 @@
   },
   {
     "id": "8",
-    "name": "Baskets à scratch",
+    "name": "Baskets",
     "price": "50€",
     "description": "Facile à enfiler, baskets avec scratch",
     "quantity": "13",
@@ -100,7 +100,7 @@
   },
   {
     "id": "10",
-    "name": "Sac à dos dinosaure",
+    "name": "Sacd os_dinosaure",
     "price": "30€",
     "description": "Sac à dos enfant rigolo",
     "quantity": "15",
@@ -128,7 +128,7 @@
     "quantity": "10",
     "couleur": "jaune",
     "imageResId": "image1",
-    "category": "jouets",
+    "category": "fille",
     "sizes": []
   },
   {
@@ -166,7 +166,7 @@
   },
   {
     "id": "16",
-    "name": "Pyjama princesse",
+    "name": "Pyjama-princesse",
     "price": "58€",
     "description": "Pyjama à paillettes style princesse",
     "quantity": "7",
@@ -188,12 +188,12 @@
   },
   {
     "id": "18",
-    "name": "Combinaison été",
+    "name": "Combinaison",
     "price": "85€",
     "description": "Combinaison légère et élégante",
     "quantity": "9",
     "couleur": "blanc",
-    "imageResId": "image3",
+    "imageResId": "image4",
     "category": "fille",
     "sizes": ["S", "M", "L", "XL"]
   },
@@ -204,7 +204,7 @@
     "description": "Jupe longue plissée tendance",
     "quantity": "6",
     "couleur": "bleu ciel",
-    "imageResId": "image4",
+    "imageResId": "image5",
     "category": "fille",
     "sizes": ["S", "M", "L", "XL"]
   },
@@ -215,7 +215,7 @@
     "description": "Blouse blanche à col claudine",
     "quantity": "5",
     "couleur": "blanc",
-    "imageResId": "image5",
+    "imageResId": "image6",
     "category": "fille",
     "sizes": ["S", "M", "L", "XL"]
   }
