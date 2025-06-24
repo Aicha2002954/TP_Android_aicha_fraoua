@@ -5,10 +5,10 @@
     "price": "99€",
     "description": "Jean slim bleu clair pour garçon",
     "quantity": "12",
-    "couleur": "bleu",
+    "couleur": "bleu clair",
     "imageResId": "garcon1",
     "category": "garçon",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "2",
@@ -16,10 +16,10 @@
     "price": "45€",
     "description": "T-shirt rayé confortable",
     "quantity": "10",
-    "couleur": "blanc",
+    "couleur": "blanc cassé",
     "imageResId": "garcon2",
     "category": "garçon",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "3",
@@ -27,10 +27,10 @@
     "price": "70€",
     "description": "Sweat à capuche stylé pour garçon",
     "quantity": "8",
-    "couleur": "gris",
+    "couleur": "gris perle",
     "imageResId": "garcon3",
     "category": "garçon",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "4",
@@ -38,10 +38,10 @@
     "price": "120€",
     "description": "Blouson pour garçon avec fermeture éclair",
     "quantity": "6",
-    "couleur": "noir",
+    "couleur": "noir doux",
     "imageResId": "garcon4",
     "category": "garçon",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "5",
@@ -49,10 +49,10 @@
     "price": "35€",
     "description": "Sandales confortables pour bébé",
     "quantity": "14",
-    "couleur": "rose",
+    "couleur": "rose pâle",
     "imageResId": "chasseur1",
     "category": "chaussures",
-    "sizes": ["S", "M", "L"]
+    "sizes": ["16", "17", "18", "19"]
   },
   {
     "id": "6",
@@ -60,10 +60,10 @@
     "price": "60€",
     "description": "Baskets pour fille ou garçon",
     "quantity": "10",
-    "couleur": "rouge",
+    "couleur": "rouge clair",
     "imageResId": "chasseur2",
     "category": "chaussures",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["16", "17", "18", "19"]
   },
   {
     "id": "7",
@@ -71,10 +71,10 @@
     "price": "89€",
     "description": "Bottines en cuir pour enfants",
     "quantity": "7",
-    "couleur": "marron",
+    "couleur": "marron doux",
     "imageResId": "chasseur3",
     "category": "chaussures",
-    "sizes": ["M", "L", "XL"]
+    "sizes": ["16", "17", "18", "19"]
   },
   {
     "id": "8",
@@ -82,10 +82,10 @@
     "price": "50€",
     "description": "Facile à enfiler, baskets avec scratch",
     "quantity": "13",
-    "couleur": "bleu",
+    "couleur": "bleu ciel",
     "imageResId": "chasseur4",
     "category": "chaussures",
-    "sizes": ["S", "M", "L"]
+    "sizes": ["16", "17", "18", "19"]
   },
   {
     "id": "9",
@@ -93,21 +93,21 @@
     "price": "20€",
     "description": "Trousse scolaire à motif licorne",
     "quantity": "18",
-    "couleur": "violet",
+    "couleur": "violet pastel",
     "imageResId": "fourinteur1",
     "category": "fournitures",
-    "sizes": []
+    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
   },
   {
     "id": "10",
-    "name": "Sacd os_dinosaure",
+    "name": "Sac à dos dinosaure",
     "price": "30€",
     "description": "Sac à dos enfant rigolo",
     "quantity": "15",
-    "couleur": "vert",
+    "couleur": "vert pomme",
     "imageResId": "fourinteur3",
     "category": "fournitures",
-    "sizes": []
+    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
   },
   {
     "id": "11",
@@ -118,7 +118,7 @@
     "couleur": "multicolore",
     "imageResId": "joutes2",
     "category": "jouets",
-    "sizes": []
+    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
   },
   {
     "id": "12",
@@ -126,10 +126,10 @@
     "price": "40€",
     "description": "Camion de chantier en plastique solide",
     "quantity": "10",
-    "couleur": "jaune",
+    "couleur": "jaune pastel",
     "imageResId": "image1",
-    "category": "fille",
-    "sizes": []
+    "category": "jouets",
+    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
   },
   {
     "id": "13",
@@ -140,7 +140,7 @@
     "couleur": "rose",
     "imageResId": "payjma1",
     "category": "pyjamas",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "14",
@@ -151,7 +151,7 @@
     "couleur": "bleu marine",
     "imageResId": "payjma2",
     "category": "pyjamas",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "15",
@@ -159,21 +159,21 @@
     "price": "60€",
     "description": "Pyjama rouge pour les fêtes",
     "quantity": "5",
-    "couleur": "rouge",
+    "couleur": "rouge cerise",
     "imageResId": "payjma3",
     "category": "pyjamas",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "16",
-    "name": "Pyjama-princesse",
+    "name": "Pyjama princesse",
     "price": "58€",
     "description": "Pyjama à paillettes style princesse",
     "quantity": "7",
     "couleur": "rose clair",
     "imageResId": "payjma4",
     "category": "pyjamas",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "17",
@@ -181,10 +181,10 @@
     "price": "75€",
     "description": "Robe légère à fleurs pour fille",
     "quantity": "10",
-    "couleur": "rose",
+    "couleur": "rose pâle",
     "imageResId": "image2",
     "category": "fille",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "18",
@@ -195,7 +195,7 @@
     "couleur": "blanc",
     "imageResId": "image4",
     "category": "fille",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "19",
@@ -206,7 +206,7 @@
     "couleur": "bleu ciel",
     "imageResId": "image5",
     "category": "fille",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   },
   {
     "id": "20",
@@ -217,6 +217,6 @@
     "couleur": "blanc",
     "imageResId": "image6",
     "category": "fille",
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
   }
 ]

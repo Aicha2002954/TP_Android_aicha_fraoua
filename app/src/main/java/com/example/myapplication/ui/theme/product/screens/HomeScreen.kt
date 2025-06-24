@@ -74,8 +74,8 @@ fun HomeScreen(
             Category.Fille -> categoryNormalized == "fille"
             Category.Chaussures -> categoryNormalized == "chaussures"
             Category.Jouets -> categoryNormalized == "jouets"
-            Category.Fournitures -> categoryNormalized == "fournitures"
-            Category.Pyjamas -> categoryNormalized == "pyjamas"
+            Category.Fournitures -> categoryNormalized == "fournitures"  // corrigé typo
+            Category.Pyjamas -> categoryNormalized == "pyjamas"          // corrigé typo
         }
 
         matchesSearch && matchesCategory
@@ -96,7 +96,7 @@ fun HomeScreen(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
-
+        // Catégories sur une ligne avec scroll horizontal
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -113,7 +113,7 @@ fun HomeScreen(
                 val imageRes = when (category) {
                     Category.All -> R.drawable.image1
                     Category.Garcon -> R.drawable.garcon
-                    Category.Fille -> R.drawable.logofi
+                    Category.Fille -> R.drawable.image3
                     Category.Chaussures -> R.drawable.chasseur2
                     Category.Jouets -> R.drawable.joutes2
                     Category.Fournitures -> R.drawable.fourinteurlogo
