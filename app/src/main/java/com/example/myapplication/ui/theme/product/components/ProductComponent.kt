@@ -15,8 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
-
-import com.example.myapplication.ui.theme.product.components.BackButton
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -38,10 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.data.Entities.Product
 import androidx.compose.material3.IconButton
-
 import androidx.compose.material3.*
-import com.example.myapplication.R
-
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -49,16 +45,14 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.ui.theme.product.ProductViewModel
-
-
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.IconButton
-
 import androidx.compose.material.icons.filled.AddShoppingCart
-import androidx.compose.material3.IconButton
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 @Composable
 fun FavoriteProductItemComponent(
@@ -139,24 +133,23 @@ fun FavoriteProductItemComponent(
         }
     }
 }
-
-
-
 @Composable
 fun ProductDetailsCard(
     product: Product?,
     onBack: () -> Unit,
-    onAddToCart: () -> Unit
+    onAddToCartWithSize: (Product, String) -> Unit
 ) {
+    var selectedSize by remember { mutableStateOf<String?>(null) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(30.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Column(modifier = Modifier.padding(24.dp)) {
+        Column(modifier = Modifier.padding(30.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start
@@ -164,18 +157,11 @@ fun ProductDetailsCard(
                 BackButton(onBack = onBack)
             }
 
-            Text(
-                text = "Détails du produit",
-                style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFF9C27B0)),
-                modifier = Modifier
-                    .padding(vertical = 16.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
 
-            product?.let {
+            product?.let { it ->
                 Image(
-                    painter = painterResource(id = getImageResource(product.imageResId)),
-                    contentDescription = product.name,
+                    painter = painterResource(id = getImageResource(it.imageResId)),
+                    contentDescription = it.name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -185,59 +171,78 @@ fun ProductDetailsCard(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        ProductInfoRow(value = "\uD83D\uDECD\uFE0F " + it.name)
-                        ProductInfoRow(value = "\uD83D\uDCB0 " + it.price)
-                        ProductInfoRow(value = "\uD83D\uDCE6 " + it.quantity + " en stock")
+                    Text(
+                        text = it.name,
+                        style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
+                    )
+                    Text(
+                        text = "\uD83D\uDCB0 " + it.price,
+                        style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
+                    )
+                }
 
-                        // ✅ Bloc d'affichage des tailles
-                        if (it.sizes.isNotEmpty()) {
-                            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
+                if (it.sizes.isNotEmpty()) {
+                    Text(
+                        text = "Tailles disponibles :",
+                        style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFF6A1B9A))
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
 
-                            Text(
-                                text = "Tailles disponibles :",
-                                style = MaterialTheme.typography.titleMedium,
-                                color = Color.Black
-                            )
-
-                            Spacer(modifier = Modifier.height(4.dp))
-
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        it.sizes.forEach { size: String ->
+                            val isSelected = selectedSize == size
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (isSelected) Color(0xFF9C27B0) else Color(0xFFE1BEE7),
+                                modifier = Modifier
+                                    .clickable { selectedSize = size }
                             ) {
-                                it.sizes.forEach { size ->
-                                    Surface(
-                                        shape = RoundedCornerShape(8.dp),
-                                        color = Color(0xFFE1BEE7)
-                                    ) {
-                                        Text(
-                                            text = size,
-                                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                                            color = Color.Black
-                                        )
-                                    }
-                                }
+                                Text(
+                                    text = size,
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                                    color = if (isSelected) Color.White else Color.Black
+                                )
                             }
                         }
                     }
 
-                    Spacer(modifier = Modifier.width(2.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = it.quantity + " en stock",
+                        style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
+                    )
 
                     Button(
-                        onClick = onAddToCart,
+                        onClick = {
+                            selectedSize?.let { size ->
+                                onAddToCartWithSize(it, size)
+                            }
+                        },
+                        enabled = selectedSize != null,
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9C27B0))
                     ) {
                         Text("Ajouter au panier", color = Color.White)
                     }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Column(
                     modifier = Modifier
@@ -430,7 +435,7 @@ fun SearchBar(
 }
 
 @Composable
-fun AppFooter(navController: NavController) {
+fun AppFooter(navController: NavController, cartItemCount: Int) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -469,14 +474,34 @@ fun AppFooter(navController: NavController) {
                     modifier = Modifier.size(28.dp)
                 )
             }
-            IconButton(onClick = { navController.navigate("cart") }) {
-                Icon(
-                    imageVector = Icons.Default.ShoppingCart,
-                    contentDescription = "Panier",
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
-                )
+            Box {
+                IconButton(onClick = { navController.navigate("cart") }) {
+                    Icon(
+                        imageVector = Icons.Default.ShoppingCart,
+                        contentDescription = "Panier",
+                        tint = Color.White,
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
+
+                if (cartItemCount > 0) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(16.dp)
+                            .background(Color.Red, shape = CircleShape)
+                            .align(Alignment.TopEnd)
+                    ) {
+                        Text(
+                            text = cartItemCount.toString(),
+                            color = Color.White,
+                            fontSize = 10.sp,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
             }
+
             IconButton(onClick = { navController.navigate("profile") }) {
                 Icon(
                     imageVector = Icons.Default.Person,
@@ -496,3 +521,5 @@ fun AppFooter(navController: NavController) {
         }
     }
 }
+
+

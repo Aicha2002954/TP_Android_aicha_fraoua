@@ -21,14 +21,14 @@ fun DetailsScreen(
     navController: NavController
 ) {
     val product = viewModel.getProductById(productId)
-
+    val cartItemCount = viewModel.cartItemCount //
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF8F4FF))
     ) {
         AppHeader()
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Column(
             modifier = Modifier
@@ -40,14 +40,16 @@ fun DetailsScreen(
             ProductDetailsCard(
                 product = product,
                 onBack = onBack,
-                onAddToCart = {
-                    viewModel.addToCart(product)
+                onAddToCartWithSize = { product, size ->
+                    viewModel.addToCartWithSize(product, size)
                 }
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+
+            Spacer(modifier = Modifier.height(4.dp))
         }
 
-        AppFooter(navController = navController)
+        AppFooter(navController = navController, cartItemCount = cartItemCount)
+
     }
 }

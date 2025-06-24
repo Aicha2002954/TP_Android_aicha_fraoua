@@ -7,6 +7,8 @@ import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,15 +17,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
 import com.example.myapplication.R
 import com.example.myapplication.data.Entities.Product
-import com.example.myapplication.ui.theme.product.CartItemData
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.mutableStateMapOf
 
 @Composable
 fun CartScreen(
@@ -33,13 +31,16 @@ fun CartScreen(
 ) {
     val cart = viewModel.cart
     val total = viewModel.getCartTotal()
+    val cartItemCount = viewModel.cartItemCount
+
     val selectedItems = remember { mutableStateMapOf<String, Boolean>() }
 
     Scaffold(
         topBar = { AppHeader() },
-        bottomBar = { AppFooter(navController = navController) }
+        bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { paddingValues ->
-        Column(
+
+    Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(16.dp)
@@ -55,19 +56,21 @@ fun CartScreen(
             } else {
                 Column(modifier = Modifier.weight(1f)) {
                     cart.forEach { cartItem ->
+                        val key = "${cartItem.product.id}_${cartItem.size}"
                         CartItem(
                             product = cartItem.product,
                             quantity = cartItem.quantity,
-                            isSelected = selectedItems[cartItem.product.id] == true,
+                            size = cartItem.size,  // <-- taille ajoutée ici
+                            isSelected = selectedItems[key] == true,
                             onSelectionChange = { isChecked ->
-                                selectedItems[cartItem.product.id] = isChecked
+                                selectedItems[key] = isChecked
                             },
                             onQuantityChange = { newQty ->
-                                viewModel.updateQuantity(cartItem.product, newQty)
+                                viewModel.updateQuantity(cartItem.product, cartItem.size, newQty)
                             },
                             onRemove = {
-                                viewModel.removeFromCart(cartItem.product)
-                                selectedItems.remove(cartItem.product.id)
+                                viewModel.removeFromCart(cartItem.product, cartItem.size)
+                                selectedItems.remove(key)
                             },
                             onProductClick = {
                                 navController.navigate("details/${cartItem.product.id}")
@@ -89,7 +92,8 @@ fun CartScreen(
                 Button(
                     onClick = {
                         val selectedProducts = cart.filter {
-                            selectedItems[it.product.id] == true
+                            val key = "${it.product.id}_${it.size}"
+                            selectedItems[key] == true
                         }
                         if (selectedProducts.isNotEmpty()) {
                             viewModel.setOrderItems(selectedProducts)
@@ -110,6 +114,7 @@ fun CartScreen(
 fun CartItem(
     product: Product,
     quantity: Int,
+    size: String,
     isSelected: Boolean,
     onSelectionChange: (Boolean) -> Unit,
     onQuantityChange: (Int) -> Unit,
@@ -144,7 +149,6 @@ fun CartItem(
 
         Spacer(modifier = Modifier.width(8.dp))
 
-
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -152,8 +156,11 @@ fun CartItem(
         ) {
             Text(text = product.name, style = MaterialTheme.typography.titleMedium)
             Text(text = "Catégorie : ${product.category}", style = MaterialTheme.typography.bodySmall)
+            Text(
+                text = "Taille : $size",
+                style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray)
+            )
         }
-
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally

@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.product.screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -51,7 +50,7 @@ fun HomeScreen(
 
     val viewState = viewModel.viewState
     val products = viewState.products
-
+    val cartItemCount = viewModel.cartItemCount
     LaunchedEffect(Unit) {
         viewModel.onIntent(ProductIntent.LoadProducts)
     }
@@ -149,7 +148,6 @@ fun HomeScreen(
                 )
             }
         }
-
-        AppFooter(navController = navController)
+        AppFooter(navController = navController, cartItemCount = cartItemCount)
     }
 }

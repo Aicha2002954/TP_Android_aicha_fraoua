@@ -21,12 +21,13 @@ fun FavoriteProductsScreen(
     onProductClick: (Product) -> Unit,
     navController: NavController
 ) {
+    val cartItemCount = viewModel.cartItemCount
     Scaffold(
         topBar = { AppHeader() },
-        bottomBar = { AppFooter(navController) }
+        bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { paddingValues ->
 
-        val favoriteProducts = viewModel.favorites
+    val favoriteProducts = viewModel.favorites
 
         Column(modifier = Modifier
             .padding(paddingValues)
@@ -44,8 +45,12 @@ fun FavoriteProductsScreen(
                             product = product,
                             viewModel = viewModel,
                             onClick = { onProductClick(product) },
-                            onAddToCart = { viewModel.addToCart(product) }
+                            onAddToCart = {
+                                val defaultSize = product.sizes.firstOrNull() ?: ""
+                                viewModel.addToCartWithSize(product, defaultSize)
+                            }
                         )
+
                     }
                 }
             }

@@ -11,16 +11,13 @@ import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
+
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateListOf
 
 class CartItemData(
     val product: Product,
+    var size: String,
     quantity: Int = 1
 ) {
     var quantity by mutableStateOf(quantity)
@@ -33,13 +30,16 @@ class ProductViewModel @Inject constructor(
 
     var viewState by mutableStateOf(ProductViewState())
         private set
+
+    private val _cart = mutableStateListOf<CartItemData>()
+    val cart: List<CartItemData> get() = _cart
+
+    private val _favorites = mutableStateListOf<Product>()
+    val favorites: List<Product> get() = _favorites
+
     private val _orderItems = mutableStateListOf<CartItemData>()
     val orderItems: List<CartItemData> get() = _orderItems
 
-    fun setOrderItems(items: List<CartItemData>) {
-        _orderItems.clear()
-        _orderItems.addAll(items)
-    }
     data class OrderInfo(
         val name: String,
         val email: String,
@@ -48,7 +48,6 @@ class ProductViewModel @Inject constructor(
         val paymentMethod: String
     )
 
-
     private val _orderInfo = mutableStateOf<OrderInfo?>(null)
     val orderInfo: State<OrderInfo?> = _orderInfo
 
@@ -56,37 +55,30 @@ class ProductViewModel @Inject constructor(
         _orderInfo.value = OrderInfo(name, email, address, phone, paymentMethod)
     }
 
-
-
-    private val _cart = mutableStateListOf<CartItemData>()
-    val cart: List<CartItemData> get() = _cart
-
-    fun addToCart(product: Product?) {
-        product?.let {
-            Log.d("ProductViewModel", "Ajout au panier: id=${product.id}, name=${product.name}, price=${product.price}, imageResId=${product.imageResId}")
-            val existing = _cart.find { it.product.id == product.id }
-            if (existing != null) {
-                existing.quantity++
-            } else {
-                _cart.add(CartItemData(product, 1))
-            }
+    fun addToCartWithSize(product: Product, size: String) {
+        val existingItem = _cart.find { it.product.id == product.id && it.size == size }
+        if (existingItem != null) {
+            existingItem.quantity++
+        } else {
+            _cart.add(CartItemData(product, size, 1))
         }
     }
+    val cartItemCount: Int
+        get() = _cart.sumOf { it.quantity }
 
-
-    fun removeFromCart(product: Product) {
-        _cart.removeAll { it.product.id == product.id }
+    fun removeFromCart(product: Product, size: String) {
+        _cart.removeAll { it.product.id == product.id && it.size == size }
     }
 
     fun clearCart() {
         _cart.clear()
     }
 
-    fun updateQuantity(product: Product, newQuantity: Int) {
-        val item = _cart.find { it.product.id == product.id }
+    fun updateQuantity(product: Product, size: String, newQuantity: Int) {
+        val item = _cart.find { it.product.id == product.id && it.size == size }
         if (item != null) {
             if (newQuantity <= 0) {
-                removeFromCart(product)
+                removeFromCart(product, size)
             } else {
                 item.quantity = newQuantity
             }
@@ -102,10 +94,6 @@ class ProductViewModel @Inject constructor(
                 .toDoubleOrNull()?.times(it.quantity) ?: 0.0
         }
     }
-
-
-    private val _favorites = mutableStateListOf<Product>()
-    val favorites: List<Product> get() = _favorites
 
     fun toggleFavorite(product: Product) {
         if (_favorites.any { it.id == product.id }) {
@@ -149,4 +137,10 @@ class ProductViewModel @Inject constructor(
     fun getProductById(productId: String): Product? {
         return viewState.products.find { it.id == productId }
     }
+
+    fun setOrderItems(items: List<CartItemData>) {
+        _orderItems.clear()
+        _orderItems.addAll(items)
+    }
+
 }

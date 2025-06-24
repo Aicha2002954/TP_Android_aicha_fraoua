@@ -33,10 +33,10 @@ fun ConfirmationScreen(
     val orderItems = viewModel.orderItems
     val total = viewModel.getCartTotal()
     val context = LocalContext.current
-
+    val cartItemCount = viewModel.cartItemCount
     Scaffold(
         topBar = { AppHeader() },
-        bottomBar = { AppFooter(navController) }
+        bottomBar = {AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -80,6 +80,7 @@ fun ConfirmationScreen(
                     orderItems.forEach { orderItem ->
                         val product = orderItem.product
                         val quantity = orderItem.quantity
+                        val size = orderItem.size  // <-- taille récupérée
                         val price = product.price.replace("€", "").replace(",", ".").toDoubleOrNull() ?: 0.0
 
                         val drawableResId = getDrawableResIdByName(context, product.imageResId)
@@ -100,6 +101,11 @@ fun ConfirmationScreen(
 
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(text = product.name, style = MaterialTheme.typography.bodyMedium)
+                                Text(
+                                    text = "Taille : $size",  // <-- affichage taille
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
                                 Text(
                                     text = "Quantité: $quantity",
                                     style = MaterialTheme.typography.bodySmall,
@@ -134,7 +140,7 @@ fun ConfirmationScreen(
                         append("✅ Reçu de Commande\n\n")
                         orderInfo?.let {
                             append("👤 Nom : ${it.name}\n")
-                            append("📧 Email : ${it.email}\n") // Ajout dans le reçu PDF
+                            append("📧 Email : ${it.email}\n")
                             append("📍 Adresse : ${it.address}\n")
                             append("📞 Téléphone : ${it.phone}\n")
                             append("💳 Paiement : ${it.paymentMethod}\n\n")
@@ -142,7 +148,7 @@ fun ConfirmationScreen(
                         append("🛍️ Articles commandés :\n")
                         orderItems.forEach {
                             val price = it.product.price.replace("€", "").replace(",", ".").toDoubleOrNull() ?: 0.0
-                            append("- ${it.product.name} x${it.quantity} = %.2f €\n".format(price * it.quantity))
+                            append("- ${it.product.name} (Taille: ${it.size}) x${it.quantity} = %.2f €\n".format(price * it.quantity))
                         }
                         append("\n💰 Total : %.2f €".format(total))
                     }

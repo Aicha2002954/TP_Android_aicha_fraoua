@@ -27,7 +27,7 @@ fun OrderFormScreen(
     var phone by remember { mutableStateOf("") }
     var paymentMethod by remember { mutableStateOf("") }
     var showCardForm by remember { mutableStateOf(false) }
-
+    val cartItemCount = viewModel.cartItemCount
     var cardNumber by remember { mutableStateOf("") }
     var expiryDate by remember { mutableStateOf("") }
     var cvc by remember { mutableStateOf("") }
@@ -38,7 +38,7 @@ fun OrderFormScreen(
 
     Scaffold(
         topBar = { AppHeader() },
-        bottomBar = { AppFooter(navController) },
+        bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
 
