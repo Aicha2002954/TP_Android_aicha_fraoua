@@ -1,3 +1,4 @@
+
 package com.example.myapplication.ui.theme.product.cart
 
 import androidx.compose.foundation.layout.*
@@ -21,10 +22,10 @@ fun OrderFormScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var paymentMethod by remember { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
     var showCardForm by remember { mutableStateOf(false) }
 
     var cardNumber by remember { mutableStateOf("") }
@@ -50,13 +51,20 @@ fun OrderFormScreen(
         ) {
 
             if (!showCardForm) {
-
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
                     label = { Text("Nom complet") },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && name.isBlank()
+                )
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Adresse e-mail") },
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = showErrors && email.isBlank()
                 )
 
                 OutlinedTextField(
@@ -75,46 +83,37 @@ fun OrderFormScreen(
                     isError = showErrors && phone.isBlank()
                 )
 
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded }
-                ) {
-                    OutlinedTextField(
-                        value = paymentMethod,
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text("Mode de paiement") },
-                        modifier = Modifier
-                            .menuAnchor()
-                            .fillMaxWidth(),
-                        isError = showErrors && paymentMethod.isBlank()
-                    )
-                    ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
+                Text("Mode de paiement", style = MaterialTheme.typography.titleSmall)
+
+                paymentOptions.forEach { option ->
+                    Row(
+                        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        paymentOptions.forEach { option ->
-                            DropdownMenuItem(
-                                text = { Text(option) },
-                                onClick = {
-                                    paymentMethod = option
-                                    expanded = false
-                                }
-                            )
-                        }
+                        Checkbox(
+                            checked = paymentMethod == option,
+                            onCheckedChange = {
+                                paymentMethod = if (it) option else ""
+                            }
+                        )
+                        Text(option)
                     }
+                }
+
+                if (showErrors && paymentMethod.isBlank()) {
+                    Text("Veuillez choisir un mode de paiement", color = MaterialTheme.colorScheme.error)
                 }
 
                 Button(
                     onClick = {
-                        if (name.isBlank() || address.isBlank() || phone.isBlank() || paymentMethod.isBlank()) {
+                        if (name.isBlank() || email.isBlank() || address.isBlank() || phone.isBlank() || paymentMethod.isBlank()) {
                             showErrors = true
                         } else {
                             showErrors = false
                             if (paymentMethod == "Carte bancaire") {
                                 showCardForm = true
                             } else {
-                                viewModel.saveOrderInfo(name, address, phone, paymentMethod)
+                                viewModel.saveOrderInfo(name,email, address, phone, paymentMethod)
                                 navController.navigate("confirmation")
                             }
                         }
@@ -125,7 +124,6 @@ fun OrderFormScreen(
                     Text("Continuer", color = MaterialTheme.colorScheme.onPrimary)
                 }
             } else {
-
                 OutlinedTextField(
                     value = cardNumber,
                     onValueChange = { cardNumber = it },
@@ -170,7 +168,7 @@ fun OrderFormScreen(
                         onClick = {
                             if (cardNumber.isNotBlank() && expiryDate.isNotBlank() && cvc.isNotBlank()) {
                                 showErrors = false
-                                viewModel.saveOrderInfo(name, address, phone, paymentMethod)
+                                viewModel.saveOrderInfo(name,email, address, phone, paymentMethod)
                                 navController.navigate("confirmation")
                             } else {
                                 showErrors = true

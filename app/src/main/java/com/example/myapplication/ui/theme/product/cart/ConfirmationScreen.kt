@@ -58,6 +58,7 @@ fun ConfirmationScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text("👤 Nom : ${it.name}")
+                        Text("📧 Email : ${it.email}")
                         Text("📍 Adresse : ${it.address}")
                         Text("📞 Téléphone : ${it.phone}")
                         Text("💳 Paiement : ${it.paymentMethod}")
@@ -133,6 +134,7 @@ fun ConfirmationScreen(
                         append("✅ Reçu de Commande\n\n")
                         orderInfo?.let {
                             append("👤 Nom : ${it.name}\n")
+                            append("📧 Email : ${it.email}\n") // Ajout dans le reçu PDF
                             append("📍 Adresse : ${it.address}\n")
                             append("📞 Téléphone : ${it.phone}\n")
                             append("💳 Paiement : ${it.paymentMethod}\n\n")

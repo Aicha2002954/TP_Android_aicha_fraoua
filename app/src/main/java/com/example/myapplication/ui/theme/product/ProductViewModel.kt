@@ -42,17 +42,20 @@ class ProductViewModel @Inject constructor(
     }
     data class OrderInfo(
         val name: String,
+        val email: String,
         val address: String,
         val phone: String,
         val paymentMethod: String
     )
 
+
     private val _orderInfo = mutableStateOf<OrderInfo?>(null)
     val orderInfo: State<OrderInfo?> = _orderInfo
 
-    fun saveOrderInfo(name: String, address: String, phone: String, paymentMethod: String) {
-        _orderInfo.value = OrderInfo(name, address, phone, paymentMethod)
+    fun saveOrderInfo(name: String, email: String, address: String, phone: String, paymentMethod: String) {
+        _orderInfo.value = OrderInfo(name, email, address, phone, paymentMethod)
     }
+
 
 
     private val _cart = mutableStateListOf<CartItemData>()
