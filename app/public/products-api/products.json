@@ -8,18 +8,18 @@
     "couleur": "bleu clair",
     "imageResId": "garcon1",
     "category": "garçon",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "2",
-    "name": "T-shirt à rayures",
+    "name": "T-shirt",
     "price": "45€",
     "description": "T-shirt rayé confortable",
     "quantity": "10",
     "couleur": "blanc cassé",
     "imageResId": "garcon2",
     "category": "garçon",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "3",
@@ -30,7 +30,7 @@
     "couleur": "gris perle",
     "imageResId": "garcon3",
     "category": "garçon",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "4",
@@ -41,7 +41,7 @@
     "couleur": "noir doux",
     "imageResId": "garcon4",
     "category": "garçon",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "5",
@@ -56,7 +56,7 @@
   },
   {
     "id": "6",
-    "name": "Chaussures sport",
+    "name": "Chaussures",
     "price": "60€",
     "description": "Baskets pour fille ou garçon",
     "quantity": "10",
@@ -94,20 +94,20 @@
     "description": "Trousse scolaire à motif licorne",
     "quantity": "18",
     "couleur": "violet pastel",
-    "imageResId": "fourinteur1",
+    "imageResId": "fourinteur3",
     "category": "fournitures",
-    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
+    "sizes": ["1 PC", "2 PC", "3 PC", "4 PC"]
   },
   {
     "id": "10",
-    "name": "Sac à dos dinosaure",
+    "name": "Sac ",
     "price": "30€",
     "description": "Sac à dos enfant rigolo",
     "quantity": "15",
     "couleur": "vert pomme",
-    "imageResId": "fourinteur3",
+    "imageResId": "fourinteur1",
     "category": "fournitures",
-    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
+    "sizes": ["1 PC", "2 PC", "3 PC", "4 PC"]
   },
   {
     "id": "11",
@@ -118,7 +118,7 @@
     "couleur": "multicolore",
     "imageResId": "joutes2",
     "category": "jouets",
-    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
+    "sizes": ["1 PC", "2 PC", "3 PC", "4 PC"]
   },
   {
     "id": "12",
@@ -129,7 +129,7 @@
     "couleur": "jaune pastel",
     "imageResId": "image1",
     "category": "jouets",
-    "sizes": ["1 pièce", "2 pièces", "3 pièces", "4 pièces"]
+    "sizes": ["1 PC", "2 PC", "3 PC", "4 PC"]
   },
   {
     "id": "13",
@@ -140,7 +140,7 @@
     "couleur": "rose",
     "imageResId": "payjma1",
     "category": "pyjamas",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "14",
@@ -151,7 +151,7 @@
     "couleur": "bleu marine",
     "imageResId": "payjma2",
     "category": "pyjamas",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "15",
@@ -162,18 +162,18 @@
     "couleur": "rouge cerise",
     "imageResId": "payjma3",
     "category": "pyjamas",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "16",
-    "name": "Pyjama princesse",
+    "name": "Pyjama princ",
     "price": "58€",
     "description": "Pyjama à paillettes style princesse",
     "quantity": "7",
     "couleur": "rose clair",
     "imageResId": "payjma4",
     "category": "pyjamas",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "17",
@@ -184,7 +184,7 @@
     "couleur": "rose pâle",
     "imageResId": "image2",
     "category": "fille",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "18",
@@ -195,7 +195,7 @@
     "couleur": "blanc",
     "imageResId": "image4",
     "category": "fille",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "19",
@@ -206,7 +206,7 @@
     "couleur": "bleu ciel",
     "imageResId": "image5",
     "category": "fille",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   },
   {
     "id": "20",
@@ -217,6 +217,6 @@
     "couleur": "blanc",
     "imageResId": "image6",
     "category": "fille",
-    "sizes": ["0-3m", "3-6m", "6-12m", "12-18m"]
+    "sizes": ["0-3M", "3-6M", "6-12M", "12-18M"]
   }
 ]
