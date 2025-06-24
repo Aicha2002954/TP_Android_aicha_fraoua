@@ -4,7 +4,6 @@ package com.example.myapplication.data.Entities
 
 import com.google.gson.annotations.SerializedName
 
-
 data class Product(
     @SerializedName("id")
     val id: String,
@@ -18,9 +17,11 @@ data class Product(
     val quantity: String,
     @SerializedName("couleur")
     val couleur: String,
-
     @SerializedName("imageResId")
     val imageResId: String,
     @SerializedName("category")
-    val category: String
+    val category: String,
+
+    @SerializedName("sizes")
+    val sizes: List<String> = emptyList()
 )

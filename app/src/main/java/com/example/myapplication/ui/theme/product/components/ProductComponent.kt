@@ -173,7 +173,6 @@ fun ProductDetailsCard(
             )
 
             product?.let {
-
                 Image(
                     painter = painterResource(id = getImageResource(product.imageResId)),
                     contentDescription = product.name,
@@ -184,7 +183,7 @@ fun ProductDetailsCard(
                         .clip(RoundedCornerShape(10.dp))
                 )
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -196,6 +195,36 @@ fun ProductDetailsCard(
                         ProductInfoRow(value = "\uD83D\uDCB0 " + it.price)
                         ProductInfoRow(value = "\uD83D\uDCE6 " + it.quantity + " en stock")
 
+                        // ✅ Bloc d'affichage des tailles
+                        if (it.sizes.isNotEmpty()) {
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Text(
+                                text = "Tailles disponibles :",
+                                style = MaterialTheme.typography.titleMedium,
+                                color = Color.Black
+                            )
+
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                it.sizes.forEach { size ->
+                                    Surface(
+                                        shape = RoundedCornerShape(8.dp),
+                                        color = Color(0xFFE1BEE7)
+                                    ) {
+                                        Text(
+                                            text = size,
+                                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                                            color = Color.Black
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     Spacer(modifier = Modifier.width(2.dp))
@@ -208,7 +237,7 @@ fun ProductDetailsCard(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(1.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Column(
                     modifier = Modifier
@@ -216,13 +245,11 @@ fun ProductDetailsCard(
                         .background(Color(0xFFF3E5F5), RoundedCornerShape(12.dp))
                         .padding(12.dp)
                 ) {
-
                     Text(
                         text = if (it.description.isNotBlank()) it.description else "Aucune description disponible",
                         style = MaterialTheme.typography.bodyMedium.copy(color = Color.Black)
                     )
                 }
-
             } ?: Text(
                 "Produit non trouvé.",
                 style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red),

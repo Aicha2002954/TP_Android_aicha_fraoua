@@ -9,7 +9,8 @@
     "quantity": "12",
     "couleur":"noir",
     "imageResId": "image7",
-    "category":"garçon"
+    "category":"garçon",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "2",
@@ -19,7 +20,8 @@
     "quantity": "7",
     "couleur":"noir",
     "imageResId": "image8",
-    "category":"fille"
+    "category":"fille",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "3",
@@ -29,7 +31,8 @@
     "quantity": "5",
     "couleur":"noir",
     "imageResId": "image9",
-    "category":"garçon"
+    "category":"garçon",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "4",
@@ -39,7 +42,8 @@
     "quantity": "20",
     "couleur":"noir",
     "imageResId": "image10",
-    "category":"garçon"
+    "category":"garçon",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "5",
@@ -49,7 +53,8 @@
     "quantity": "14",
     "couleur":"noir",
     "imageResId": "image1",
-    "category": "garçon"
+    "category": "garçon",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "6",
@@ -59,7 +64,8 @@
     "quantity": "9",
     "couleur":"noir",
     "imageResId": "image2",
-    "category": "bébé"
+    "category": "bébé",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "7",
@@ -69,7 +75,8 @@
     "quantity": "11",
     "couleur":"noir",
     "imageResId": "image3",
-    "category":"garçon"
+    "category":"garçon",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "8",
@@ -79,7 +86,8 @@
     "quantity": "4",
     "couleur":"noir",
     "imageResId": "image4",
-    "category":"garçon"
+    "category":"garçon",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "9",
@@ -89,7 +97,8 @@
     "quantity": "6",
     "couleur":"noir",
     "imageResId": "image5",
-    "category":"fille"
+    "category":"fille",
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": "10",
@@ -99,6 +108,7 @@
     "quantity": "8",
     "couleur":"noir",
     "imageResId": "image6",
-    "category":"fille"
+    "category":"fille",
+    "sizes": ["S", "M", "L", "XL"]
   }
 ]
