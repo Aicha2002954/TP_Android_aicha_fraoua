@@ -12,11 +12,16 @@ import androidx.navigation.navArgument
 import androidx.navigation.NavController
 import com.example.myapplication.ui.product.screens.HomeScreen
 import com.example.myapplication.ui.product.screens.DetailsScreen
+import com.example.myapplication.ui.theme.product.cart.CartScreen  // <-- Import CartScreen
 import com.example.myapplication.ui.theme.auth.LoginScreen
 import com.example.myapplication.ui.theme.auth.RegisterScreen
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.myapplication.ui.theme.favorites.FavoriteProductsScreen
+import com.example.myapplication.ui.theme.product.cart.CartScreen
+import com.example.myapplication.ui.theme.product.cart.OrderFormScreen  // ← à importer
+import androidx.compose.material3.MaterialTheme
+import com.example.myapplication.ui.theme.product.cart.ConfirmationScreen
 
 @Composable
 fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
@@ -49,18 +54,42 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 viewModel = viewModel,
                 onProductClick = { product ->
                     navController.navigate("details/${product.id}")
-                }
+                },
+                navController = navController
             )
         }
 
+
+
         composable("cart") {
+            CartScreen(
+                viewModel = viewModel,
+                navController = navController,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable("orderForm") {
+            OrderFormScreen(
+                navController = navController,
+                viewModel = viewModel
+            )
+        }
+
+        composable("confirmation") {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Page du Panier")
+                Text("✅ Merci pour votre commande !", style = MaterialTheme.typography.headlineSmall)
             }
         }
+        composable("confirmation") {
+            ConfirmationScreen(
+                navController = navController,
+                viewModel = viewModel
+            )
+        }
+
 
         composable("profile") {
             Box(
@@ -70,7 +99,6 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 Text("Page Profil")
             }
         }
-
 
         composable("login") {
             LoginScreen(
@@ -83,7 +111,6 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 }
             )
         }
-
 
         composable("register") {
             RegisterScreen(

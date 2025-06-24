@@ -136,10 +136,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text ="nombre de produit: ${products.size}",
-            modifier = Modifier.padding(16.dp)
-        )
+
 
         Box(modifier = Modifier.weight(1f)) {
             if (filteredProducts.isEmpty()) {

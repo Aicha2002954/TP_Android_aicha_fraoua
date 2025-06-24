@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.theme.product
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,7 +8,23 @@ import javax.inject.Inject
 import com.example.myapplication.data.repository.ProductRepository
 import com.example.myapplication.data.Entities.Product
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateListOf
+
+class CartItemData(
+    val product: Product,
+    quantity: Int = 1
+) {
+    var quantity by mutableStateOf(quantity)
+}
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
@@ -16,29 +33,74 @@ class ProductViewModel @Inject constructor(
 
     var viewState by mutableStateOf(ProductViewState())
         private set
+    private val _orderItems = mutableStateListOf<CartItemData>()
+    val orderItems: List<CartItemData> get() = _orderItems
 
-    //Partie PANIER
-    private val _cart = mutableStateListOf<Product>()
-    val cart: List<Product> get() = _cart
+    fun setOrderItems(items: List<CartItemData>) {
+        _orderItems.clear()
+        _orderItems.addAll(items)
+    }
+    data class OrderInfo(
+        val name: String,
+        val address: String,
+        val phone: String,
+        val paymentMethod: String
+    )
+
+    private val _orderInfo = mutableStateOf<OrderInfo?>(null)
+    val orderInfo: State<OrderInfo?> = _orderInfo
+
+    fun saveOrderInfo(name: String, address: String, phone: String, paymentMethod: String) {
+        _orderInfo.value = OrderInfo(name, address, phone, paymentMethod)
+    }
+
+
+    private val _cart = mutableStateListOf<CartItemData>()
+    val cart: List<CartItemData> get() = _cart
 
     fun addToCart(product: Product?) {
         product?.let {
-            _cart.add(it)
+            Log.d("ProductViewModel", "Ajout au panier: id=${product.id}, name=${product.name}, price=${product.price}, imageResId=${product.imageResId}")
+            val existing = _cart.find { it.product.id == product.id }
+            if (existing != null) {
+                existing.quantity++
+            } else {
+                _cart.add(CartItemData(product, 1))
+            }
         }
     }
 
+
     fun removeFromCart(product: Product) {
-        _cart.remove(product)
+        _cart.removeAll { it.product.id == product.id }
     }
 
     fun clearCart() {
         _cart.clear()
     }
 
-    fun getCartTotal(): Double {
-        return _cart.sumOf { it.price.toDoubleOrNull() ?: 0.0 }
+    fun updateQuantity(product: Product, newQuantity: Int) {
+        val item = _cart.find { it.product.id == product.id }
+        if (item != null) {
+            if (newQuantity <= 0) {
+                removeFromCart(product)
+            } else {
+                item.quantity = newQuantity
+            }
+        }
     }
-    // Partie FAVORIS
+
+    fun getCartTotal(): Double {
+        return cart.sumOf {
+            it.product.price
+                .replace("€", "")
+                .replace(",", ".")
+                .trim()
+                .toDoubleOrNull()?.times(it.quantity) ?: 0.0
+        }
+    }
+
+
     private val _favorites = mutableStateListOf<Product>()
     val favorites: List<Product> get() = _favorites
 
@@ -53,7 +115,6 @@ class ProductViewModel @Inject constructor(
     fun isFavorite(product: Product): Boolean {
         return _favorites.any { it.id == product.id }
     }
-    // Fin Partie FAVORIS
 
     fun onIntent(intent: ProductIntent) {
         when (intent) {
@@ -75,7 +136,8 @@ class ProductViewModel @Inject constructor(
             viewState = viewState.copy(isLoading = true)
             val filtered = repository.getProducts().filter {
                 it.name.contains(query, ignoreCase = true) ||
-                        it.description.contains(query, ignoreCase = true)
+                        it.description.contains(query, ignoreCase = true) ||
+                        it.category.contains(query, ignoreCase = true)
             }
             viewState = viewState.copy(products = filtered, isLoading = false)
         }

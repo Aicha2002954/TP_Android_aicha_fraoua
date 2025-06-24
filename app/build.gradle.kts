@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.play.services.analytics.impl)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.navigation.runtime.android)
     val nav_version = "2.8.9"
 
     implementation(libs.androidx.core.ktx)
@@ -94,6 +95,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-auth")
     implementation ("androidx.compose.material:material-icons-extended:1.6.0")
+    implementation("io.coil-kt:coil-compose:2.3.0")
 
 
 }

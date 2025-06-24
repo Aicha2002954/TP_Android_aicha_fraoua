@@ -184,7 +184,7 @@ fun ProductDetailsCard(
                         .clip(RoundedCornerShape(10.dp))
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -195,10 +195,10 @@ fun ProductDetailsCard(
                         ProductInfoRow(value = "\uD83D\uDECD\uFE0F " + it.name)
                         ProductInfoRow(value = "\uD83D\uDCB0 " + it.price)
                         ProductInfoRow(value = "\uD83D\uDCE6 " + it.quantity + " en stock")
-                        ProductInfoRow(value = "\uD83D\uDD14 : " + it.couleur)
+
                     }
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(2.dp))
 
                     Button(
                         onClick = onAddToCart,
@@ -208,7 +208,7 @@ fun ProductDetailsCard(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 Column(
                     modifier = Modifier
