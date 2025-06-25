@@ -21,7 +21,8 @@ fun DetailsScreen(
     navController: NavController
 ) {
     val product = viewModel.getProductById(productId)
-    val cartItemCount = viewModel.cartItemCount //
+    val offer = viewModel.getOfferForProduct(productId)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,16 +41,20 @@ fun DetailsScreen(
             ProductDetailsCard(
                 product = product,
                 onBack = onBack,
+                offerPercent = offer?.discountPercent,
                 onAddToCartWithSize = { product, size ->
-                    viewModel.addToCartWithSize(product, size)
+                    val originalPrice =
+                        product.price.removeSuffix("€").trim().replace(",", ".").toDoubleOrNull()
+                            ?: 0.0
+                    val priceToUse =
+                        offer?.let { (originalPrice * (100 - it.discountPercent) / 100) }
+                            ?: originalPrice
+                    viewModel.addToCartWithSizeAndPrice(product, size, priceToUse)
                 }
-            )
-
-
+                    )
             Spacer(modifier = Modifier.height(4.dp))
         }
 
-        AppFooter(navController = navController, cartItemCount = cartItemCount)
-
+        AppFooter(navController = navController, cartItemCount = viewModel.cartItemCount)
     }
 }

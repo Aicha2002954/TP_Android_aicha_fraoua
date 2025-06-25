@@ -74,8 +74,8 @@ fun HomeScreen(
             Category.Fille -> categoryNormalized == "fille"
             Category.Chaussures -> categoryNormalized == "chaussures"
             Category.Jouets -> categoryNormalized == "jouets"
-            Category.Fournitures -> categoryNormalized == "fournitures"  // corrigé typo
-            Category.Pyjamas -> categoryNormalized == "pyjamas"          // corrigé typo
+            Category.Fournitures -> categoryNormalized == "fournitures"
+            Category.Pyjamas -> categoryNormalized == "pyjamas"
         }
 
         matchesSearch && matchesCategory
@@ -96,7 +96,6 @@ fun HomeScreen(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
-        // Catégories sur une ligne avec scroll horizontal
         Row(
             modifier = Modifier
                 .fillMaxWidth()

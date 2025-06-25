@@ -53,13 +53,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.material.icons.filled.LocalOffer
+import androidx.compose.material.icons.filled.Whatshot
 
 @Composable
+
 fun FavoriteProductItemComponent(
     product: Product,
     viewModel: ProductViewModel,
     onClick: () -> Unit = {},
-    onAddToCart: () -> Unit = {}
+    onAddToCart: (String) -> Unit = {}
 ) {
     Card(
         modifier = Modifier
@@ -121,7 +125,10 @@ fun FavoriteProductItemComponent(
             }
 
             IconButton(
-                onClick = onAddToCart,
+                onClick = {
+                    val defaultSize = product.sizes.firstOrNull() ?: ""
+                    onAddToCart(defaultSize)
+                },
                 modifier = Modifier.size(36.dp)
             ) {
                 Icon(
@@ -133,9 +140,11 @@ fun FavoriteProductItemComponent(
         }
     }
 }
+
 @Composable
 fun ProductDetailsCard(
     product: Product?,
+    offerPercent: Int?,  // Pour afficher la promo si elle existe
     onBack: () -> Unit,
     onAddToCartWithSize: (Product, String) -> Unit
 ) {
@@ -157,7 +166,6 @@ fun ProductDetailsCard(
                 BackButton(onBack = onBack)
             }
 
-
             product?.let { it ->
                 Image(
                     painter = painterResource(id = getImageResource(it.imageResId)),
@@ -171,6 +179,11 @@ fun ProductDetailsCard(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                // Ligne titre + prix avec promo si présente
+                val originalPrice = it.price.removeSuffix("€").trim().toIntOrNull() ?: 0
+                val discountedPrice = offerPercent?.let { percent ->
+                    (originalPrice * (100 - percent) / 100)
+                }
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -181,13 +194,30 @@ fun ProductDetailsCard(
                         text = it.name,
                         style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
                     )
-                    Text(
-                        text = "\uD83D\uDCB0 " + it.price,
-                        style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
-                    )
+                    if (discountedPrice != null) {
+                        Column(horizontalAlignment = Alignment.End) {
+                            Text(
+                                text = "${originalPrice}€",
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    color = Color.Gray,
+                                    textDecoration = TextDecoration.LineThrough
+                                )
+                            )
+                            Text(
+                                text = "${discountedPrice}€",
+                                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red)
+                            )
+                        }
+                    } else {
+                        Text(
+                            text = it.price,
+                            style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
+
                 if (it.sizes.isNotEmpty()) {
                     Text(
                         text = "Tailles disponibles :",
@@ -263,6 +293,8 @@ fun ProductDetailsCard(
         }
     }
 }
+
+
 
 @Composable
 fun ProductInfoRow( value: String) {
@@ -500,21 +532,24 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
                 }
             }
 
-            IconButton(onClick = {
-                if (navController.currentDestination?.route != "profile") {
-                    navController.navigate("profile") {
-                        launchSingleTop = true
-                        popUpTo("product") { inclusive = false }
+
+                    IconButton(onClick = {
+                        if (navController.currentDestination?.route != "promo") {
+                            navController.navigate("promo") {
+                                launchSingleTop = true
+                                popUpTo("product") { inclusive = false }
+                            }
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Whatshot,
+                            contentDescription = "Promotions",
+                            tint = Color.White,
+                            modifier = Modifier.size(28.dp)
+                        )
                     }
-                }
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Profil",
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
-                )
-            }
+
+
 
             IconButton(onClick = {
                 if (navController.currentDestination?.route != "login") {

@@ -40,7 +40,7 @@ fun CartScreen(
         bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { paddingValues ->
 
-    Column(
+        Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(16.dp)
@@ -60,21 +60,16 @@ fun CartScreen(
                         CartItem(
                             product = cartItem.product,
                             quantity = cartItem.quantity,
-                            size = cartItem.size,  // <-- taille ajoutée ici
+                            size = cartItem.size,
+                            unitPrice = cartItem.price,
                             isSelected = selectedItems[key] == true,
-                            onSelectionChange = { isChecked ->
-                                selectedItems[key] = isChecked
-                            },
-                            onQuantityChange = { newQty ->
-                                viewModel.updateQuantity(cartItem.product, cartItem.size, newQty)
-                            },
+                            onSelectionChange = { isChecked -> selectedItems[key] = isChecked },
+                            onQuantityChange = { newQty -> viewModel.updateQuantity(cartItem.product, cartItem.size, newQty) },
                             onRemove = {
                                 viewModel.removeFromCart(cartItem.product, cartItem.size)
                                 selectedItems.remove(key)
                             },
-                            onProductClick = {
-                                navController.navigate("details/${cartItem.product.id}")
-                            }
+                            onProductClick = { navController.navigate("details/${cartItem.product.id}") }
                         )
                         Divider()
                     }
@@ -115,6 +110,7 @@ fun CartItem(
     product: Product,
     quantity: Int,
     size: String,
+    unitPrice: Double,
     isSelected: Boolean,
     onSelectionChange: (Boolean) -> Unit,
     onQuantityChange: (Int) -> Unit,
@@ -177,14 +173,8 @@ fun CartItem(
                 }
             }
 
-            val priceDouble = product.price
-                .replace("€", "")
-                .replace(",", ".")
-                .trim()
-                .toDoubleOrNull() ?: 0.0
-
             Text(
-                text = "%.2f €".format(priceDouble * quantity),
+                text = "%.2f €".format(unitPrice * quantity),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 4.dp)
             )

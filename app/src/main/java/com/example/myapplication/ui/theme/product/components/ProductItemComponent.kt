@@ -1,22 +1,33 @@
 package com.example.myapplication.ui.theme.product.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Card
+import androidx.compose.ui.res.painterResource
 import com.example.myapplication.R
 import com.example.myapplication.data.Entities.Product
 import com.example.myapplication.ui.theme.product.ProductViewModel
@@ -25,7 +36,6 @@ fun getImageResource(productImage: String): Int {
     return when (productImage) {
         "image1" -> R.drawable.image1
         "image2" -> R.drawable.image2
-
         "image4" -> R.drawable.image4
         "image5" -> R.drawable.image5
         "image6" -> R.drawable.image6
@@ -45,12 +55,9 @@ fun getImageResource(productImage: String): Int {
         "payjma3" -> R.drawable.payjma3
         "payjma4" -> R.drawable.payjma4
         "payjma5" -> R.drawable.payjma5
-
-
         else -> R.drawable.image1
     }
 }
-
 @Composable
 fun ProductItemComponent(
     product: Product,
@@ -59,6 +66,15 @@ fun ProductItemComponent(
     modifier: Modifier = Modifier
 ) {
     val isFavorite = viewModel.isFavorite(product)
+    val offer = viewModel.getOfferForProduct(product.id)
+
+    val originalPrice = product.price
+        .removeSuffix("€")
+        .trim()
+        .replace(",", ".")
+        .toDoubleOrNull() ?: 0.0
+
+    val discountedPrice = offer?.let { originalPrice * (100 - it.discountPercent) / 100.0 } ?: originalPrice
 
     Card(
         modifier = modifier
@@ -81,16 +97,37 @@ fun ProductItemComponent(
                 Image(
                     painter = painterResource(id = getImageResource(product.imageResId)),
                     contentDescription = product.name,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(RoundedCornerShape(12.dp))
                 )
+
+                if (offer != null) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .background(Color.Red, shape = RoundedCornerShape(bottomEnd = 8.dp))
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .zIndex(1f)
+                    ) {
+                        Text(
+                            text = "Promo -${offer.discountPercent}%",
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+
                 IconButton(
                     onClick = { viewModel.toggleFavorite(product) },
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .padding(6.dp)
                         .size(28.dp)
+                        .zIndex(1f)
                 ) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
@@ -112,20 +149,51 @@ fun ProductItemComponent(
                     style = MaterialTheme.typography.titleMedium.copy(color = Color(0xFF6A1B9A)),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
                 )
-
                 Text(
-                    text = product.price,
+                    text = "${"%.2f".format(originalPrice)}€",
                     style = MaterialTheme.typography.bodyLarge.copy(
                         color = Color(0xFF672037),
-                        fontSize = 18.sp
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
                     ),
+                    modifier = Modifier.padding(start = 8.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
+            if (offer != null) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "${"%.2f".format(originalPrice)}€",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = Color.Gray,
+                            textDecoration = TextDecoration.LineThrough
+                        ),
+                        modifier = Modifier.padding(end = 8.dp)
+                    )
+                    Text(
+                        text = "${"%.2f".format(discountedPrice)}€",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            color = Color.Red,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+            }
 
-            Row {
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
                 repeat(5) {
                     Icon(
                         imageVector = Icons.Filled.Star,

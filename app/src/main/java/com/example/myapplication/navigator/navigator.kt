@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.myapplication.ui.theme.auth.LoginScreen
 import com.example.myapplication.ui.theme.auth.RegisterScreen
 import com.example.myapplication.ui.theme.favorites.FavoriteProductsScreen
+import com.example.myapplication.ui.theme.favorites.PromoScreen
 import com.example.myapplication.ui.theme.product.cart.OrderFormScreen
 import com.example.myapplication.ui.theme.product.cart.ConfirmationScreen
 import com.example.myapplication.ui.theme.product.screens.SplashScreen
@@ -99,7 +100,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
-        // Profil utilisateur
+
         composable("profile") {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -110,21 +111,27 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
         }
 
         // Connexion
-
         composable("login") {
             LoginScreen(
-                navController = navController,                  // <--- Ici
-                cartItemCount = 0,                              // Ou une valeur dynamique de ton panier
+                navController = navController,
+                cartItemCount = 0,
                 onLoginSuccess = { navController.navigate("product") },
                 onNavigateToRegister = { navController.navigate("register") }
             )
         }
-
         composable("register") {
             RegisterScreen(
                 navController = navController,
-                cartItemCount = 0,  // Ou la valeur dynamique de ton panier ici
+                cartItemCount = 0,
                 onRegisterSuccess = { navController.popBackStack() }
+            )
+        }
+        //Promo
+        composable("promo") {
+            PromoScreen(
+                viewModel = viewModel,
+                navController = navController,
+                onProductClick = { product -> navController.navigate("details/${product.id}") }
             )
         }
 

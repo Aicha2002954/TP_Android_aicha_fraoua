@@ -35,20 +35,16 @@ fun RegisterScreen(
     var address by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var role by remember { mutableStateOf("client") }
-
     var errorMessage by remember { mutableStateOf<String?>(null) }
-
     val isEmailValid = email.contains("@") && email.contains(".")
     val isPasswordValid = password.length >= 6
     val isNameValid = name.trim().isNotEmpty()
     val isAddressValid = address.trim().isNotEmpty()
     val isPhoneValid = phone.matches(Regex("^(\\+?\\d{8,15})$"))
-
     val allValid = isEmailValid && isPasswordValid && isNameValid && isAddressValid && isPhoneValid
 
-    Column(modifier = Modifier.fillMaxSize()) {
+Column(modifier = Modifier.fillMaxSize()) {
         AppHeader()
-
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
@@ -186,12 +182,10 @@ fun RegisterScreen(
                     Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))
                 }
             }
-
             item {
                 Spacer(modifier = Modifier.height(32.dp))
             }
         }
-
         AppFooter(navController = navController, cartItemCount = cartItemCount)
     }
 }

@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.data.Entities.Product
-import com.example.myapplication.ui.theme.product.components.ProductItemComponent
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
 import com.example.myapplication.ui.theme.product.components.FavoriteProductItemComponent
+
 @Composable
 fun FavoriteProductsScreen(
     viewModel: ProductViewModel,
@@ -27,12 +27,13 @@ fun FavoriteProductsScreen(
         bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { paddingValues ->
 
-    val favoriteProducts = viewModel.favorites
+        val favoriteProducts = viewModel.favorites
 
-        Column(modifier = Modifier
-            .padding(paddingValues)
-            .padding(horizontal = 16.dp)
-            .fillMaxSize()
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)
+                .fillMaxSize()
         ) {
             if (favoriteProducts.isEmpty()) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -45,9 +46,15 @@ fun FavoriteProductsScreen(
                             product = product,
                             viewModel = viewModel,
                             onClick = { onProductClick(product) },
-                            onAddToCart = {
-                                val defaultSize = product.sizes.firstOrNull() ?: ""
-                                viewModel.addToCartWithSize(product, defaultSize)
+                            onAddToCart = { size: String ->
+                                val offer = viewModel.getOfferForProduct(product.id)
+                                val originalPrice =
+                                    product.price.removeSuffix("€").trim().replace(",", ".")
+                                        .toDoubleOrNull() ?: 0.0
+                                val priceToUse =
+                                    offer?.let { originalPrice * (100 - it.discountPercent) / 100 }
+                                        ?: originalPrice
+                                viewModel.addToCartWithSizeAndPrice(product, size, priceToUse)
                             }
                         )
 
@@ -55,5 +62,5 @@ fun FavoriteProductsScreen(
                 }
             }
         }
-    }
-}
+
+    }}

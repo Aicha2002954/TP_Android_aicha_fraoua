@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.theme.product
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,15 +10,19 @@ import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.State
 
+data class Offer(
+    val productId: String,
+    val discountPercent: Int
+)
 
 class CartItemData(
     val product: Product,
     var size: String,
-    quantity: Int = 1
+    quantity: Int = 1,
+    val price: Double  // Prix unitaire appliqué (avec promo si applicable)
 ) {
     var quantity by mutableStateOf(quantity)
 }
@@ -52,18 +55,32 @@ class ProductViewModel @Inject constructor(
     private val _orderInfo = mutableStateOf<OrderInfo?>(null)
     val orderInfo: State<OrderInfo?> = _orderInfo
 
+
+    val offers = listOf(
+        Offer(productId = "1", discountPercent = 20),
+        Offer(productId = "5", discountPercent = 10),
+        Offer(productId = "2", discountPercent = 30),
+        Offer(productId = "6", discountPercent = 25),
+        Offer(productId = "17", discountPercent = 15)
+    )
+
+    fun getOfferForProduct(productId: String): Offer? {
+        return offers.find { it.productId == productId }
+    }
+
     fun saveOrderInfo(name: String, email: String, address: String, phone: String, paymentMethod: String) {
         _orderInfo.value = OrderInfo(name, email, address, phone, paymentMethod)
     }
 
-    fun addToCartWithSize(product: Product, size: String) {
+    fun addToCartWithSizeAndPrice(product: Product, size: String, price: Double) {
         val existingItem = _cart.find { it.product.id == product.id && it.size == size }
         if (existingItem != null) {
             existingItem.quantity++
         } else {
-            _cart.add(CartItemData(product, size, 1))
+            _cart.add(CartItemData(product, size, 1, price))
         }
     }
+
     val cartItemCount: Int
         get() = _cart.sumOf { it.quantity }
 
@@ -87,13 +104,7 @@ class ProductViewModel @Inject constructor(
     }
 
     fun getCartTotal(): Double {
-        return cart.sumOf {
-            it.product.price
-                .replace("€", "")
-                .replace(",", ".")
-                .trim()
-                .toDoubleOrNull()?.times(it.quantity) ?: 0.0
-        }
+        return cart.sumOf { it.price * it.quantity }
     }
 
     fun toggleFavorite(product: Product) {
@@ -143,5 +154,4 @@ class ProductViewModel @Inject constructor(
         _orderItems.clear()
         _orderItems.addAll(items)
     }
-
 }

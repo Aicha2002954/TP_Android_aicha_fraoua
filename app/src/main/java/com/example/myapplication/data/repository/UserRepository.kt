@@ -10,7 +10,6 @@ object UserRepository {
         registeredUsers[user.email] = user
         return true
     }
-
     fun isValidUser(email: String, password: String): Boolean {
         val user = registeredUsers[email]
         return user?.password == password
