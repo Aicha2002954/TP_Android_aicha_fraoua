@@ -23,7 +23,8 @@ import com.example.myapplication.data.Entities.Product
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
-
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 @Composable
 fun CartScreen(
     viewModel: ProductViewModel,
@@ -56,8 +57,8 @@ fun CartScreen(
                     Text("Votre panier est vide 🛒", style = MaterialTheme.typography.bodyLarge)
                 }
             } else {
-                Column(modifier = Modifier.weight(1f)) {
-                    cart.forEach { cartItem ->
+                LazyColumn(modifier = Modifier.weight(1f)) {
+                    items(cart) { cartItem ->
                         val key = "${cartItem.product.id}_${cartItem.size}"
                         CartItem(
                             product = cartItem.product,
@@ -94,7 +95,7 @@ fun CartScreen(
                         }
 
                         if (selectedProducts.isEmpty()) {
-                          
+
                             Toast.makeText(
                                 context,
                                 "Veuillez sélectionner au moins un article à commander.",
@@ -114,10 +115,11 @@ fun CartScreen(
                 ) {
                     Text("Passer la commande", color = Color.White)
                 }
-}
             }
+        }
     }
 }
+
 
 @Composable
 fun CartItem(
