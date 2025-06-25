@@ -109,13 +109,12 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 Text("Page Profil")
             }
         }
-
         // Connexion
         composable("login") {
             LoginScreen(
                 navController = navController,
                 cartItemCount = 0,
-                onLoginSuccess = { navController.navigate("product") },
+                onLoginSuccess = { navController.navigate("orderForm") },
                 onNavigateToRegister = { navController.navigate("register") }
             )
         }
@@ -126,6 +125,7 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 onRegisterSuccess = { navController.popBackStack() }
             )
         }
+
         //Promo
         composable("promo") {
             PromoScreen(
@@ -134,8 +134,6 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 onProductClick = { product -> navController.navigate("details/${product.id}") }
             )
         }
-
-
 
     }
 }

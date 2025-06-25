@@ -7,11 +7,7 @@ import javax.inject.Inject
 import com.example.myapplication.data.repository.ProductRepository
 import com.example.myapplication.data.Entities.Product
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.State
+import androidx.compose.runtime.*
 
 data class Offer(
     val productId: String,
@@ -22,7 +18,7 @@ class CartItemData(
     val product: Product,
     var size: String,
     quantity: Int = 1,
-    val price: Double  // Prix unitaire appliqué (avec promo si applicable)
+    val price: Double
 ) {
     var quantity by mutableStateOf(quantity)
 }
@@ -44,25 +40,28 @@ class ProductViewModel @Inject constructor(
     private val _orderItems = mutableStateListOf<CartItemData>()
     val orderItems: List<CartItemData> get() = _orderItems
 
-    data class OrderInfo(
-        val name: String,
-        val email: String,
-        val address: String,
-        val phone: String,
-        val paymentMethod: String
-    )
-
     private val _orderInfo = mutableStateOf<OrderInfo?>(null)
     val orderInfo: State<OrderInfo?> = _orderInfo
 
+    private var _currentUser: String? = null
+    val currentUser: String? get() = _currentUser
+    val isUserLoggedIn: Boolean get() = _currentUser != null
 
     val offers = listOf(
-        Offer(productId = "1", discountPercent = 20),
-        Offer(productId = "5", discountPercent = 10),
-        Offer(productId = "2", discountPercent = 30),
-        Offer(productId = "6", discountPercent = 25),
-        Offer(productId = "17", discountPercent = 15)
+        Offer("1", 20),
+        Offer("5", 10),
+        Offer("2", 30),
+        Offer("6", 25),
+        Offer("17", 15)
     )
+
+    fun loginUser(userId: String) {
+        _currentUser = userId
+    }
+
+    fun logoutUser() {
+        _currentUser = null
+    }
 
     fun getOfferForProduct(productId: String): Offer? {
         return offers.find { it.productId == productId }
@@ -81,8 +80,7 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    val cartItemCount: Int
-        get() = _cart.sumOf { it.quantity }
+    val cartItemCount: Int get() = _cart.sumOf { it.quantity }
 
     fun removeFromCart(product: Product, size: String) {
         _cart.removeAll { it.product.id == product.id && it.size == size }
@@ -154,4 +152,12 @@ class ProductViewModel @Inject constructor(
         _orderItems.clear()
         _orderItems.addAll(items)
     }
+
+    data class OrderInfo(
+        val name: String,
+        val email: String,
+        val address: String,
+        val phone: String,
+        val paymentMethod: String
+    )
 }

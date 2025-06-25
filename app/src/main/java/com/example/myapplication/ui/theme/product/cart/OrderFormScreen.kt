@@ -1,4 +1,3 @@
-
 package com.example.myapplication.ui.theme.product.cart
 
 import androidx.compose.foundation.layout.*
@@ -113,7 +112,8 @@ fun OrderFormScreen(
                             if (paymentMethod == "Carte bancaire") {
                                 showCardForm = true
                             } else {
-                                viewModel.saveOrderInfo(name,email, address, phone, paymentMethod)
+                                viewModel.saveOrderInfo(name, email, address, phone, paymentMethod)
+                                viewModel.setOrderItems(viewModel.cart)
                                 navController.navigate("confirmation")
                             }
                         }
@@ -168,7 +168,8 @@ fun OrderFormScreen(
                         onClick = {
                             if (cardNumber.isNotBlank() && expiryDate.isNotBlank() && cvc.isNotBlank()) {
                                 showErrors = false
-                                viewModel.saveOrderInfo(name,email, address, phone, paymentMethod)
+                                viewModel.saveOrderInfo(name, email, address, phone, paymentMethod)
+                                viewModel.setOrderItems(viewModel.cart)
                                 navController.navigate("confirmation")
                             } else {
                                 showErrors = true

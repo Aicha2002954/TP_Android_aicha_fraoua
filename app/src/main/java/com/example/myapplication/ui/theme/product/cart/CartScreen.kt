@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.theme.product.cart
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -32,6 +33,7 @@ fun CartScreen(
     val cart = viewModel.cart
     val total = viewModel.getCartTotal()
     val cartItemCount = viewModel.cartItemCount
+    val context = LocalContext.current
 
     val selectedItems = remember { mutableStateMapOf<String, Boolean>() }
 
@@ -90,9 +92,21 @@ fun CartScreen(
                             val key = "${it.product.id}_${it.size}"
                             selectedItems[key] == true
                         }
-                        if (selectedProducts.isNotEmpty()) {
-                            viewModel.setOrderItems(selectedProducts)
-                            navController.navigate("orderForm")
+
+                        if (selectedProducts.isEmpty()) {
+                          
+                            Toast.makeText(
+                                context,
+                                "Veuillez sélectionner au moins un article à commander.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            if (viewModel.isUserLoggedIn) {
+                                viewModel.setOrderItems(selectedProducts)
+                                navController.navigate("orderForm")
+                            } else {
+                                navController.navigate("login")
+                            }
                         }
                     },
                     modifier = Modifier.fillMaxWidth(),
@@ -100,8 +114,8 @@ fun CartScreen(
                 ) {
                     Text("Passer la commande", color = Color.White)
                 }
+}
             }
-        }
     }
 }
 

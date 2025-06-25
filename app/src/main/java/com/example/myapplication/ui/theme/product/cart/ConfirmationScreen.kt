@@ -34,9 +34,10 @@ fun ConfirmationScreen(
     val total = viewModel.getCartTotal()
     val context = LocalContext.current
     val cartItemCount = viewModel.cartItemCount
+
     Scaffold(
         topBar = { AppHeader() },
-        bottomBar = {AppFooter(navController = navController, cartItemCount = cartItemCount) }
+        bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -80,8 +81,8 @@ fun ConfirmationScreen(
                     orderItems.forEach { orderItem ->
                         val product = orderItem.product
                         val quantity = orderItem.quantity
-                        val size = orderItem.size  // <-- taille récupérée
-                        val price = product.price.replace("€", "").replace(",", ".").toDoubleOrNull() ?: 0.0
+                        val size = orderItem.size
+                        val price = orderItem.price
 
                         val drawableResId = getDrawableResIdByName(context, product.imageResId)
 
@@ -102,12 +103,12 @@ fun ConfirmationScreen(
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(text = product.name, style = MaterialTheme.typography.bodyMedium)
                                 Text(
-                                    text = "Taille : $size",  // <-- affichage taille
+                                    text = "Taille : $size",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = "Quantité: $quantity",
+                                    text = "Quantité : $quantity",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -147,7 +148,7 @@ fun ConfirmationScreen(
                         }
                         append("🛍️ Articles commandés :\n")
                         orderItems.forEach {
-                            val price = it.product.price.replace("€", "").replace(",", ".").toDoubleOrNull() ?: 0.0
+                            val price = it.price  // ✅ ici aussi
                             append("- ${it.product.name} (Taille: ${it.size}) x${it.quantity} = %.2f €\n".format(price * it.quantity))
                         }
                         append("\n💰 Total : %.2f €".format(total))
