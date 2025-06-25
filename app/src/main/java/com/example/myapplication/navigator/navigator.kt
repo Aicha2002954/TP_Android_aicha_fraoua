@@ -13,10 +13,11 @@ import androidx.navigation.NavController
 import com.example.myapplication.ui.product.screens.HomeScreen
 import com.example.myapplication.ui.product.screens.DetailsScreen
 import com.example.myapplication.ui.theme.product.cart.CartScreen
-import com.example.myapplication.ui.theme.auth.LoginScreen
-import com.example.myapplication.ui.theme.auth.RegisterScreen
+
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.myapplication.ui.theme.auth.LoginScreen
+import com.example.myapplication.ui.theme.auth.RegisterScreen
 import com.example.myapplication.ui.theme.favorites.FavoriteProductsScreen
 import com.example.myapplication.ui.theme.product.cart.OrderFormScreen
 import com.example.myapplication.ui.theme.product.cart.ConfirmationScreen
@@ -109,29 +110,25 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
         }
 
         // Connexion
+
         composable("login") {
             LoginScreen(
-                onLoginSuccess = {
-                    navController.popBackStack("login", inclusive = true)
-                    navController.navigate("profile")
-                },
-                onNavigateToRegister = {
-                    navController.navigate("register")
-                }
+                navController = navController,                  // <--- Ici
+                cartItemCount = 0,                              // Ou une valeur dynamique de ton panier
+                onLoginSuccess = { navController.navigate("product") },
+                onNavigateToRegister = { navController.navigate("register") }
             )
         }
 
-        // Inscription
         composable("register") {
             RegisterScreen(
-                onRegisterSuccess = {
-                    navController.popBackStack("register", inclusive = true)
-                    navController.navigate("profile")
-                },
-                onNavigateToLogin = {
-                    navController.navigate("login")
-                }
+                navController = navController,
+                cartItemCount = 0,  // Ou la valeur dynamique de ton panier ici
+                onRegisterSuccess = { navController.popBackStack() }
             )
         }
+
+
+
     }
 }

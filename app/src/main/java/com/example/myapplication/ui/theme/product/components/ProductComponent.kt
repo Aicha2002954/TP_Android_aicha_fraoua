@@ -315,30 +315,6 @@ fun AppHeader(
     }
 }
 
-@Composable
-fun DetailRow(label: String, value: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        horizontalArrangement = Arrangement.Start
-    ) {
-        Text(
-            text = "$label : ",
-            style = MaterialTheme.typography.bodyLarge.copy(
-                color = Color(0xFF9C27B0),
-                fontWeight = FontWeight.Bold
-            ),
-            modifier = Modifier.width(100.dp)
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyLarge.copy(color = Color.DarkGray),
-            modifier = Modifier.weight(1f)
-        )
-    }
-}
-
 
 @Composable
 fun BackButton(onBack: () -> Unit) {
@@ -458,7 +434,14 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { navController.navigate("product") }) {
+            IconButton(onClick = {
+                if (navController.currentDestination?.route != "product") {
+                    navController.navigate("product") {
+                        launchSingleTop = true
+                        popUpTo("product") { inclusive = false }
+                    }
+                }
+            }) {
                 Icon(
                     imageVector = Icons.Default.Home,
                     contentDescription = "Accueil",
@@ -466,7 +449,15 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
                     modifier = Modifier.size(28.dp)
                 )
             }
-            IconButton(onClick = { navController.navigate("favorites") }) {
+
+            IconButton(onClick = {
+                if (navController.currentDestination?.route != "favorites") {
+                    navController.navigate("favorites") {
+                        launchSingleTop = true
+                        popUpTo("product") { inclusive = false }
+                    }
+                }
+            }) {
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = "Favoris",
@@ -474,8 +465,16 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
                     modifier = Modifier.size(28.dp)
                 )
             }
+
             Box {
-                IconButton(onClick = { navController.navigate("cart") }) {
+                IconButton(onClick = {
+                    if (navController.currentDestination?.route != "cart") {
+                        navController.navigate("cart") {
+                            launchSingleTop = true
+                            popUpTo("product") { inclusive = false }
+                        }
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.Default.ShoppingCart,
                         contentDescription = "Panier",
@@ -485,7 +484,6 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
                 }
 
                 if (cartItemCount > 0) {
-
                     Box(
                         modifier = Modifier
                             .size(16.dp)
@@ -502,7 +500,14 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
                 }
             }
 
-            IconButton(onClick = { navController.navigate("profile") }) {
+            IconButton(onClick = {
+                if (navController.currentDestination?.route != "profile") {
+                    navController.navigate("profile") {
+                        launchSingleTop = true
+                        popUpTo("product") { inclusive = false }
+                    }
+                }
+            }) {
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = "Profil",
@@ -510,7 +515,15 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
                     modifier = Modifier.size(28.dp)
                 )
             }
-            IconButton(onClick = { navController.navigate("login") }) {
+
+            IconButton(onClick = {
+                if (navController.currentDestination?.route != "login") {
+                    navController.navigate("login") {
+                        launchSingleTop = true
+                        popUpTo("product") { inclusive = false }
+                    }
+                }
+            }) {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = "Connexion",
@@ -521,5 +534,6 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
         }
     }
 }
+
 
 

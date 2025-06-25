@@ -1,273 +1,197 @@
 package com.example.myapplication.ui.theme.auth
 
-import android.util.Patterns
-import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.firebase.auth.FirebaseAuth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.ui.unit.sp
+import com.example.myapplication.data.Entities.User
+import com.example.myapplication.data.repository.UserRepository
+
+import androidx.compose.material.icons.filled.*
+import androidx.navigation.NavController
+import com.example.myapplication.ui.theme.product.components.AppFooter
+import com.example.myapplication.ui.theme.product.components.AppHeader
+import androidx.compose.ui.text.font.FontWeight
+
 
 @Composable
 fun RegisterScreen(
-    onRegisterSuccess: () -> Unit,
-    onNavigateToLogin: () -> Unit
+    navController: NavController,
+    cartItemCount: Int,
+    onRegisterSuccess: () -> Unit
 ) {
-    val context = LocalContext.current
-
-    var nom by remember { mutableStateOf("") }
-    var prenom by remember { mutableStateOf("") }
-    var adresse by remember { mutableStateOf("") }
-    var role by remember { mutableStateOf("Client") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
+    var name by remember { mutableStateOf("") }
+    var address by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var role by remember { mutableStateOf("client") }
+
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    var isLoading by remember { mutableStateOf(false) }
 
-    fun validateEmail(email: String) =
-        email.isNotBlank() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    val isEmailValid = email.contains("@") && email.contains(".")
+    val isPasswordValid = password.length >= 6
+    val isNameValid = name.trim().isNotEmpty()
+    val isAddressValid = address.trim().isNotEmpty()
+    val isPhoneValid = phone.matches(Regex("^(\\+?\\d{8,15})$"))
 
-    fun validatePassword(password: String) =
-        password.length >= 6
+    val allValid = isEmailValid && isPasswordValid && isNameValid && isAddressValid && isPhoneValid
 
-    fun validateNom(nom: String) = nom.isNotBlank()
+    Column(modifier = Modifier.fillMaxSize()) {
+        AppHeader()
 
-    fun validatePrenom(prenom: String) = prenom.isNotBlank()
-
-    fun validateAdresse(adresse: String) = adresse.isNotBlank()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Inscription", style = MaterialTheme.typography.headlineMedium)
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        OutlinedTextField(
-            value = nom,
-            onValueChange = {
-                nom = it
-                errorMessage = null
-            },
-            label = { Text("Nom") },
-            isError = nom.isNotBlank() && !validateNom(nom),
-            modifier = Modifier.fillMaxWidth()
-        )
-        if (nom.isNotBlank() && !validateNom(nom)) {
-            Text(
-                text = "Le nom est obligatoire",
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.align(Alignment.Start)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        OutlinedTextField(
-            value = prenom,
-            onValueChange = {
-                prenom = it
-                errorMessage = null
-            },
-            label = { Text("Prénom") },
-            isError = prenom.isNotBlank() && !validatePrenom(prenom),
-            modifier = Modifier.fillMaxWidth()
-        )
-        if (prenom.isNotBlank() && !validatePrenom(prenom)) {
-            Text(
-                text = "Le prénom est obligatoire",
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.align(Alignment.Start)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        OutlinedTextField(
-            value = adresse,
-            onValueChange = {
-                adresse = it
-                errorMessage = null
-            },
-            label = { Text("Adresse") },
-            isError = adresse.isNotBlank() && !validateAdresse(adresse),
-            modifier = Modifier.fillMaxWidth()
-        )
-        if (adresse.isNotBlank() && !validateAdresse(adresse)) {
-            Text(
-                text = "L'adresse est obligatoire",
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.align(Alignment.Start)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        OutlinedTextField(
-            value = email,
-            onValueChange = {
-                email = it
-                errorMessage = null
-            },
-            label = { Text("Email") },
-            isError = email.isNotBlank() && !validateEmail(email),
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-        if (email.isNotBlank() && !validateEmail(email)) {
-            Text(
-                text = "Email non valide",
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.align(Alignment.Start)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = {
-                password = it
-                errorMessage = null
-            },
-            label = { Text("Mot de passe") },
-            singleLine = true,
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                val image =
-                    if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff
-                IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(
-                        imageVector = image,
-                        contentDescription = if (passwordVisible) "Masquer le mot de passe" else "Afficher le mot de passe"
-                    )
-                }
-            },
-            isError = password.isNotBlank() && !validatePassword(password),
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
-        )
-        if (password.isNotBlank() && !validatePassword(password)) {
-            Text(
-                text = "Le mot de passe doit contenir au moins 6 caractères",
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.align(Alignment.Start)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        var expanded by remember { mutableStateOf(false) }
-        val roles = listOf("Client", "Admin")
-
-        Box(modifier = Modifier.fillMaxWidth()) {
-            OutlinedTextField(
-                value = role,
-                onValueChange = {},
-                label = { Text("Rôle") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-                trailingIcon = {
-                    IconButton(onClick = { expanded = true }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = "Choisir rôle"
-                        )
-                    }
-                }
-            )
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                roles.forEach { r ->
-                    DropdownMenuItem(
-                        text = { Text(r) },
-                        onClick = {
-                            role = r
-                            expanded = false
-                        }
-                    )
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        if (errorMessage != null) {
-            Text(
-                text = errorMessage ?: "",
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-        }
-
-        Button(
-            onClick = {
-                if (!validateEmail(email)) {
-                    errorMessage = "Veuillez saisir un email valide"
-                    return@Button
-                }
-                if (!validatePassword(password)) {
-                    errorMessage = "Mot de passe trop court"
-                    return@Button
-                }
-
-                isLoading = true
-                FirebaseAuth.getInstance()
-                    .createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        isLoading = false
-                        if (task.isSuccessful) {
-                            // ✅ عرض رسالة نجاح
-                            Toast.makeText(
-                                context,
-                                "Inscription réussie ! Veuillez vous connecter.",
-                                Toast.LENGTH_LONG
-                            ).show()
-
-                            // ✅ تحويل المستخدم لصفحة تسجيل الدخول
-                            onRegisterSuccess()
-                        } else {
-                            errorMessage = "Erreur: ${task.exception?.localizedMessage}"
-                        }
-                    }
-            },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = !isLoading
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            if (isLoading) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier.size(20.dp),
-                    strokeWidth = 2.dp
+            item {
+                Text(
+                    "Créer un compte",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF1D0057),
+                    modifier = Modifier.padding(top = 12.dp)
                 )
-            } else {
-                Text("S'inscrire")
+            }
+
+            item {
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Nom complet") },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    isError = !isNameValid && name.isNotEmpty(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+            }
+
+            item {
+                OutlinedTextField(
+                    value = address,
+                    onValueChange = { address = it },
+                    label = { Text("Adresse") },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    isError = !isAddressValid && address.isNotEmpty(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+            }
+
+            item {
+                OutlinedTextField(
+                    value = phone,
+                    onValueChange = { phone = it },
+                    label = { Text("Téléphone") },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    isError = !isPhoneValid && phone.isNotEmpty(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+            }
+
+            item {
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    isError = !isEmailValid && email.isNotEmpty(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+            }
+
+            item {
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Mot de passe") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    isError = !isPasswordValid && password.isNotEmpty(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+            }
+
+            item {
+                Text(
+                    "Rôle",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    listOf("client", "admin", "agent").forEach { roleOption ->
+                        Button(
+                            onClick = { role = roleOption },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (role == roleOption) Color(0xFF6A4C93) else Color.LightGray,
+                                contentColor = if (role == roleOption) Color.White else Color.Black
+                            ),
+                            modifier = Modifier.weight(1f),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(roleOption.replaceFirstChar { it.uppercase() })
+                        }
+                    }
+                }
+            }
+
+            item {
+                Button(
+                    onClick = {
+                        if (allValid) {
+                            val newUser = User(email, password, name, address, phone, role)
+                            val success = UserRepository.registerUser(newUser)
+                            if (success) {
+                                errorMessage = null
+                                onRegisterSuccess()
+                            } else {
+                                errorMessage = "Cet email est déjà enregistré."
+                            }
+                        } else {
+                            errorMessage = "Merci de remplir correctement tous les champs."
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6A4C93)),
+                    enabled = allValid
+                ) {
+                    Text("S'inscrire", color = Color.White, fontSize = 18.sp)
+                }
+            }
+
+            item {
+                errorMessage?.let {
+                    Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
             }
         }
-    }}
+
+        AppFooter(navController = navController, cartItemCount = cartItemCount)
+    }
+}

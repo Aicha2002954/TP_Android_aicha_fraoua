@@ -5,9 +5,6 @@ import com.example.myapplication.R
 import com.example.myapplication.data.Api.ProductApi
 import com.example.myapplication.data.Entities.Product
 import jakarta.inject.Inject
-import kotlinx.coroutines.delay
-
-
 
 
 class ProductRepository @Inject constructor(
