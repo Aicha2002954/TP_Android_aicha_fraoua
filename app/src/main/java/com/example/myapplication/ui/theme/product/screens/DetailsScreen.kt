@@ -43,15 +43,22 @@ fun DetailsScreen(
                 onBack = onBack,
                 offerPercent = offer?.discountPercent,
                 onAddToCartWithSize = { product, size ->
-                    val originalPrice =
-                        product.price.removeSuffix("€").trim().replace(",", ".").toDoubleOrNull()
-                            ?: 0.0
-                    val priceToUse =
-                        offer?.let { (originalPrice * (100 - it.discountPercent) / 100) }
-                            ?: originalPrice
-                    viewModel.addToCartWithSizeAndPrice(product, size, priceToUse)
+
+                    val originalPrice: Double = product.price
+                        .removeSuffix("€")
+                        .trim()
+                        .replace(",", ".")
+                        .toDoubleOrNull() ?: 0.0
+
+
+                    val discountedPrice: Double = offer?.let {
+                        (originalPrice * (100 - it.discountPercent) / 100)
+                    } ?: originalPrice
+
+
+                    viewModel.addToCartWithSizeAndPrice(product, size, discountedPrice)
                 }
-                    )
+            )
             Spacer(modifier = Modifier.height(4.dp))
         }
 

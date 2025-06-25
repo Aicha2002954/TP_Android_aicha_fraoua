@@ -144,7 +144,7 @@ fun FavoriteProductItemComponent(
 @Composable
 fun ProductDetailsCard(
     product: Product?,
-    offerPercent: Int?,  // Pour afficher la promo si elle existe
+    offerPercent: Int?,
     onBack: () -> Unit,
     onAddToCartWithSize: (Product, String) -> Unit
 ) {
@@ -167,6 +167,19 @@ fun ProductDetailsCard(
             }
 
             product?.let { it ->
+
+                val originalPriceDouble = it.price
+                    .removeSuffix("€")
+                    .trim()
+                    .replace(",", ".")
+                    .toDoubleOrNull() ?: 0.0
+                val discountedPriceDouble = offerPercent?.let { percent ->
+                    originalPriceDouble * (100 - percent) / 100
+                }
+
+                fun formatPrice(price: Double): String =
+                    String.format("%.2f€", price)
+
                 Image(
                     painter = painterResource(id = getImageResource(it.imageResId)),
                     contentDescription = it.name,
@@ -179,12 +192,6 @@ fun ProductDetailsCard(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Ligne titre + prix avec promo si présente
-                val originalPrice = it.price.removeSuffix("€").trim().toIntOrNull() ?: 0
-                val discountedPrice = offerPercent?.let { percent ->
-                    (originalPrice * (100 - percent) / 100)
-                }
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -194,17 +201,17 @@ fun ProductDetailsCard(
                         text = it.name,
                         style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
                     )
-                    if (discountedPrice != null) {
+                    if (discountedPriceDouble != null) {
                         Column(horizontalAlignment = Alignment.End) {
                             Text(
-                                text = "${originalPrice}€",
+                                text = formatPrice(originalPriceDouble),
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = Color.Gray,
                                     textDecoration = TextDecoration.LineThrough
                                 )
                             )
                             Text(
-                                text = "${discountedPrice}€",
+                                text = formatPrice(discountedPriceDouble),
                                 style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red)
                             )
                         }
@@ -295,22 +302,6 @@ fun ProductDetailsCard(
 }
 
 
-
-@Composable
-fun ProductInfoRow( value: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
-        )
-    }
-}
 
 
 @Composable
