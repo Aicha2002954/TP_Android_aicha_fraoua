@@ -114,26 +114,45 @@ fun AppHeader(
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text(stringResource(id = R.string.choose_language)) },
+            confirmButton = {},
+            title = {
+                Text(
+                    text = stringResource(id = R.string.choose_language),
+                    style = MaterialTheme.typography.titleLarge
+                )
+            },
             text = {
                 Column {
-                    TextButton(onClick = {
-                        onLanguageSelected("fr")
-                        showDialog = false
-                    }) {
-                        Text(stringResource(id = R.string.french))
-                    }
-                    TextButton(onClick = {
-                        onLanguageSelected("en")
-                        showDialog = false
-                    }) {
-                        Text(stringResource(id = R.string.english))
-                    }
+                    LanguageOption("Français", "fr") { onLanguageSelected(it); showDialog = false }
+                    Divider()
+                    LanguageOption("العربية", "ar") { onLanguageSelected(it); showDialog = false }
+                    Divider()
+                    LanguageOption("English", "en") { onLanguageSelected(it); showDialog = false }
                 }
             },
-            confirmButton = {},
-            dismissButton = {}
+            containerColor = Color.White,
+            shape = RoundedCornerShape(20.dp)
         )
+    }
+}
+
+@Composable
+fun LanguageOption(name: String, code: String, onSelected: (String) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onSelected(code) }
+            .padding(vertical = 12.dp, horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Language,
+            contentDescription = null,
+            tint = Color(0xFFB45AAB),
+            modifier = Modifier.size(20.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = name, style = MaterialTheme.typography.bodyLarge)
     }
 }
 

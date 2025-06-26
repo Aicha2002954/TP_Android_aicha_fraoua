@@ -156,6 +156,19 @@ fun RegisterScreen(
                 }
             }
 
+            // MESSAGE D'ERREUR AVANT LE BOUTON
+            item {
+                errorMessage?.let {
+                    Text(
+                        text = it,
+                        color = Color.Red,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                }
+            }
+
+            // BOUTON D'INSCRIPTION
             item {
                 Button(
                     onClick = {
@@ -180,12 +193,6 @@ fun RegisterScreen(
                     enabled = allValid
                 ) {
                     Text(stringResource(R.string.register_button), color = Color.White, fontSize = 18.sp)
-                }
-            }
-
-            item {
-                errorMessage?.let {
-                    Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))
                 }
             }
 

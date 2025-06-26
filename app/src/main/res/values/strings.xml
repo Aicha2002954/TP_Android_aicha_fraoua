@@ -70,7 +70,7 @@
 
         <string name="full_name">Nom complet</string>
         <string name="email">Adresse email</string>
-        <string name="address">Adresse de livraison</string>
+        <string name="address">Adresse</string>
         <string name="phone">Téléphone</string>
         <string name="payment_method">Mode de paiement</string>
         <string name="credit_card">Carte bancaire</string>

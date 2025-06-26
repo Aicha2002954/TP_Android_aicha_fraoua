@@ -3,12 +3,14 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -21,34 +23,32 @@ import kotlinx.coroutines.delay
 fun SplashScreen(onTimeout: () -> Unit) {
     val phrases = listOf(
         "🍼 La douceur commence ici...",
-        "👶 Des habits faits avec amour.",
         "🌸 Petit Papillon, pour vos petits trésors.",
         "💖 Le style dès les premiers pas."
     )
     val images = listOf(
-        R.drawable.image2,
-        R.drawable.fourinteurlogo,
+        R.drawable.image4,
         R.drawable.garcon3,
         R.drawable.joutes2
     )
 
     var currentIndex by remember { mutableStateOf(0) }
-    val alphaAnim = remember { Animatable(1f) }
-    val scale = remember { androidx.compose.animation.core.Animatable(0f) }
-
-    LaunchedEffect(Unit) {
-        scale.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(durationMillis = 1000)
+    val fadeAnim = remember { Animatable(0f) }
+    val pulseAnim = rememberInfiniteTransition()
+    val pulse by pulseAnim.animateFloat(
+        initialValue = 0.95f,
+        targetValue = 1.05f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
         )
+    )
+    LaunchedEffect(Unit) {
         while (currentIndex < phrases.size) {
-            alphaAnim.animateTo(0f, tween(400))
+            fadeAnim.snapTo(0f)
+            fadeAnim.animateTo(1f, tween(800))
+            delay(1200)
             currentIndex++
-            if (currentIndex >= phrases.size) break
-
-            alphaAnim.animateTo(1f, tween(400))
-
-            delay(900)
         }
         delay(1000)
         onTimeout()
@@ -57,7 +57,11 @@ fun SplashScreen(onTimeout: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFF8F0)),
+            .background(
+                Brush.verticalGradient(
+                    listOf(Color(0xFFFFF8F0), Color(0xFFFFE3F3))
+                )
+            ),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -69,33 +73,59 @@ fun SplashScreen(onTimeout: () -> Unit) {
                     painter = painterResource(id = images[currentIndex]),
                     contentDescription = "Logo",
                     modifier = Modifier
-                        .size(350.dp)
-                        .scale(scale.value)
-                        .alpha(alphaAnim.value)
+                        .size(280.dp)
+                        .scale(pulse)
+                        .alpha(fadeAnim.value)
                 )
             }
 
             Spacer(modifier = Modifier.height(24.dp))
+
             if (currentIndex < phrases.size) {
                 Text(
                     text = phrases[currentIndex],
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFF8E44AD),
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF9B59B6),
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.alpha(alphaAnim.value)
+                    modifier = Modifier
+                        .alpha(fadeAnim.value)
+                        .padding(horizontal = 24.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "Des vêtements tendres pour les moments les plus précieux.",
                 fontSize = 14.sp,
-                color = Color(0xFF555555),
+                color = Color(0xFF7F8C8D),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 32.dp)
             )
+
+            Spacer(modifier = Modifier.height(36.dp))
+
+            Row(horizontalArrangement = Arrangement.Center) {
+                repeat(3) { i ->
+                    val dotAlpha = remember { Animatable(0f) }
+                    LaunchedEffect(i, currentIndex) {
+                        delay(i * 300L)
+                        dotAlpha.animateTo(1f, tween(300))
+                        dotAlpha.animateTo(0.2f, tween(300))
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .size(10.dp)
+                            .padding(4.dp)
+                            .background(
+                                Color(0xFFBA68C8).copy(alpha = dotAlpha.value),
+                                shape = CircleShape
+                            )
+                    )
+                }
+            }
         }
     }
 }
