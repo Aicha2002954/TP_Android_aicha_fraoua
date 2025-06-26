@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Little Butterfly</string>
+    <string name="app_name">Petit Papillon</string>
     <string name="view_details">Voir détails</string>
     <string name="promo">Promo -%1$d%%</string>
     <string name="add_to_favorites">Ajouter aux favoris</string>
@@ -25,7 +25,6 @@
     <string name="in_stock">%1$s en stock</string>
     <string name="no_description">Aucune description disponible</string>
     <string name="product_not_found">Produit non trouvé.</string>
-    <string name="back">Retour</string>
     <string name="no_product_found">Aucun produit trouvé 🦋</string>
     <string name="search_product">Rechercher un produit...</string>
 
@@ -45,10 +44,7 @@
     <string name="register_prompt">Pas encore de compte ? Inscrivez-vous</string>
 
     <string name="register_title">Créer un compte</string>
-    <string name="full_name">Nom complet</string>
-    <string name="address">Adresse</string>
-    <string name="phone">Téléphone</string>
-    <string name="email">Email</string>
+
     <string name="password">Mot de passe</string>
     <string name="role">Rôle</string>
     <string name="client">Client</string>
@@ -71,6 +67,34 @@
 
     <string name="download_pdf_button">PDF</string>
     <string name="receipt_title">Reçu de Commande</string>
+
+        <string name="full_name">Nom complet</string>
+        <string name="email">Adresse email</string>
+        <string name="address">Adresse de livraison</string>
+        <string name="phone">Téléphone</string>
+        <string name="payment_method">Mode de paiement</string>
+        <string name="credit_card">Carte bancaire</string>
+        <string name="paypal">PayPal</string>
+        <string name="cash_on_delivery">Paiement a la livraison</string>
+        <string name="choose_payment_error">Veuillez choisir un mode de paiement</string>
+
+        <string name="card_number">Numéro de carte</string>
+        <string name="expiry_date">Date d’expiration (MM/AA)</string>
+        <string name="cvc">CVC</string>
+        <string name="continuer">Continuer</string>
+        <string name="back">Retour</string>
+        <string name="confirm_payment">Valider le paiement</string>
+
+    <string name="order_success">Commande réussie</string>
+    <string name="order_thanks">🎉 Merci pour votre commande !</string>
+    <string name="order_confirmation_sent">Un email de confirmation a été envoyé à votre adresse.</string>
+    <string name="delivery_info">🚚 Votre commande sera livrée dans un délai de 24h.</string>
+
+    <string name="size">Taille</string>
+    <string name="quantity">Quantité</string>
+    <string name="total">Total</string>
+    <string name="order_receipt">Reçu de commande</string>
+    <string name="download">Télécharger</string>
 
 
 </resources>

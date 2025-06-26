@@ -1,13 +1,24 @@
 package com.example.myapplication.ui.theme.product.cart
-
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.example.myapplication.R
+
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
@@ -31,17 +42,26 @@ fun OrderFormScreen(
     var cardNumber by remember { mutableStateOf("") }
     var expiryDate by remember { mutableStateOf("") }
     var cvc by remember { mutableStateOf("") }
+    val creditCardLabel = stringResource(id = R.string.credit_card)
 
     var showErrors by remember { mutableStateOf(false) }
 
-    val paymentOptions = listOf("Carte bancaire", "PayPal", "Paiement à la livraison")
+    val paymentOptions = listOf(
+        stringResource(id = R.string.credit_card),
+        stringResource(id = R.string.paypal),
+        stringResource(id = R.string.cash_on_delivery)
+    )
 
     Scaffold(
-        topBar = {  AppHeader(onLanguageSelected = onLanguageSelected)
-
+        topBar = {
+            AppHeader(onLanguageSelected = onLanguageSelected)
         },
-        bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) },
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        bottomBar = {
+            AppFooter(navController = navController, cartItemCount = cartItemCount)
+        },
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
+        }
     ) { padding ->
 
         Column(
@@ -56,7 +76,7 @@ fun OrderFormScreen(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Nom complet") },
+                    label = { Text(stringResource(id = R.string.full_name)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && name.isBlank()
                 )
@@ -64,7 +84,7 @@ fun OrderFormScreen(
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    label = { Text("Adresse e-mail") },
+                    label = { Text(stringResource(id = R.string.email)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && email.isBlank()
                 )
@@ -72,7 +92,7 @@ fun OrderFormScreen(
                 OutlinedTextField(
                     value = address,
                     onValueChange = { address = it },
-                    label = { Text("Adresse de livraison") },
+                    label = { Text(stringResource(id = R.string.address)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && address.isBlank()
                 )
@@ -80,12 +100,15 @@ fun OrderFormScreen(
                 OutlinedTextField(
                     value = phone,
                     onValueChange = { phone = it },
-                    label = { Text("Téléphone") },
+                    label = { Text(stringResource(id = R.string.phone)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && phone.isBlank()
                 )
 
-                Text("Mode de paiement", style = MaterialTheme.typography.titleSmall)
+                Text(
+                    text = stringResource(id = R.string.payment_method),
+                    style = MaterialTheme.typography.titleSmall
+                )
 
                 paymentOptions.forEach { option ->
                     Row(
@@ -103,7 +126,10 @@ fun OrderFormScreen(
                 }
 
                 if (showErrors && paymentMethod.isBlank()) {
-                    Text("Veuillez choisir un mode de paiement", color = MaterialTheme.colorScheme.error)
+                    Text(
+                        text = stringResource(id = R.string.choose_payment_error),
+                        color = MaterialTheme.colorScheme.error
+                    )
                 }
 
                 Button(
@@ -112,7 +138,7 @@ fun OrderFormScreen(
                             showErrors = true
                         } else {
                             showErrors = false
-                            if (paymentMethod == "Carte bancaire") {
+                            if (paymentMethod == creditCardLabel) {
                                 showCardForm = true
                             } else {
                                 viewModel.saveOrderInfo(name, email, address, phone, paymentMethod)
@@ -124,13 +150,13 @@ fun OrderFormScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
-                    Text("Continuer", color = MaterialTheme.colorScheme.onPrimary)
+                    Text(stringResource(id = R.string.continuer), color = MaterialTheme.colorScheme.onPrimary)
                 }
             } else {
                 OutlinedTextField(
                     value = cardNumber,
                     onValueChange = { cardNumber = it },
-                    label = { Text("Numéro de carte") },
+                    label = { Text(stringResource(id = R.string.card_number)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && cardNumber.isBlank()
                 )
@@ -138,7 +164,7 @@ fun OrderFormScreen(
                 OutlinedTextField(
                     value = expiryDate,
                     onValueChange = { expiryDate = it },
-                    label = { Text("Date d’expiration (MM/AA)") },
+                    label = { Text(stringResource(id = R.string.expiry_date)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && expiryDate.isBlank()
                 )
@@ -146,7 +172,7 @@ fun OrderFormScreen(
                 OutlinedTextField(
                     value = cvc,
                     onValueChange = { cvc = it },
-                    label = { Text("CVC") },
+                    label = { Text(stringResource(id = R.string.cvc)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = showErrors && cvc.isBlank()
                 )
@@ -162,9 +188,9 @@ fun OrderFormScreen(
                         modifier = Modifier.weight(1f),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary)
                     ) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Retour")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(id = R.string.back))
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("Retour", color = MaterialTheme.colorScheme.onTertiary)
+                        Text(stringResource(id = R.string.back), color = MaterialTheme.colorScheme.onTertiary)
                     }
 
                     Button(
@@ -181,7 +207,7 @@ fun OrderFormScreen(
                         modifier = Modifier.weight(1f),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                     ) {
-                        Text("Valider le paiement", color = MaterialTheme.colorScheme.onSecondary)
+                        Text(stringResource(id = R.string.confirm_payment), color = MaterialTheme.colorScheme.onSecondary)
                     }
                 }
             }

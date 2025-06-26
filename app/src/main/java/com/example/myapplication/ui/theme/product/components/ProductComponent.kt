@@ -95,6 +95,12 @@ fun AppHeader(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+
+            Text(
+                text = stringResource(id = R.string.little_butterfly),
+                style = MaterialTheme.typography.headlineLarge.copy(color = Color.White)
+            )
+
             IconButton(onClick = { showDialog = true }) {
                 Icon(
                     imageVector = Icons.Filled.Language,
@@ -102,13 +108,6 @@ fun AppHeader(
                     tint = Color.White
                 )
             }
-
-            Text(
-                text = stringResource(id = R.string.little_butterfly),
-                style = MaterialTheme.typography.headlineLarge.copy(color = Color.White)
-            )
-
-            Spacer(modifier = Modifier.width(48.dp))
         }
     }
 
@@ -137,6 +136,7 @@ fun AppHeader(
         )
     }
 }
+
 
 @Composable
 fun FavoriteProductItemComponent(
@@ -607,8 +607,8 @@ fun AppFooter(navController: NavController, cartItemCount: Int) {
                 }
             }) {
                 Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Connexion",
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Profile",
                     tint = Color.White,
                     modifier = Modifier.size(28.dp)
                 )

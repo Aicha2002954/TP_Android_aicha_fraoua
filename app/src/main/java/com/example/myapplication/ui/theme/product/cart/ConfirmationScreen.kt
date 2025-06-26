@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.draw.shadow
@@ -42,9 +43,19 @@ fun ConfirmationScreen(
     val context = LocalContext.current
     val cartItemCount = viewModel.cartItemCount
 
+    val orderReceiptLabel = stringResource(id = R.string.order_receipt)
+    val fullNameLabel = stringResource(id = R.string.full_name)
+    val emailLabel = stringResource(id = R.string.email)
+    val addressLabel = stringResource(id = R.string.address)
+    val phoneLabel = stringResource(id = R.string.phone)
+    val paymentMethodLabel = stringResource(id = R.string.payment_method)
+    val yourItemsLabel = stringResource(id = R.string.your_items)
+    val sizeLabel = stringResource(id = R.string.size)
+    val quantityLabel = stringResource(id = R.string.quantity)
+    val totalLabel = stringResource(id = R.string.total)
+
     Scaffold(
-        topBar = {  AppHeader(onLanguageSelected = onLanguageSelected)
-        },
+        topBar = { AppHeader(onLanguageSelected = onLanguageSelected) },
         bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { padding ->
 
@@ -56,11 +67,10 @@ fun ConfirmationScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             item {
                 Image(
                     painter = painterResource(id = R.drawable.logooo),
-                    contentDescription = "Commande réussie",
+                    contentDescription = stringResource(id = R.string.order_success),
                     modifier = Modifier
                         .size(180.dp)
                         .padding(top = 12.dp)
@@ -69,14 +79,21 @@ fun ConfirmationScreen(
 
             item {
                 Text(
-                    text = "Merci pour votre commande ! 🎉",
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold
+                    text = stringResource(id = R.string.order_thanks),
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.primary
                 )
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Un email de confirmation a été envoyé.",
+                    text = stringResource(id = R.string.order_confirmation_sent),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = stringResource(id = R.string.delivery_info),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
 
@@ -88,11 +105,11 @@ fun ConfirmationScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         orderInfo?.let {
-                            InfoRow("👤 Nom", it.name)
-                            InfoRow("📧 Email", it.email)
-                            InfoRow("📍 Adresse", it.address)
-                            InfoRow("📞 Téléphone", it.phone)
-                            InfoRow("💳 Paiement", it.paymentMethod)
+                            InfoRow("👤 $fullNameLabel", it.name)
+                            InfoRow("📧 $emailLabel", it.email)
+                            InfoRow("📍 $addressLabel", it.address)
+                            InfoRow("📞 $phoneLabel", it.phone)
+                            InfoRow("💳 $paymentMethodLabel", it.paymentMethod)
                         }
                     }
                 }
@@ -100,7 +117,7 @@ fun ConfirmationScreen(
 
             item {
                 Text(
-                    text = "🛍️ Vos articles",
+                    text = "🛍️ $yourItemsLabel",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -129,8 +146,8 @@ fun ConfirmationScreen(
                         )
                         Column(modifier = Modifier.weight(1f)) {
                             Text(product.name, fontWeight = FontWeight.SemiBold)
-                            Text("Taille : ${orderItem.size}", style = MaterialTheme.typography.bodySmall)
-                            Text("Quantité : ${orderItem.quantity}", style = MaterialTheme.typography.bodySmall)
+                            Text("$sizeLabel : ${orderItem.size}", style = MaterialTheme.typography.bodySmall)
+                            Text("$quantityLabel : ${orderItem.quantity}", style = MaterialTheme.typography.bodySmall)
                         }
                         Text(
                             "%.2f €".format(orderItem.price * orderItem.quantity),
@@ -143,7 +160,7 @@ fun ConfirmationScreen(
             item {
                 Divider()
                 Text(
-                    text = "💰 Total : %.2f €".format(total),
+                    text = "💰 $totalLabel : %.2f €".format(total),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -155,19 +172,19 @@ fun ConfirmationScreen(
                 Button(
                     onClick = {
                         val content = buildString {
-                            append("✅ Reçu de Commande\n\n")
+                            append("✅ $orderReceiptLabel\n\n")
                             orderInfo?.let {
-                                append("👤 Nom : ${it.name}\n")
-                                append("📧 Email : ${it.email}\n")
-                                append("📍 Adresse : ${it.address}\n")
-                                append("📞 Téléphone : ${it.phone}\n")
-                                append("💳 Paiement : ${it.paymentMethod}\n\n")
+                                append("👤 $fullNameLabel : ${it.name}\n")
+                                append("📧 $emailLabel : ${it.email}\n")
+                                append("📍 $addressLabel : ${it.address}\n")
+                                append("📞 $phoneLabel : ${it.phone}\n")
+                                append("💳 $paymentMethodLabel : ${it.paymentMethod}\n\n")
                             }
-                            append("🛍️ Articles commandés :\n")
+                            append("🛍️ $yourItemsLabel :\n")
                             orderItems.forEach {
-                                append("- ${it.product.name} (Taille: ${it.size}) x${it.quantity} = %.2f €\n".format(it.price * it.quantity))
+                                append("- ${it.product.name} ($sizeLabel: ${it.size}) x${it.quantity} = %.2f €\n".format(it.price * it.quantity))
                             }
-                            append("\n💰 Total : %.2f €".format(total))
+                            append("\n💰 $totalLabel : %.2f €".format(total))
                         }
 
                         generatePdfReceipt(context, "recu_commande", content)
@@ -184,7 +201,7 @@ fun ConfirmationScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Download,
-                        contentDescription = "Télécharger",
+                        contentDescription = stringResource(id = R.string.download),
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
