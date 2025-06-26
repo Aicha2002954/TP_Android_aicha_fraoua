@@ -5,15 +5,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
-import androidx.core.splashscreen.SplashScreen
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
-import androidx.navigation.NavController
 import com.example.myapplication.ui.product.screens.HomeScreen
 import com.example.myapplication.ui.product.screens.DetailsScreen
 import com.example.myapplication.ui.theme.product.cart.CartScreen
-
 import com.example.myapplication.ui.theme.product.ProductViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.myapplication.ui.theme.auth.LoginScreen
@@ -24,14 +21,16 @@ import com.example.myapplication.ui.theme.product.cart.OrderFormScreen
 import com.example.myapplication.ui.theme.product.cart.ConfirmationScreen
 import com.example.myapplication.ui.theme.product.screens.SplashScreen
 
-
 @Composable
-fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
+fun AppNavigation(
+    viewModel: ProductViewModel = hiltViewModel(),
+    onLanguageSelected: (String) -> Unit
+) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "splash") {
 
-        // Splash screen (logo d'accueil)
+        // Splash screen
         composable("splash") {
             SplashScreen(
                 onTimeout = {
@@ -41,16 +40,16 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
             )
         }
 
-        // Home product screen
         composable("product") {
             HomeScreen(
                 viewModel = viewModel,
                 onProductClick = { navController.navigate("details/$it") },
-                navController = navController
+                navController = navController,
+                onLanguageSelected = onLanguageSelected
             )
         }
 
-        // Détails produit
+
         composable(
             "details/{id}",
             arguments = listOf(navArgument("id") { type = NavType.StringType })
@@ -60,47 +59,50 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 productId = id,
                 viewModel = viewModel,
                 onBack = { navController.popBackStack() },
-                navController = navController
+                navController = navController,
+                onLanguageSelected = onLanguageSelected
             )
         }
 
-        // Favoris
+
         composable("favorites") {
             FavoriteProductsScreen(
                 viewModel = viewModel,
-                onProductClick = { product ->
-                    navController.navigate("details/${product.id}")
-                },
-                navController = navController
+                onProductClick = { product -> navController.navigate("details/${product.id}") },
+                navController = navController,
+                onLanguageSelected = onLanguageSelected
             )
         }
 
-        // Panier
+        // Cart screen
         composable("cart") {
             CartScreen(
                 viewModel = viewModel,
                 navController = navController,
+                onLanguageSelected = onLanguageSelected,
                 onBack = { navController.popBackStack() }
             )
         }
 
-        // Formulaire de commande
+        // Order form screen
         composable("orderForm") {
             OrderFormScreen(
                 navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onLanguageSelected = onLanguageSelected
             )
         }
 
-        // Confirmation de commande
+        // Confirmation screen
         composable("confirmation") {
             ConfirmationScreen(
                 navController = navController,
+                onLanguageSelected = onLanguageSelected,
                 viewModel = viewModel
             )
         }
 
-
+        // Profile screen
         composable("profile") {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -109,31 +111,36 @@ fun AppNavigation(viewModel: ProductViewModel = hiltViewModel()) {
                 Text("Page Profil")
             }
         }
-        // Connexion
+
+        // Login screen
         composable("login") {
             LoginScreen(
                 navController = navController,
                 cartItemCount = 0,
+                onLanguageSelected = onLanguageSelected,
                 onLoginSuccess = { navController.navigate("orderForm") },
                 onNavigateToRegister = { navController.navigate("register") }
             )
         }
+
+        // Register screen
         composable("register") {
             RegisterScreen(
                 navController = navController,
+                onLanguageSelected = onLanguageSelected,
                 cartItemCount = 0,
                 onRegisterSuccess = { navController.popBackStack() }
             )
         }
 
-        //Promo
+        // Promo screen (كيحتاج onLanguageSelected)
         composable("promo") {
             PromoScreen(
                 viewModel = viewModel,
                 navController = navController,
-                onProductClick = { product -> navController.navigate("details/${product.id}") }
+                onProductClick = { product -> navController.navigate("details/${product.id}") },
+                onLanguageSelected = onLanguageSelected
             )
         }
-
     }
 }

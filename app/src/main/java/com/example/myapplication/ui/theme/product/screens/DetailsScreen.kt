@@ -18,7 +18,8 @@ fun DetailsScreen(
     productId: String,
     viewModel: ProductViewModel,
     onBack: () -> Unit,
-    navController: NavController
+    navController: NavController,
+    onLanguageSelected: (String) -> Unit
 ) {
     val product = viewModel.getProductById(productId)
     val offer = viewModel.getOfferForProduct(productId)
@@ -28,7 +29,8 @@ fun DetailsScreen(
             .fillMaxSize()
             .background(Color(0xFFF8F4FF))
     ) {
-        AppHeader()
+        AppHeader(onLanguageSelected = onLanguageSelected)
+
         Spacer(modifier = Modifier.height(8.dp))
 
         Column(

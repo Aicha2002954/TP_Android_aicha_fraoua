@@ -1,3 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Little Butterfly</string>
+    <string name="view_details">Voir détails</string>
+    <string name="promo">Promo -%1$d%%</string>
+    <string name="add_to_favorites">Ajouter aux favoris</string>
+
+    <string name="star">Étoile</string>
+    <string name="choose_language">Choisir la langue</string>
+    <string name="french">Français</string>
+    <string name="english">Anglais</string>
+
+    <string name="category_all">Vêtements bébés</string>
+    <string name="category_garcon">Garçon</string>
+    <string name="category_fille">Fille</string>
+    <string name="category_chaussures">Chaussures</string>
+    <string name="category_jouets">Jouets</string>
+    <string name="category_fournitures">Fournitures</string>
+    <string name="category_pyjamas">Pyjamas</string>
+
+    <string name="little_butterfly">🦋 Petit Papillon</string>
+    <string name="remove_from_favorites">Supprimer des favoris</string>
+    <string name="add_to_cart">Ajouter au panier</string>
+    <string name="sizes_available">Tailles disponibles :</string>
+    <string name="in_stock">%1$s en stock</string>
+    <string name="no_description">Aucune description disponible</string>
+    <string name="product_not_found">Produit non trouvé.</string>
+    <string name="back">Retour</string>
+    <string name="no_product_found">Aucun produit trouvé 🦋</string>
+    <string name="search_product">Rechercher un produit...</string>
+
+    <string name="cart_empty_message">Votre panier est vide 🛒</string>
+    <string name="total_label">Total : %1$.2f €</string>
+    <string name="order_button">Passer la commande</string>
+    <string name="select_at_least_one_item">Veuillez sélectionner au moins un article à commander.</string>
+    <string name="category_label">Catégorie : %1$s</string>
+    <string name="size_label">Taille : %1$s</string>
+
+    <string name="login_title">Connexion</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Mot de passe</string>
+    <string name="forgot_password">Mot de passe oublié ?</string>
+    <string name="login_button">Se connecter</string>
+    <string name="login_error">Email ou mot de passe incorrect.</string>
+    <string name="register_prompt">Pas encore de compte ? Inscrivez-vous</string>
+
+    <string name="register_title">Créer un compte</string>
+    <string name="full_name">Nom complet</string>
+    <string name="address">Adresse</string>
+    <string name="phone">Téléphone</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="role">Rôle</string>
+    <string name="client">Client</string>
+    <string name="admin">Admin</string>
+    <string name="agent">Agent</string>
+    <string name="register_button">S"inscrire</string>
+    <string name="error_fill_fields">Merci de remplir correctement tous les champs.</string>
+    <string name="error_email_exists">Cet email est déjà enregistré.</string>
+
+    <string name="order_success_title">Merci pour votre commande ! 🎉</string>
+    <string name="order_confirmation_email">Un email de confirmation a été envoyé.</string>
+    <string name="order_info_name">Nom</string>
+    <string name="order_info_email">Email</string>
+    <string name="order_info_address">Adresse</string>
+    <string name="order_info_phone">Téléphone</string>
+    <string name="order_info_payment">Paiement</string>
+    <string name="your_items">Vos articles</string>
+
+    <string name="quantity_label">Quantité</string>
+
+    <string name="download_pdf_button">PDF</string>
+    <string name="receipt_title">Reçu de Commande</string>
+
+
 </resources>

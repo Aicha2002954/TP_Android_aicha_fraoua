@@ -1,5 +1,12 @@
 
 package com.example.myapplication.ui.theme.product.components
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.runtime.*
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -56,9 +63,82 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.material.icons.filled.LocalOffer
 import androidx.compose.material.icons.filled.Whatshot
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.example.myapplication.R
+
 
 @Composable
+fun AppHeader(
+    onLanguageSelected: (String) -> Unit
+) {
+    val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
 
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(90.dp)
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFB45AAB),
+                        Color(0xFFBD98DE)
+                    )
+                )
+            )
+            .padding(horizontal = 16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconButton(onClick = { showDialog = true }) {
+                Icon(
+                    imageVector = Icons.Filled.Language,
+                    contentDescription = stringResource(id = R.string.choose_language),
+                    tint = Color.White
+                )
+            }
+
+            Text(
+                text = stringResource(id = R.string.little_butterfly),
+                style = MaterialTheme.typography.headlineLarge.copy(color = Color.White)
+            )
+
+            Spacer(modifier = Modifier.width(48.dp))
+        }
+    }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(stringResource(id = R.string.choose_language)) },
+            text = {
+                Column {
+                    TextButton(onClick = {
+                        onLanguageSelected("fr")
+                        showDialog = false
+                    }) {
+                        Text(stringResource(id = R.string.french))
+                    }
+                    TextButton(onClick = {
+                        onLanguageSelected("en")
+                        showDialog = false
+                    }) {
+                        Text(stringResource(id = R.string.english))
+                    }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {}
+        )
+    }
+}
+
+@Composable
 fun FavoriteProductItemComponent(
     product: Product,
     viewModel: ProductViewModel,
@@ -140,7 +220,6 @@ fun FavoriteProductItemComponent(
         }
     }
 }
-
 @Composable
 fun ProductDetailsCard(
     product: Product?,
@@ -149,6 +228,7 @@ fun ProductDetailsCard(
     onAddToCartWithSize: (Product, String) -> Unit
 ) {
     var selectedSize by remember { mutableStateOf<String?>(null) }
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -227,7 +307,7 @@ fun ProductDetailsCard(
 
                 if (it.sizes.isNotEmpty()) {
                     Text(
-                        text = "Tailles disponibles :",
+                        text = stringResource(id = R.string.sizes_available),
                         style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFF6A1B9A))
                     )
                     Spacer(modifier = Modifier.height(4.dp))
@@ -241,8 +321,7 @@ fun ProductDetailsCard(
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
                                 color = if (isSelected) Color(0xFF9C27B0) else Color(0xFFE1BEE7),
-                                modifier = Modifier
-                                    .clickable { selectedSize = size }
+                                modifier = Modifier.clickable { selectedSize = size }
                             ) {
                                 Text(
                                     text = size,
@@ -262,7 +341,10 @@ fun ProductDetailsCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = it.quantity + " en stock",
+                        text = stringResource(
+                            id = R.string.in_stock,
+                            it.quantity
+                        ),
                         style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF6A1B9A))
                     )
 
@@ -275,7 +357,10 @@ fun ProductDetailsCard(
                         enabled = selectedSize != null,
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9C27B0))
                     ) {
-                        Text("Ajouter au panier", color = Color.White)
+                        Text(
+                            text = stringResource(id = R.string.add_to_cart),
+                            color = Color.White
+                        )
                     }
                 }
 
@@ -288,51 +373,17 @@ fun ProductDetailsCard(
                         .padding(12.dp)
                 ) {
                     Text(
-                        text = if (it.description.isNotBlank()) it.description else "Aucune description disponible",
+                        text = if (it.description.isNotBlank())
+                            it.description
+                        else
+                            stringResource(id = R.string.no_description),
                         style = MaterialTheme.typography.bodyMedium.copy(color = Color.Black)
                     )
                 }
             } ?: Text(
-                "Produit non trouvé.",
+                text = stringResource(id = R.string.product_not_found),
                 style = MaterialTheme.typography.bodyLarge.copy(color = Color.Red),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-        }
-    }
-}
-
-
-
-
-@Composable
-fun AppHeader(
-
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(90.dp)
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFFB45AAB),
-                        Color(0xFFBD98DE)
-                    )
-                )
-            )
-            .padding(horizontal = 16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Spacer(modifier = Modifier.width(48.dp))
-
-            Text(
-                text = "\uD83E\uDD8B Petit Papillon ",
-                style = MaterialTheme.typography.headlineLarge.copy(color = Color.White)
             )
         }
     }
@@ -398,6 +449,8 @@ fun SearchBar(
     onSearchQueryChanged: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -412,11 +465,11 @@ fun SearchBar(
             leadingIcon = {
                 Icon(
                     Icons.Default.Search,
-                    contentDescription = "Rechercher",
+                    contentDescription = context.getString(R.string.search_product),
                     tint = Color(0xFF9C27B0)
                 )
             },
-            label = { Text("Rechercher un produit...") },
+            label = { Text(text = stringResource(id = R.string.search_product)) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.colors(
@@ -428,10 +481,13 @@ fun SearchBar(
             ),
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            keyboardActions = KeyboardActions(onSearch = {})
+            keyboardActions = KeyboardActions(onSearch = {
+
+            })
         )
     }
 }
+
 
 @Composable
 fun AppFooter(navController: NavController, cartItemCount: Int) {

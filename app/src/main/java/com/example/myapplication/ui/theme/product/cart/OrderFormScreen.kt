@@ -16,7 +16,8 @@ import com.example.myapplication.ui.theme.product.components.AppHeader
 @Composable
 fun OrderFormScreen(
     navController: NavController,
-    viewModel: ProductViewModel
+    viewModel: ProductViewModel,
+    onLanguageSelected: (String) -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -36,7 +37,9 @@ fun OrderFormScreen(
     val paymentOptions = listOf("Carte bancaire", "PayPal", "Paiement à la livraison")
 
     Scaffold(
-        topBar = { AppHeader() },
+        topBar = {  AppHeader(onLanguageSelected = onLanguageSelected)
+
+        },
         bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->

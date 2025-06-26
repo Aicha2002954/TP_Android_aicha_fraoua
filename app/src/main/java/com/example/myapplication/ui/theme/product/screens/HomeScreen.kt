@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,7 +50,8 @@ fun normalizeCategory(cat: String?): String {
 fun HomeScreen(
     viewModel: ProductViewModel,
     onProductClick: (String) -> Unit,
-    navController: NavController
+    navController: NavController,
+    onLanguageSelected: (String) -> Unit
 ) {
     var searchQuery by remember1 { mutableStateOf("") }
     var selectedCategory by remember1 { mutableStateOf(Category.All) }
@@ -88,7 +90,7 @@ fun HomeScreen(
             .fillMaxSize()
             .background(Color(0xFFF8F4FF))
     ) {
-        AppHeader()
+        AppHeader(onLanguageSelected = onLanguageSelected)
 
         SearchBar(
             searchQuery = searchQuery,
@@ -139,13 +141,13 @@ fun HomeScreen(
 
                     Text(
                         text = when (category) {
-                            Category.All -> "Vêtements bébés"
-                            Category.Garcon -> "Garçon"
-                            Category.Fille -> "Fille"
-                            Category.Chaussures -> "Chaussures"
-                            Category.Jouets -> "Jouets"
-                            Category.Fournitures -> "Fournitures"
-                            Category.Pyjamas -> "Pyjamas"
+                            Category.All -> stringResource(R.string.category_all)
+                            Category.Garcon -> stringResource(R.string.category_garcon)
+                            Category.Fille -> stringResource(R.string.category_fille)
+                            Category.Chaussures -> stringResource(R.string.category_chaussures)
+                            Category.Jouets -> stringResource(R.string.category_jouets)
+                            Category.Fournitures -> stringResource(R.string.category_fournitures)
+                            Category.Pyjamas -> stringResource(R.string.category_pyjamas)
                         },
                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
                         fontSize = 14.sp,

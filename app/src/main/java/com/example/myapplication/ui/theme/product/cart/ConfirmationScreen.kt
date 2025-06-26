@@ -33,7 +33,8 @@ fun getDrawableResIdByName(context: Context, imageName: String): Int {
 @Composable
 fun ConfirmationScreen(
     navController: NavController,
-    viewModel: ProductViewModel
+    viewModel: ProductViewModel,
+    onLanguageSelected: (String) -> Unit
 ) {
     val orderInfo = viewModel.orderInfo.value
     val orderItems = viewModel.orderItems
@@ -42,7 +43,8 @@ fun ConfirmationScreen(
     val cartItemCount = viewModel.cartItemCount
 
     Scaffold(
-        topBar = { AppHeader() },
+        topBar = {  AppHeader(onLanguageSelected = onLanguageSelected)
+        },
         bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { padding ->
 

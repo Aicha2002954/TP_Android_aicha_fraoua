@@ -26,14 +26,17 @@ import com.example.myapplication.ui.theme.product.components.ProductItemComponen
 fun PromoScreen(
     viewModel: ProductViewModel,
     navController: NavController,
-    onProductClick: (Product) -> Unit
+    onProductClick: (Product) -> Unit,
+    onLanguageSelected: (String) -> Unit
 ) {
     val cartItemCount = viewModel.cartItemCount
     val productsWithOffer = viewModel.viewState.products.filter { product ->
         viewModel.getOfferForProduct(product.id) != null
     }
     Scaffold(
-        topBar = { AppHeader() },
+        topBar = {   AppHeader(onLanguageSelected = onLanguageSelected)
+
+        },
         bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { paddingValues ->
         Box(

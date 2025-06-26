@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.R
@@ -25,11 +26,13 @@ import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+
 @Composable
 fun CartScreen(
     viewModel: ProductViewModel,
     navController: NavController,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onLanguageSelected: (String) -> Unit
 ) {
     val cart = viewModel.cart
     val total = viewModel.getCartTotal()
@@ -38,9 +41,18 @@ fun CartScreen(
 
     val selectedItems = remember { mutableStateMapOf<String, Boolean>() }
 
+    val emptyCartMessage = stringResource(id = R.string.cart_empty_message)
+    val totalLabel = "Total : %.2f €".format(total)
+    val selectAtLeastOneItemMessage = stringResource(id = R.string.select_at_least_one_item)
+    val orderButtonText = stringResource(id = R.string.order_button)
+
     Scaffold(
-        topBar = { AppHeader() },
-        bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
+        topBar = {
+            AppHeader(onLanguageSelected = onLanguageSelected)
+        },
+        bottomBar = {
+            AppFooter(navController = navController, cartItemCount = cartItemCount)
+        }
     ) { paddingValues ->
 
         Column(
@@ -54,7 +66,7 @@ fun CartScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Votre panier est vide 🛒", style = MaterialTheme.typography.bodyLarge)
+                    Text(emptyCartMessage, style = MaterialTheme.typography.bodyLarge)
                 }
             } else {
                 LazyColumn(modifier = Modifier.weight(1f)) {
@@ -67,12 +79,16 @@ fun CartScreen(
                             unitPrice = cartItem.price,
                             isSelected = selectedItems[key] == true,
                             onSelectionChange = { isChecked -> selectedItems[key] = isChecked },
-                            onQuantityChange = { newQty -> viewModel.updateQuantity(cartItem.product, cartItem.size, newQty) },
+                            onQuantityChange = { newQty ->
+                                viewModel.updateQuantity(cartItem.product, cartItem.size, newQty)
+                            },
                             onRemove = {
                                 viewModel.removeFromCart(cartItem.product, cartItem.size)
                                 selectedItems.remove(key)
                             },
-                            onProductClick = { navController.navigate("details/${cartItem.product.id}") }
+                            onProductClick = {
+                                navController.navigate("details/${cartItem.product.id}")
+                            }
                         )
                         Divider()
                     }
@@ -81,7 +97,7 @@ fun CartScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Total : %.2f €".format(total),
+                    text = totalLabel,
                     style = MaterialTheme.typography.headlineSmall
                 )
 
@@ -95,10 +111,9 @@ fun CartScreen(
                         }
 
                         if (selectedProducts.isEmpty()) {
-
                             Toast.makeText(
                                 context,
-                                "Veuillez sélectionner au moins un article à commander.",
+                                selectAtLeastOneItemMessage,
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
@@ -113,13 +128,12 @@ fun CartScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9C27B0))
                 ) {
-                    Text("Passer la commande", color = Color.White)
+                    Text(orderButtonText, color = Color.White)
                 }
             }
         }
     }
 }
-
 
 @Composable
 fun CartItem(

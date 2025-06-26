@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.theme.auth
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,25 +8,24 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.myapplication.R
 import com.example.myapplication.data.Entities.User
 import com.example.myapplication.data.repository.UserRepository
-
-import androidx.compose.material.icons.filled.*
-import androidx.navigation.NavController
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
-import androidx.compose.ui.text.font.FontWeight
-
 
 @Composable
 fun RegisterScreen(
     navController: NavController,
     cartItemCount: Int,
-    onRegisterSuccess: () -> Unit
+    onRegisterSuccess: () -> Unit,
+    onLanguageSelected: (String) -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -36,15 +34,19 @@ fun RegisterScreen(
     var phone by remember { mutableStateOf("") }
     var role by remember { mutableStateOf("client") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+
     val isEmailValid = email.contains("@") && email.contains(".")
     val isPasswordValid = password.length >= 6
     val isNameValid = name.trim().isNotEmpty()
     val isAddressValid = address.trim().isNotEmpty()
     val isPhoneValid = phone.matches(Regex("^(\\+?\\d{8,15})$"))
     val allValid = isEmailValid && isPasswordValid && isNameValid && isAddressValid && isPhoneValid
+    val errorEmailExists = stringResource(R.string.error_email_exists)
+    val errorFillFields = stringResource(R.string.error_fill_fields)
 
-Column(modifier = Modifier.fillMaxSize()) {
-        AppHeader()
+    Column(modifier = Modifier.fillMaxSize()) {
+        AppHeader(onLanguageSelected = onLanguageSelected)
+
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
@@ -54,7 +56,7 @@ Column(modifier = Modifier.fillMaxSize()) {
         ) {
             item {
                 Text(
-                    "Créer un compte",
+                    text = stringResource(R.string.register_title),
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF1D0057),
@@ -66,7 +68,7 @@ Column(modifier = Modifier.fillMaxSize()) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Nom complet") },
+                    label = { Text(stringResource(R.string.full_name)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     isError = !isNameValid && name.isNotEmpty(),
@@ -78,7 +80,7 @@ Column(modifier = Modifier.fillMaxSize()) {
                 OutlinedTextField(
                     value = address,
                     onValueChange = { address = it },
-                    label = { Text("Adresse") },
+                    label = { Text(stringResource(R.string.address)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     isError = !isAddressValid && address.isNotEmpty(),
@@ -90,7 +92,7 @@ Column(modifier = Modifier.fillMaxSize()) {
                 OutlinedTextField(
                     value = phone,
                     onValueChange = { phone = it },
-                    label = { Text("Téléphone") },
+                    label = { Text(stringResource(R.string.phone)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     isError = !isPhoneValid && phone.isNotEmpty(),
@@ -102,7 +104,7 @@ Column(modifier = Modifier.fillMaxSize()) {
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    label = { Text("Email") },
+                    label = { Text(stringResource(R.string.email)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     isError = !isEmailValid && email.isNotEmpty(),
@@ -114,7 +116,7 @@ Column(modifier = Modifier.fillMaxSize()) {
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
-                    label = { Text("Mot de passe") },
+                    label = { Text(stringResource(R.string.password)) },
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
@@ -125,7 +127,7 @@ Column(modifier = Modifier.fillMaxSize()) {
 
             item {
                 Text(
-                    "Rôle",
+                    text = stringResource(R.string.role),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                     modifier = Modifier.padding(bottom = 4.dp)
@@ -134,7 +136,11 @@ Column(modifier = Modifier.fillMaxSize()) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    listOf("client", "admin", "agent").forEach { roleOption ->
+                    listOf(
+                        "client" to stringResource(R.string.client),
+                        "admin" to stringResource(R.string.admin),
+                        "agent" to stringResource(R.string.agent)
+                    ).forEach { (roleOption, roleText) ->
                         Button(
                             onClick = { role = roleOption },
                             colors = ButtonDefaults.buttonColors(
@@ -144,7 +150,7 @@ Column(modifier = Modifier.fillMaxSize()) {
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(12.dp)
                         ) {
-                            Text(roleOption.replaceFirstChar { it.uppercase() })
+                            Text(roleText)
                         }
                     }
                 }
@@ -160,10 +166,10 @@ Column(modifier = Modifier.fillMaxSize()) {
                                 errorMessage = null
                                 onRegisterSuccess()
                             } else {
-                                errorMessage = "Cet email est déjà enregistré."
+                                errorMessage = errorEmailExists
                             }
                         } else {
-                            errorMessage = "Merci de remplir correctement tous les champs."
+                            errorMessage = errorFillFields
                         }
                     },
                     modifier = Modifier
@@ -173,7 +179,7 @@ Column(modifier = Modifier.fillMaxSize()) {
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6A4C93)),
                     enabled = allValid
                 ) {
-                    Text("S'inscrire", color = Color.White, fontSize = 18.sp)
+                    Text(stringResource(R.string.register_button), color = Color.White, fontSize = 18.sp)
                 }
             }
 
@@ -182,10 +188,12 @@ Column(modifier = Modifier.fillMaxSize()) {
                     Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))
                 }
             }
+
             item {
                 Spacer(modifier = Modifier.height(32.dp))
             }
         }
+
         AppFooter(navController = navController, cartItemCount = cartItemCount)
     }
 }

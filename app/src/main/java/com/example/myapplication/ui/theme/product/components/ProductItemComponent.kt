@@ -1,4 +1,5 @@
 package com.example.myapplication.ui.theme.product.components
+import androidx.compose.ui.res.stringResource
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -58,6 +59,7 @@ fun getImageResource(productImage: String): Int {
         else -> R.drawable.image1
     }
 }
+
 @Composable
 fun ProductItemComponent(
     product: Product,
@@ -112,7 +114,7 @@ fun ProductItemComponent(
                             .zIndex(1f)
                     ) {
                         Text(
-                            text = "Promo -${offer.discountPercent}%",
+                            text = stringResource(R.string.promo, offer.discountPercent),
                             color = Color.White,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
@@ -131,7 +133,10 @@ fun ProductItemComponent(
                 ) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                        contentDescription = if (isFavorite) "Retirer des favoris" else "Ajouter aux favoris",
+                        contentDescription = stringResource(
+                            if (isFavorite) R.string.remove_from_favorites
+                            else R.string.add_to_favorites
+                        ),
                         tint = if (isFavorite) Color.Red else Color.Gray
                     )
                 }
@@ -197,7 +202,7 @@ fun ProductItemComponent(
                 repeat(5) {
                     Icon(
                         imageVector = Icons.Filled.Star,
-                        contentDescription = "Star",
+                        contentDescription = stringResource(R.string.star),
                         tint = Color(0xFFFFD700),
                         modifier = Modifier.size(16.dp)
                     )
@@ -221,8 +226,9 @@ fun ProductItemComponent(
                     pressedElevation = 4.dp
                 )
             ) {
-                Text("Voir détails", fontSize = 12.sp)
+                Text(stringResource(R.string.view_details), fontSize = 12.sp)
             }
         }
     }
 }
+

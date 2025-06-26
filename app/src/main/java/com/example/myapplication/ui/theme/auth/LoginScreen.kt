@@ -1,25 +1,21 @@
 package com.example.myapplication.ui.theme.auth
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.myapplication.R
 import com.example.myapplication.data.repository.UserRepository
 import com.example.myapplication.ui.theme.product.components.AppFooter
 import com.example.myapplication.ui.theme.product.components.AppHeader
@@ -30,17 +26,18 @@ fun LoginScreen(
     cartItemCount: Int,
     onLoginSuccess: () -> Unit,
     onNavigateToRegister: () -> Unit,
-    onForgotPassword: () -> Unit = {}
+    onForgotPassword: () -> Unit = {},
+    onLanguageSelected: (String) -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-
+    val loginErrorMessage = stringResource(id = R.string.login_error)
     val isEmailValid = email.contains("@") && email.contains(".")
     val isPasswordValid = password.length >= 6
 
     Column(modifier = Modifier.fillMaxSize()) {
-        AppHeader()
+        AppHeader(onLanguageSelected = onLanguageSelected)
 
         Column(
             modifier = Modifier
@@ -51,7 +48,7 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Connexion",
+                text = stringResource(id = R.string.login_title),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF6A4C93),
@@ -61,7 +58,7 @@ fun LoginScreen(
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email") },
+                label = { Text(stringResource(id = R.string.email_hint)) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
@@ -74,7 +71,7 @@ fun LoginScreen(
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Mot de passe") },
+                label = { Text(stringResource(id = R.string.password_hint)) },
                 visualTransformation = PasswordVisualTransformation(),
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
@@ -86,7 +83,7 @@ fun LoginScreen(
                 onClick = onForgotPassword,
                 modifier = Modifier.align(Alignment.End)
             ) {
-                Text("Mot de passe oublié ?", color = Color.Gray)
+                Text(stringResource(id = R.string.forgot_password), color = Color.Gray)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -97,7 +94,7 @@ fun LoginScreen(
                         errorMessage = null
                         onLoginSuccess()
                     } else {
-                        errorMessage = "Email ou mot de passe incorrect."
+                        errorMessage = loginErrorMessage
                     }
                 },
                 modifier = Modifier
@@ -107,7 +104,7 @@ fun LoginScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6A4C93)),
                 enabled = isEmailValid && isPasswordValid
             ) {
-                Text("Se connecter", color = Color.White, fontSize = 18.sp)
+                Text(stringResource(id = R.string.login_button), color = Color.White, fontSize = 18.sp)
             }
 
             errorMessage?.let {
@@ -124,7 +121,7 @@ fun LoginScreen(
                 onClick = onNavigateToRegister,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-                Text("Pas encore de compte ? Inscrivez-vous", color = Color(0xFF6A4C93))
+                Text(stringResource(id = R.string.register_prompt), color = Color(0xFF6A4C93))
             }
         }
 

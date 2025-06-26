@@ -19,11 +19,13 @@ import com.example.myapplication.ui.theme.product.components.FavoriteProductItem
 fun FavoriteProductsScreen(
     viewModel: ProductViewModel,
     onProductClick: (Product) -> Unit,
-    navController: NavController
+    navController: NavController,
+    onLanguageSelected: (String) -> Unit
 ) {
     val cartItemCount = viewModel.cartItemCount
     Scaffold(
-        topBar = { AppHeader() },
+        topBar = { AppHeader(onLanguageSelected = {})
+        },
         bottomBar = { AppFooter(navController = navController, cartItemCount = cartItemCount) }
     ) { paddingValues ->
 
