@@ -21,8 +21,10 @@ Gradle
 L’écran de chargement constitue le premier contact visuel entre l’utilisateur et l’application Petit Papillon. Il met en avant l’identité visuelle de la marque à travers des animations fluides telles que le fondu et la pulsation, réalisées avec Jetpack Compose.
 Pendant que l’application se prépare en arrière-plan, des images et slogans inspirants défilent pour offrir une expérience douce, moderne et engageante.
 À l’issue de cette animation, l’utilisateur est automatiquement redirigé vers l’interface principale, assurant une transition fluide et sans attente.
-==>>Succession d’images illustrant les catégories de produits (vêtements, jouets, accessoires).
-![image](https://github.com/user-attachments/assets/823cb432-34c0-44e8-8c68-8f01ada51f54) ![image](https://github.com/user-attachments/assets/7a827a99-9714-43d0-aadc-b169a4207ed8)
+
+ ==>Succession d’images illustrant les catégories de produits (vêtements, jouets, accessoires).
+![image](https://github.com/user-attachments/assets/823cb432-34c0-44e8-8c68-8f01ada51f54) ![image](https://github.com/user-attachments/assets/bd9aebec-faf7-4ae6-9a01-0e4982925303)
+
 
 
 
