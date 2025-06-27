@@ -23,7 +23,9 @@ Pendant que l’application se prépare en arrière-plan, des images et slogans 
 À l’issue de cette animation, l’utilisateur est automatiquement redirigé vers l’interface principale, assurant une transition fluide et sans attente.
 
  ==>Succession d’images illustrant les catégories de produits (vêtements, jouets, accessoires).
-![image](https://github.com/user-attachments/assets/823cb432-34c0-44e8-8c68-8f01ada51f54) ![image](https://github.com/user-attachments/assets/bd9aebec-faf7-4ae6-9a01-0e4982925303)
+
+![image](https://github.com/user-attachments/assets/7c6a7561-296f-4f49-b372-7034ab13d42d) ![image](https://github.com/user-attachments/assets/5d40bce1-c570-456a-ad73-28e7895e473f)
+
 
 
 
