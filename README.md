@@ -35,9 +35,10 @@ Les produits en promotion sont présentés sous forme de cartes contenant image,
 Enfin, une barre de navigation inférieure permet d’accéder rapidement aux sections clés : Accueil, Favoris, Panier, Offres et Profil.
 L’ensemble garantit une navigation simple et une expérience d’achat agréable.
 
-![image](https://github.com/user-attachments/assets/31fef41f-f455-4453-8072-09267c88361e)![image](https://github.com/user-attachments/assets/852533ac-a8a0-45c1-80ab-3c31d2855485)
+![image](https://github.com/user-attachments/assets/31fef41f-f455-4453-8072-09267c88361e) ![image](https://github.com/user-attachments/assets/852533ac-a8a0-45c1-80ab-3c31d2855485)
 
  ==>Une fois que l’utilisateur clique sur l’icône de langue, une liste des langues s’affiche pour lui permettre de changer la langue des d’application, présentée de manière simple et élégante.
+ 
  ![image](https://github.com/user-attachments/assets/1e1836c4-814e-4ef8-ae7e-bb53644ef81a)
  
  ==>Voila Application en English
