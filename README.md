@@ -120,6 +120,8 @@ Ce reçu contient toutes les informations saisies par l’utilisateur ainsi que 
 
 ![image](https://github.com/user-attachments/assets/8277b863-abe8-49b6-9e34-e2a467a3b555) ![image](https://github.com/user-attachments/assets/9bcd5461-93c6-442a-bc6d-90497c5f9e7d)
 
-Comment exécuter l'application
+# Comment exécuter l'application
+
 1.Cloner le dépôt :
+https://github.com/Aicha2002954/TP_Android_aicha_fraoua.git
 
