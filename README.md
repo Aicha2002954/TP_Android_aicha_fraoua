@@ -81,3 +81,16 @@ Sur cette page, lorsque l’utilisateur clique sur l’icône de profil, il est 
 
 ![image](https://github.com/user-attachments/assets/ad48ad2b-d79a-4287-86c3-15af76c5a147)
 
+# ❤️ Page des favoris
+Cette page affiche l’ensemble des produits que l’utilisateur a ajoutés. Chaque produit est présenté sous forme de carte contenant une image, un titre, un prix, la quantité disponible en stock, ainsi qu’une icône de suppression (corbeille) et une icône permettant d’ajouter l’article au panier.
+
+![image](https://github.com/user-attachments/assets/c0330526-5932-4e22-a53f-eb8c4603447b)
+
+# 🛍️ Page des promotions
+
+Cette page affiche tous les produits en promotion avec leur taux de réduction bien visible.
+Chaque carte produit présente : image, nom, ancien prix barré, prix remisé, note en étoiles, et un bouton « Voir détails » pour plus d’informations.
+
+![image](https://github.com/user-attachments/assets/4915b905-a416-4515-ac1f-0b90b4c92bfb)
+
+# 🛒 Page du panier
