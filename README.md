@@ -98,6 +98,7 @@ Cette page affiche tous les produits en promotion avec leur taux de réduction b
 Chaque carte produit présente : image, nom, ancien prix barré, prix remisé, note en étoiles, et un bouton « Voir détails » pour plus d’informations.
 
 ![image](https://github.com/user-attachments/assets/4915b905-a416-4515-ac1f-0b90b4c92bfb)
+
 ==>	Pour finaliser votre commande, veuillez sélectionner au moins un article en cochant la case correspondante. Vous devez également vous connecter à votre compte ou en créer un si vous n’en avez pas. 
 « L’authentification est obligatoire pour sécuriser vos informations et valider la commande avec succès. »
 
@@ -119,5 +120,6 @@ Ce reçu contient toutes les informations saisies par l’utilisateur ainsi que 
 
 ![image](https://github.com/user-attachments/assets/8277b863-abe8-49b6-9e34-e2a467a3b555) ![image](https://github.com/user-attachments/assets/9bcd5461-93c6-442a-bc6d-90497c5f9e7d)
 
-
+Comment exécuter l'application
+1.Cloner le dépôt :
 
