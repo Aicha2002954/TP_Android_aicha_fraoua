@@ -87,10 +87,35 @@ Cette page affiche l’ensemble des produits que l’utilisateur a ajoutés. Cha
 ![image](https://github.com/user-attachments/assets/c0330526-5932-4e22-a53f-eb8c4603447b)
 
 # 🛍️ Page des promotions
+Cette page affiche l’ensemble des produits que l’utilisateur a ajoutés à son panier, avec tous les détails correspondants.
+ L’utilisateur peut gérer la quantité de chaque produit qu’il souhaite acheter, ce qui met automatiquement à jour le montant total à payer.
+Un bouton est également disponible pour permettre la suppression d’un produit du panier.
 
+![image](https://github.com/user-attachments/assets/ce658cdf-8629-4ed3-8b36-140529d4c5ac)
+
+# 🛒 Page du panier
 Cette page affiche tous les produits en promotion avec leur taux de réduction bien visible.
 Chaque carte produit présente : image, nom, ancien prix barré, prix remisé, note en étoiles, et un bouton « Voir détails » pour plus d’informations.
 
 ![image](https://github.com/user-attachments/assets/4915b905-a416-4515-ac1f-0b90b4c92bfb)
+==>	Pour finaliser votre commande, veuillez sélectionner au moins un article en cochant la case correspondante. Vous devez également vous connecter à votre compte ou en créer un si vous n’en avez pas. 
+« L’authentification est obligatoire pour sécuriser vos informations et valider la commande avec succès. »
 
-# 🛒 Page du panier
+![image](https://github.com/user-attachments/assets/65179032-47e3-4562-bc02-6e91a369bb1a)
+📦 Formulaire de commande
+Après authentification, l’utilisateur est redirigé vers un formulaire de commande.Il doit renseigner : nom, e-mail, adresse de livraison, et mode de paiement (carte, PayPal, etc.).
+Une fois les champs obligatoires remplis, il clique sur « Continuer » pour valider la commande.
+
+![image](https://github.com/user-attachments/assets/d1645a0a-4018-4503-be8e-190b1ee526b7)
+
+💳 Page de paiement
+Après avoir choisi le paiement par carte bancaire, l’utilisateur est redirigé vers une page dédiée.Il y renseigne : numéro de carte, date d’expiration et code de sécurité (CVV).Une fois les informations saisies, il clique sur « Valider le paiement » pour finaliser la transaction.
+
+![image](https://github.com/user-attachments/assets/fbfe87c7-8105-4bc6-b9e3-79a12ba734f7)
+==>	Enfin, une fois que l’utilisateur clique sur « Valider le paiment » s’affiche.
+Ce reçu contient toutes les informations saisies par l’utilisateur ainsi que les détails des produits achetés, incluant les quantités et le montant total payé.
+
+![image](https://github.com/user-attachments/assets/8277b863-abe8-49b6-9e34-e2a467a3b555) ![image](https://github.com/user-attachments/assets/9bcd5461-93c6-442a-bc6d-90497c5f9e7d)
+
+
+
