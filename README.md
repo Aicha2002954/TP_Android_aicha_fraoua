@@ -102,16 +102,18 @@ Chaque carte produit présente : image, nom, ancien prix barré, prix remisé, n
 « L’authentification est obligatoire pour sécuriser vos informations et valider la commande avec succès. »
 
 ![image](https://github.com/user-attachments/assets/65179032-47e3-4562-bc02-6e91a369bb1a)
-📦 Formulaire de commande
+
+#📦 Formulaire de commande
 Après authentification, l’utilisateur est redirigé vers un formulaire de commande.Il doit renseigner : nom, e-mail, adresse de livraison, et mode de paiement (carte, PayPal, etc.).
 Une fois les champs obligatoires remplis, il clique sur « Continuer » pour valider la commande.
 
 ![image](https://github.com/user-attachments/assets/d1645a0a-4018-4503-be8e-190b1ee526b7)
 
-💳 Page de paiement
+# 💳 Page de paiement
 Après avoir choisi le paiement par carte bancaire, l’utilisateur est redirigé vers une page dédiée.Il y renseigne : numéro de carte, date d’expiration et code de sécurité (CVV).Une fois les informations saisies, il clique sur « Valider le paiement » pour finaliser la transaction.
 
 ![image](https://github.com/user-attachments/assets/fbfe87c7-8105-4bc6-b9e3-79a12ba734f7)
+
 ==>	Enfin, une fois que l’utilisateur clique sur « Valider le paiment » s’affiche.
 Ce reçu contient toutes les informations saisies par l’utilisateur ainsi que les détails des produits achetés, incluant les quantités et le montant total payé.
 
