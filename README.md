@@ -63,10 +63,18 @@ En cliquant dessus, le produit est ajouté au panier et le compteur de l’icôn
 
 ![image](https://github.com/user-attachments/assets/3ef7a78a-1ec8-4bf4-bdcd-c6ad3364b2b7) ![image](https://github.com/user-attachments/assets/fc49ccf3-e9ec-4620-aee0-6eca2d6c64e7)
 
-
-
 # page d'inscription
+Pour accéder à toutes les fonctionnalités, l’utilisateur non connecté doit remplir un formulaire d’inscription contenant : prénom, nom, email, mot de passe et rôle (client, administrateur ou agent).Une fois complété, il peut valider en cliquant sur « S’inscrire ».
 
+![image](https://github.com/user-attachments/assets/0f62fe7d-bc56-4511-9783-252ee08981a0)
 
+==>Si le mot de passe n’est pas confirmé ou que le numéro de téléphone est invalide, le champ concerné est mis en surbrillance en rouge et le bouton « S’inscrire » reste désactivé jusqu’à correction.Si l’utilisateur existe déjà, un message d’erreur s’affiche.
+![image](https://github.com/user-attachments/assets/66ca3791-7342-4472-a49d-69567dc5405c) ![image](https://github.com/user-attachments/assets/12bdf609-227e-4896-a1e7-481c73a0acfe)
 
+#  Page de connexion
+Sur cette page, lorsque l’utilisateur clique sur l’icône de profil, il est automatiquement redirigé vers la page d’authentification. Celle-ci propose un formulaire de connexion. S’il possède déjà un compte, il lui suffit de saisir son adresse e-mail et son mot de passe, puis de cliquer sur « Se connecter » pour accéder à son espace personnel. S’il n’est pas encore inscrit, il peut cliquer sur « S’inscrire », ce qui le redirige vers une nouvelle page contenant un formulaire de création de compte. 
+![image](https://github.com/user-attachments/assets/0871ec98-d8fa-46ec-b576-36a9882072b1)
+
+==>En cas d’erreur dans l’adresse email ou le mot de passe, un message d’alerte s’affiche pour informer l’utilisateur que les informations saisies sont incorrectes
+![image](https://github.com/user-attachments/assets/ad48ad2b-d79a-4287-86c3-15af76c5a147)
 
