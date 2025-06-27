@@ -124,5 +124,6 @@ Ce reçu contient toutes les informations saisies par l’utilisateur ainsi que 
 # Comment exécuter l'application
 
 1.Cloner le dépôt :
+
 https://github.com/Aicha2002954/TP_Android_aicha_fraoua.git
 
