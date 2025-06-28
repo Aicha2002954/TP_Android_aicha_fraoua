@@ -1,39 +1,39 @@
 # FACULTÉ POLYDISCIPLINAIRE À LARACHE
 # Projet de Fin de Module Développement Mobile_Aiha Fraoua DCC0027/24
-Réalisé par  : Aiha Fraoua DCC0027/24
++ Réalisé par  : Aiha Fraoua DCC0027/24
 
-Encadré par : Pr. KOUISSI Mohamed
++ Encadré par : Pr. KOUISSI Mohamed
 
 # 🦋 Petit Papillon :
 Le dépôt contient Petit Papillon, une application mobile e-commerce développée en Kotlin avec Jetpack Compose, dédiée à la vente de vêtements et accessoires pour bébés (garçons et filles).Elle adopte une interface douce et épurée, pensée pour un environnement chaleureux.L’application suit l’architecture MVI, assurant une gestion efficace des états et un code bien structuré et maintenable.
 
 # 🛠️ Technologies utilisées
-. Kotlin & Android Studio – pour le développement natif Android
++ Kotlin & Android Studio – pour le développement natif Android
 
-.Jetpack Compose – pour une interface moderne, déclarative et réactive
++ Jetpack Compose – pour une interface moderne, déclarative et réactive
 
-. Architecture MVI – pour une séparation claire des responsabilités et une gestion fluide des états
++  Architecture MVI – pour une séparation claire des responsabilités et une gestion fluide des états
 
-. Hilt (Dagger) – pour l’injection de dépendances simplifiée et structurée
++ Hilt (Dagger) – pour l’injection de dépendances simplifiée et structurée
 
-. Gradle – pour la gestion du projet, des dépendances et des builds
++ Gradle – pour la gestion du projet, des dépendances et des builds
 
-. API REST (JSON) – pour la communication avec le backend et la récupération dynamique des données
++ API REST (JSON) – pour la communication avec le backend et la récupération dynamique des données
 
 # Fonctionnalités principales
-. Parcours et recherche filtrée des produits (type, titre, prix, marque, catégorie)
++ Parcours et recherche filtrée des produits (type, titre, prix, marque, catégorie)
+  
++ Navigation intuitive via une barre inférieure : Accueil, Favoris, Panier, Promotions, Profil
 
-. Navigation intuitive via une barre inférieure : Accueil, Favoris, Panier, Promotions, Profil
++  Ajout aux favoris, gestion du panier et suivi des commandes
 
-. Ajout aux favoris, gestion du panier et suivi des commandes
++ Authentification  (# inscription / connexion)
 
-. Authentification (inscription / connexion)
++ Application multilingue (français, arabe, coréen)
 
-. Application multilingue (français, arabe, coréen)
++ UI moderne avec Jetpack Compose
 
-. UI moderne avec Jetpack Compose
-
-. Architecture MVI claire et maintenable
++ Architecture MVI claire et maintenable
 # Dépendances
 
 ![image](https://github.com/user-attachments/assets/0add1218-7642-4db6-9a31-a267c9b07723)
@@ -41,7 +41,7 @@ Le dépôt contient Petit Papillon, une application mobile e-commerce développ�
 # Comment exécuter l'application
 # 1. Cloner le dépôt
 
-git clone https://github.com/Aicha2002954/TP_Android_aicha_fraoua.git
++ git clone https://github.com/Aicha2002954/TP_Android_aicha_fraoua.git
 
 # 2. Ouvrir le projet dans Android Studio
 + Lancer Android Studio
