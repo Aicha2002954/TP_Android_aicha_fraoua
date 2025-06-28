@@ -8,17 +8,17 @@ Encadré par : Pr. KOUISSI Mohamed
 Le dépôt contient Petit Papillon, une application mobile e-commerce développée en Kotlin avec Jetpack Compose, dédiée à la vente de vêtements et accessoires pour bébés (garçons et filles).Elle adopte une interface douce et épurée, pensée pour un environnement chaleureux.L’application suit l’architecture MVI, assurant une gestion efficace des états et un code bien structuré et maintenable.
 
 # 🛠️ Technologies utilisées
-Kotlin & Android Studio – pour le développement natif Android
+. Kotlin & Android Studio – pour le développement natif Android
 
-Jetpack Compose – pour une interface moderne, déclarative et réactive
+.Jetpack Compose – pour une interface moderne, déclarative et réactive
 
-Architecture MVI – pour une séparation claire des responsabilités et une gestion fluide des états
+. Architecture MVI – pour une séparation claire des responsabilités et une gestion fluide des états
 
-Hilt (Dagger) – pour l’injection de dépendances simplifiée et structurée
+. Hilt (Dagger) – pour l’injection de dépendances simplifiée et structurée
 
-Gradle – pour la gestion du projet, des dépendances et des builds
+. Gradle – pour la gestion du projet, des dépendances et des builds
 
-API REST (JSON) – pour la communication avec le backend et la récupération dynamique des données
+. API REST (JSON) – pour la communication avec le backend et la récupération dynamique des données
 
 # Fonctionnalités principales
 . Parcours et recherche filtrée des produits (type, titre, prix, marque, catégorie)
@@ -34,34 +34,37 @@ API REST (JSON) – pour la communication avec le backend et la récupération d
 . UI moderne avec Jetpack Compose
 
 . Architecture MVI claire et maintenable
-# Dépendances(
+# Dépendances
 
 ![image](https://github.com/user-attachments/assets/0add1218-7642-4db6-9a31-a267c9b07723)
 
 # Comment exécuter l'application
 # 1. Cloner le dépôt
+
 git clone https://github.com/Aicha2002954/TP_Android_aicha_fraoua.git
 
 # 2. Ouvrir le projet dans Android Studio
-Lancer Android Studio
++ Lancer Android Studio
 
-Cliquer sur Open
++ Cliquer sur Open
 
-Sélectionner le dossier du projet cloné
++ Sélectionner le dossier du projet cloné
 
-Attendre la synchronisation automatique de Gradle
++ Attendre la synchronisation automatique de Gradle
 
 # 3. Préparer votre appareil Android (optionnel si vous utilisez un émulateur)
-Activer le mode développeur sur votre téléphone
++ Activer le mode développeur sur votre téléphone
 
-Activer le débogage USB
++ Activer le débogage USB
 
-Connecter le téléphone à l’ordinateur via un câble USB
++ Connecter le téléphone à l’ordinateur via un câble USB
 
 # 4. Lancer l’application
-Sélectionner l’appareil physique ou l’émulateur dans la barre d’outils Android Studio
 
-Cliquer sur le bouton Run (▶️) pour compiler et lancer l’application
++ Sélectionner l’appareil physique ou l’émulateur dans la barre d’outils Android Studio
+
++ Cliquer sur le bouton Run (▶️) pour compiler et lancer l’application
+
 
 # 📸 Aperçu de l'application
 
