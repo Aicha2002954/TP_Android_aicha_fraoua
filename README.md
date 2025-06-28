@@ -10,13 +10,21 @@ L’interface a été conçue pour être douce, accueillante et épurée, mettan
 L’application suit l’architecture MVI (Model - View - Intent), garantissant une meilleure séparation des responsabilités, une gestion fluide des états, ainsi qu’une structure de code claire et maintenable.
 
 # 🛠️  Technologies utilisées
-Kotlin
+ .Kotlin & Android Studio 
 
-Jetpack Compose
+.Jetpack Compose & API-JSON
 
-Architecture MVI
+.Architecture MVI & Gradle
 
-Gradle
+# Fonctionnalités principales
+Affichage des produits Petit Papillon sous forme de cartes
+
+Recherche avec filtre (type, Titre, prix)
+
+Interface multilingue (Français, Arabe, Anglais)
+
+Barre de navigation inférieure avec onglets (Accueil, Favoris, Panier,promution,profile)
+
 # 📸 Aperçu de l'application
 # 📱 Écran de chargement – Petit Papillon
 L’écran de chargement constitue le premier contact visuel entre l’utilisateur et l’application Petit Papillon. Il met en avant l’identité visuelle de la marque à travers des animations fluides telles que le fondu et la pulsation, réalisées avec Jetpack Compose.
