@@ -21,7 +21,7 @@ Le dépôt contient Petit Papillon, une application mobile e-commerce développ�
 + API REST (JSON) – pour la communication avec le backend et la récupération dynamique des données
 
 # Fonctionnalités principales
-+ Parcours et recherche filtrée des produits (type, titre, prix, marque, catégorie)
++ Parcours et recherche filtrée des produits ( titre, prix, catégorie)
   
 + Navigation intuitive via une barre inférieure : Accueil, Favoris, Panier, Promotions, Profil
 
@@ -33,7 +33,6 @@ Le dépôt contient Petit Papillon, une application mobile e-commerce développ�
 
 + UI moderne avec Jetpack Compose
 
-+ Architecture MVI claire et maintenable
 # Dépendances
 
 ![image](https://github.com/user-attachments/assets/0add1218-7642-4db6-9a31-a267c9b07723)
