@@ -27,7 +27,7 @@ Le dépôt contient Petit Papillon, une application mobile e-commerce développ�
 
 +  Ajout aux favoris, gestion du panier et suivi des commandes
 
-+ Authentification  (# inscription / connexion)
++ Authentification  (inscription / connexion)
 
 + Application multilingue (français, arabe, coréen)
 
