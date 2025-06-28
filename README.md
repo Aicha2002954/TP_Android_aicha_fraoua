@@ -34,6 +34,34 @@ API REST (JSON) – pour la communication avec le backend et la récupération d
 . UI moderne avec Jetpack Compose
 
 . Architecture MVI claire et maintenable
+# Dépendances(
+
+![image](https://github.com/user-attachments/assets/0add1218-7642-4db6-9a31-a267c9b07723)
+
+# Comment exécuter l'application
+# 1. Cloner le dépôt
+git clone https://github.com/Aicha2002954/TP_Android_aicha_fraoua.git
+
+# 2. Ouvrir le projet dans Android Studio
+Lancer Android Studio
+
+Cliquer sur Open
+
+Sélectionner le dossier du projet cloné
+
+Attendre la synchronisation automatique de Gradle
+
+# 3. Préparer votre appareil Android (optionnel si vous utilisez un émulateur)
+Activer le mode développeur sur votre téléphone
+
+Activer le débogage USB
+
+Connecter le téléphone à l’ordinateur via un câble USB
+
+# 4. Lancer l’application
+Sélectionner l’appareil physique ou l’émulateur dans la barre d’outils Android Studio
+
+Cliquer sur le bouton Run (▶️) pour compiler et lancer l’application
 
 # 📸 Aperçu de l'application
 
@@ -140,9 +168,5 @@ Ce reçu contient toutes les informations saisies par l’utilisateur ainsi que 
 
 ![image](https://github.com/user-attachments/assets/8277b863-abe8-49b6-9e34-e2a467a3b555) ![image](https://github.com/user-attachments/assets/9bcd5461-93c6-442a-bc6d-90497c5f9e7d)
 
-# Comment exécuter l'application
 
-1.Cloner le dépôt :
-
-https://github.com/Aicha2002954/TP_Android_aicha_fraoua.git
 
