@@ -5,9 +5,7 @@ Réalisé par  : Aiha Fraoua DCC0027/24
 Encadré par : Pr. KOUISSI Mohamed
 
 # 🦋 Petit Papillon :
-Le dépôt contient l’application mobile Petit Papillon, développée en Kotlin avec Jetpack Compose. Il s’agit d’une application e-commerce moderne et intuitive, dédiée à la vente de vêtements et d’accessoires pour bébés, aussi bien pour les garçons que pour les filles.
-L’interface a été conçue pour être douce, accueillante et épurée, mettant en valeur les articles pour nourrissons dans un environnement chaleureux.
-L’application suit l’architecture MVI (Model - View - Intent), garantissant une meilleure séparation des responsabilités, une gestion fluide des états, ainsi qu’une structure de code claire et maintenable.
+Le dépôt contient Petit Papillon, une application mobile e-commerce développée en Kotlin avec Jetpack Compose, dédiée à la vente de vêtements et accessoires pour bébés (garçons et filles).Elle adopte une interface douce et épurée, pensée pour un environnement chaleureux.L’application suit l’architecture MVI, assurant une gestion efficace des états et un code bien structuré et maintenable.
 
 # 🛠️  Technologies utilisées
  .Kotlin & Android Studio 
@@ -17,15 +15,22 @@ L’application suit l’architecture MVI (Model - View - Intent), garantissant 
 .Architecture MVI & Gradle
 
 # Fonctionnalités principales
-Affichage des produits Petit Papillon sous forme de cartes
+. Parcours et recherche filtrée des produits (type, titre, prix, marque, catégorie)
 
-Recherche avec filtre (type, Titre, prix)
+. Navigation intuitive via une barre inférieure : Accueil, Favoris, Panier, Promotions, Profil
 
-Interface multilingue (Français, Arabe, Anglais)
+. Ajout aux favoris, gestion du panier et suivi des commandes
 
-Barre de navigation inférieure avec onglets (Accueil, Favoris, Panier,promution,profile)
+. Authentification (inscription / connexion)
+
+. Application multilingue (français, arabe, coréen)
+
+. UI moderne avec Jetpack Compose
+
+. Architecture MVI claire et maintenable
 
 # 📸 Aperçu de l'application
+
 # 📱 Écran de chargement – Petit Papillon
 L’écran de chargement constitue le premier contact visuel entre l’utilisateur et l’application Petit Papillon. Il met en avant l’identité visuelle de la marque à travers des animations fluides telles que le fondu et la pulsation, réalisées avec Jetpack Compose.
 Pendant que l’application se prépare en arrière-plan, des images et slogans inspirants défilent pour offrir une expérience douce, moderne et engageante.
