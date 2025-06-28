@@ -7,12 +7,18 @@ Encadré par : Pr. KOUISSI Mohamed
 # 🦋 Petit Papillon :
 Le dépôt contient Petit Papillon, une application mobile e-commerce développée en Kotlin avec Jetpack Compose, dédiée à la vente de vêtements et accessoires pour bébés (garçons et filles).Elle adopte une interface douce et épurée, pensée pour un environnement chaleureux.L’application suit l’architecture MVI, assurant une gestion efficace des états et un code bien structuré et maintenable.
 
-# 🛠️  Technologies utilisées
- .Kotlin & Android Studio 
+# 🛠️ Technologies utilisées
+Kotlin & Android Studio – pour le développement natif Android
 
-.Jetpack Compose & API-JSON
+Jetpack Compose – pour une interface moderne, déclarative et réactive
 
-.Architecture MVI & Gradle
+Architecture MVI – pour une séparation claire des responsabilités et une gestion fluide des états
+
+Hilt (Dagger) – pour l’injection de dépendances simplifiée et structurée
+
+Gradle – pour la gestion du projet, des dépendances et des builds
+
+API REST (JSON) – pour la communication avec le backend et la récupération dynamique des données
 
 # Fonctionnalités principales
 . Parcours et recherche filtrée des produits (type, titre, prix, marque, catégorie)
